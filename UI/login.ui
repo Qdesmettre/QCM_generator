@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>184</width>
+    <width>267</width>
     <height>137</height>
    </rect>
   </property>
@@ -17,42 +17,42 @@
    <item row="0" column="0">
     <layout class="QFormLayout" name="formLayout">
      <item row="0" column="0">
-      <widget class="QLabel" name="label">
+      <widget class="QLabel" name="idLab">
        <property name="text">
         <string>Identifiant</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="0">
-      <widget class="QLineEdit" name="lineEdit"/>
-     </item>
      <item row="2" column="0">
-      <widget class="QLabel" name="label_2">
+      <widget class="QLabel" name="pwdLab">
        <property name="text">
         <string>Mot de passe</string>
        </property>
       </widget>
      </item>
+     <item row="1" column="0">
+      <widget class="QLineEdit" name="idLine"/>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLineEdit" name="pwdLine"/>
+     </item>
      <item row="4" column="0">
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <widget class="QPushButton" name="pushButton">
+        <widget class="QPushButton" name="login">
          <property name="text">
           <string>Connexion</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_2">
+        <widget class="QPushButton" name="signin">
          <property name="text">
           <string>Inscription</string>
          </property>
         </widget>
        </item>
       </layout>
-     </item>
-     <item row="3" column="0">
-      <widget class="QLineEdit" name="lineEdit_2"/>
      </item>
     </layout>
    </item>

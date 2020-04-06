@@ -1,9 +1,9 @@
 #include <QApplication>
-#include "Headers/signin.h"
+#include "Headers/login.h"
 int main(int argc, char **argv){
     QApplication app(argc, argv);
 
-    SignIn test;
+    LogIn test;
     test.show();
 
     return app.exec();
