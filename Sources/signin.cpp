@@ -8,57 +8,73 @@ SignIn::SignIn(QWidget *parent) :
     ui(new Ui::SignIn)
 {
     ui->setupUi(this);
+    setFixedSize(sizeHint());
 }
 void SignIn::on_cancel_clicked(){
     QMessageBox::StandardButton choice =
-            QMessageBox::question(this, tr("Annuler"), tr("Etes vous sûr ed vouloir annuler votre inscription ?"),
+            QMessageBox::question(this, tr("Annuler"), tr("Etes vous sûr de vouloir annuler votre inscription ?"),
                                   QMessageBox::Yes | QMessageBox::No);
     if(choice == QMessageBox::Yes)
         close();
 }
+void SignIn::checkAll(){
+    if(!ui->idLine->text().isEmpty() && !idDispo(ui->idLine->text())){
+        ui->error->setText(tr("L'indentifiant n'est pas disponible"));
+        ui->confirm->setEnabled(false);
+    }
+    else if(!ui->mailLine->text().isEmpty() && !mailDispo(ui->mailLine->text())){
+        ui->error->setText(tr("L'adresse mail est déjà prise"));
+        ui->confirm->setEnabled(false);
+    }
+    else if((!ui->pwd1Line->text().isEmpty() && !ui->pwd2Line->text().isEmpty()) &&
+            ui->pwd1Line->text() != ui->pwd2Line->text()){
+        ui->error->setText(tr("Les mots de passe sont différents"));
+        ui->confirm->setEnabled(false);
+    }
+    else if(ui->ansQSecu->text().isEmpty() && ui->choQSecu->currentText() != tr("<Question>")){
+        ui->error->setText(tr("La réponse à la question personelle est vide"));
+        ui->confirm->setEnabled(false);
+    }
+    else if(ui->choQSecu->currentText() == tr("<Question>")){
+        ui->error->setText("");
+        ui->confirm->setEnabled(false);
+    }
+    else if(ui->idLine->text().isEmpty()){
+        ui->error->setText("");
+        ui->confirm->setEnabled(false);
+    }
+    else if(ui->mailLine->text().isEmpty()){
+        ui->error->setText("");
+        ui->confirm->setEnabled(false);
+    }
+    else{
+        ui->error->setText("");
+        ui->confirm->setEnabled(true);
+    }
+    setFixedSize(sizeHint());
+}
 bool SignIn::idDispo(QString text){
-    return true;
+    return text==ui->mailLine->text();
 }
 bool SignIn::mailDispo(QString text){
-    return true;
-}
-bool SignIn::allOk(){
-    if(!ui->idLine->text().isEmpty() && idDispo(ui->idLine->text()) &&
-            !ui->mailLine->text().isEmpty() && mailDispo(ui->mailLine->text()) &&
-            !ui->pwd1Line->text().isEmpty() && !ui->pwd2Line->text().isEmpty() &&
-            (ui->pwd1Line->text() == ui->pwd2Line->text()) &&
-            ui->choQSecu->itemText(ui->choQSecu->currentIndex()) != tr("<Question>") &&
-            !ui->ansQSecu->text().isEmpty()){
-        return true;
-    }
-    else return false;
-}
-void SignIn::on_idLine_textEdited(QString text){
-    if(!idDispo(text)) ui->error->setText(tr("L'identifiant est déjà pris."));
-    else if(allOk()){
-        ui->confirm->setEnabled(true);
-        ui->error->setText("");
-    }
-    else ui->confirm->setEnabled(false);
-}
-void SignIn::on_mailLine_textEdited(QString text){
-    if(!mailDispo(text) && ui->error->text().isEmpty()) ui->error->setText(tr("L'adresse mail est déjà prise."));
-    else if(allOk() && ui->error->text().isEmpty()){ ui->confirm->setEnabled(true);
-                                                     ui->error->setText("");}
-    else ui->confirm->setEnabled(false);
-}
-void SignIn::on_pwd2Line_textEdited(QString text){
-    if(ui->pwd2Line->text() != ui->pwd1Line->text() && ui->error->text().isEmpty()) ui->error->setText(
-                tr("Les mots de passe ne sont pas égaux"));
-    else if(allOk() && ui->error->text().isEmpty()){
-        ui->confirm->setEnabled(true);
-        ui->error->setText("");
-    }
-    else ui->confirm->setEnabled(false);
+    return text==ui->idLine->text();
 }
 
-
-
+void SignIn::on_idLine_textEdited(QString){
+    checkAll();
+}
+void SignIn::on_mailLine_textEdited(QString){
+    checkAll();
+}
+void SignIn::on_pwd2Line_textEdited(QString){
+    checkAll();
+}
+void SignIn::on_pwd1Line_textEdited(QString){
+    checkAll();
+}
+void SignIn::on_ansQSecu_textEdited(QString){
+    checkAll();
+}
 SignIn::~SignIn()
 {
     delete ui;
