@@ -17,9 +17,16 @@ public:
 
 public slots:
     void on_cancel_clicked();
+    void on_idLine_textEdited(QString text);
 
 private:
+    bool idDispo(QString text);
+    bool mailDispo(QString text);
+    bool allOk();
+
     Ui::SignIn *ui;
+
+    bool m_id;
 };
 
 #endif // SIGNIN_H
