@@ -35,14 +35,28 @@ bool SignIn::allOk(){
 }
 void SignIn::on_idLine_textEdited(QString text){
     if(!idDispo(text)) ui->error->setText(tr("L'identifiant est déjà pris."));
-    else if(allOk()) ui->confirm->setEnabled(true);
+    else if(allOk()){
+        ui->confirm->setEnabled(true);
+        ui->error->setText("");
+    }
     else ui->confirm->setEnabled(false);
 }
 void SignIn::on_mailLine_textEdited(QString text){
     if(!mailDispo(text) && ui->error->text().isEmpty()) ui->error->setText(tr("L'adresse mail est déjà prise."));
-    else if(allOk() && ui->error->text().isEmpty()) ui->confirm->setEnabled(true);
+    else if(allOk() && ui->error->text().isEmpty()){ ui->confirm->setEnabled(true);
+                                                     ui->error->setText("");}
     else ui->confirm->setEnabled(false);
 }
+void SignIn::on_pwd2Line_textEdited(QString text){
+    if(ui->pwd2Line->text() != ui->pwd1Line->text() && ui->error->text().isEmpty()) ui->error->setText(
+                tr("Les mots de passe ne sont pas égaux"));
+    else if(allOk() && ui->error->text().isEmpty()){
+        ui->confirm->setEnabled(true);
+        ui->error->setText("");
+    }
+    else ui->confirm->setEnabled(false);
+}
+
 
 
 SignIn::~SignIn()

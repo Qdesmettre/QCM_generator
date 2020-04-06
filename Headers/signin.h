@@ -19,6 +19,7 @@ public slots:
     void on_cancel_clicked();
     void on_idLine_textEdited(QString text);
     void on_mailLine_textEdited(QString text);
+    void on_pwd2Line_textEdited(QString text);
 
 private:
     bool idDispo(QString text);
