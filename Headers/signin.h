@@ -16,6 +16,7 @@ public:
     ~SignIn();
 
 public slots:
+    void on_confirm_clicked();
     void on_cancel_clicked();
     void on_idLine_textEdited(QString);
     void on_mailLine_textEdited(QString);
@@ -29,6 +30,7 @@ private:
     bool idDispo(QString text);
     bool mailDispo(QString text);
     bool allOk();
+    void registering();
 
     Ui::SignIn *ui;
 };

@@ -59,7 +59,11 @@ bool SignIn::idDispo(QString text){
 bool SignIn::mailDispo(QString text){
     return text==ui->idLine->text();
 }
-
+void SignIn::registering(){
+    // Requiring using data base; will be done in  a further update
+    QMessageBox::information(this, tr("Inscription réussie"),
+    tr("Vous avez bien été enregistré. Veuillez trouver dans votre boite mail un lien pour confirmer votre inscription."));
+}
 void SignIn::on_idLine_textEdited(QString){
     checkAll();
 }
@@ -75,6 +79,11 @@ void SignIn::on_pwd1Line_textEdited(QString){
 void SignIn::on_ansQSecu_textEdited(QString){
     checkAll();
 }
+void SignIn::on_confirm_clicked(){
+    registering();
+    close();
+}
+
 SignIn::~SignIn()
 {
     delete ui;
