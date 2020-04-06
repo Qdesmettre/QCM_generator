@@ -9,6 +9,7 @@ SignIn::SignIn(QWidget *parent) :
 {
     ui->setupUi(this);
     setFixedSize(sizeHint());
+    setWindowTitle(tr("Inscription"));
 }
 void SignIn::on_cancel_clicked(){
     QMessageBox::StandardButton choice =
@@ -62,7 +63,7 @@ bool SignIn::mailDispo(QString text){
 void SignIn::registering(){
     // Requiring using data base; will be done in  a further update
     QMessageBox::information(this, tr("Inscription réussie"),
-    tr("Vous avez bien été enregistré. Veuillez trouver dans votre boite mail un lien pour confirmer votre inscription."));
+    tr("Votre inscription est terminée. \nVeuillez trouver dans votre boite mail un lien pour confirmer votre inscription."));
 }
 void SignIn::on_idLine_textEdited(QString){
     checkAll();
