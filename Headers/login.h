@@ -2,28 +2,21 @@
 #define LOGIN_H
 
 #include <QWidget>
-#include <QPushButton>
-#include <QFormLayout>
-#include <QHBoxLayout>
-#include <QLineEdit>
+
+namespace Ui {
+class LogIn;
+}
 
 class LogIn : public QWidget
 {
     Q_OBJECT
+
 public:
     explicit LogIn(QWidget *parent = nullptr);
-
-signals:
+    ~LogIn();
 
 private:
-    void initConect();
-    void initAtrib();
-    void initLay();
-
-    QPushButton *m_signIn, *m_logIn;
-    QLineEdit *m_id, *m_mdp;
-    QFormLayout *m_lay;
-
+    Ui::LogIn *ui;
 };
 
 #endif // LOGIN_H
