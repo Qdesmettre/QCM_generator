@@ -34,10 +34,17 @@ bool SignIn::allOk(){
     else return false;
 }
 void SignIn::on_idLine_textEdited(QString text){
-    if(!idDispo(text)) ui->error->setText(tr("L'identifiant est déjà pris"));
+    if(!idDispo(text)) ui->error->setText(tr("L'identifiant est déjà pris."));
     else if(allOk()) ui->confirm->setEnabled(true);
     else ui->confirm->setEnabled(false);
 }
+void SignIn::on_mailLine_textEdited(QString text){
+    if(!mailDispo(text) && ui->error->text().isEmpty()) ui->error->setText(tr("L'adresse mail est déjà prise."));
+    else if(allOk() && ui->error->text().isEmpty()) ui->confirm->setEnabled(true);
+    else ui->confirm->setEnabled(false);
+}
+
+
 SignIn::~SignIn()
 {
     delete ui;
