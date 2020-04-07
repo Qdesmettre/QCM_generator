@@ -48,6 +48,10 @@ void SignIn::checkAll(){
         ui->error->setText("");
         ui->confirm->setEnabled(false);
     }
+    else if(ui->pwd1Line->text().isEmpty() || ui->pwd2Line->text().isEmpty()){
+        ui->error->setText("");
+        ui->confirm->setEnabled(false);
+    }
     else{
         ui->error->setText("");
         ui->confirm->setEnabled(true);
