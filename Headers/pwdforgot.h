@@ -16,7 +16,7 @@ public:
     explicit PwdForgot(QWidget *parent = nullptr);
 
 public slots:
-
+    void changeIndex(int index);
     // if index = 1: check if index (0) is correct : if the id/email exists
     //                                              if its ok, load the next page normally with the personnal question
 
@@ -24,6 +24,8 @@ private:
     bool id_mailOk();
     QString persoQuesOf(QString id);
     bool isAnsCorrect();
+    bool changePwd(QString nw);
+
 
 
     void initAttribute();

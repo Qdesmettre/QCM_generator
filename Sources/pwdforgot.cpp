@@ -71,3 +71,54 @@ bool PwdForgot::isAnsCorrect(){
 QString PwdForgot::persoQuesOf(QString id){
     return id;
 }
+bool PwdForgot::changePwd(QString nw){
+    return true;
+}
+void PwdForgot::changeIndex(int index){
+    switch(index){
+        case 1:{
+            if(!id_mailOk() && m_idLay->count() < 3){
+                m_error->setText(tr("Identifiant ou adresse mail incorrecte"));
+                // stylesheet de m_error
+                m_idLay->addWidget(m_error, 2, 0, 1, 2);
+                back();
+            }
+            else if(id_mailOk()){
+                m_idLay->removeWidget(m_error);
+                m_quesLab->setText(persoQuesOf(m_idLine->text()));
+            }
+            else back();
+            break;
+        }
+        case 2:{
+            if(!isAnsCorrect() && m_quesLay->count() <3){
+                m_error->setText(tr("Réponse incorrecte"));
+                // stylesheet de l'erreur
+                m_quesLay->addWidget(m_error, 2,0,1,2);
+                back();
+            }
+            else if(isAnsCorrect()){
+                m_quesLay->removeWidget(m_error);
+            }
+            else back();
+            break;
+        }
+        case 3:{
+            if(m_pwd1Line->text() != m_pwd2Line->text() && m_pwdLay->count() < 7){
+                m_error->setText(tr("Les mots de passe sont différents"));
+                // stylesheet
+                m_pwdLay->addWidget(m_error, 7, 0, 1, 2);
+                back();
+            }
+            else if(m_pwd1Line->text() != m_pwd2Line->text() && m_pwdLay->count() == 7)
+                back();
+            else if(m_pwd1Line->text() == m_pwd2Line->text() && !changePwd(m_pwd1Line->text())){
+                m_error->setText(tr("Impossible de changer le mot de passe. \nVeuillez vérifier votre connexion et réessayer."));
+                back();
+            }
+            else
+                m_pwdLay->removeWidget(m_error);
+            break;
+        }
+    }
+}
