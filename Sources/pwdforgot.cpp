@@ -22,3 +22,9 @@ void PwdForgot::initAttribute(){
     m_seePw1 = new QPushButton(tr("Voir"));
     m_seePw2 = new QPushButton(tr("Voir"));
 }
+void PwdForgot::initIdPage(){
+    m_idLay->addWidget(m_idLab,  0, 0, 1, 2);
+    m_idLay->addWidget(m_idLine, 1, 0, 1, 1);
+    m_idPage->setLayout(m_idLay);
+    setPage(0, m_idPage);
+}

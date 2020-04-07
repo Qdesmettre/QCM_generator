@@ -6,6 +6,7 @@
 #include <QLineEdit>
 #include <QLabel>
 #include <QPushButton>
+#include <QGridLayout>
 
 class PwdForgot : public QWizard
 {
@@ -20,11 +21,13 @@ public slots:
 
 private:
     void initAttribute();
+    void initIdPage();
 
     QWizardPage *m_idPage, *m_ansPage, *m_nwPwPage;
     QLabel *m_idLab, *m_quesLab, *m_nwPwdLab, *m_error;
     QLineEdit *m_idLine, *m_ansLine, *m_pwd1Line, *m_pwd2Line;
     QPushButton *m_seePw1, *m_seePw2;
+    QGridLayout *m_idLay, *m_quesLay, *m_pwdLay;
 
 };
 
