@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>267</width>
-    <height>137</height>
+    <width>232</width>
+    <height>195</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,6 +23,9 @@
        </property>
       </widget>
      </item>
+     <item row="1" column="0">
+      <widget class="QLineEdit" name="idLine"/>
+     </item>
      <item row="2" column="0">
       <widget class="QLabel" name="pwdLab">
        <property name="text">
@@ -30,25 +33,32 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="0">
-      <widget class="QLineEdit" name="idLine"/>
-     </item>
      <item row="3" column="0">
       <widget class="QLineEdit" name="pwdLine"/>
      </item>
      <item row="4" column="0">
-      <layout class="QHBoxLayout" name="horizontalLayout">
+      <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <widget class="QPushButton" name="login">
+        <widget class="QPushButton" name="signin">
          <property name="text">
-          <string>Connexion</string>
+          <string>Pas encore de compte ? Inscrivez vous !</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="signin">
+        <widget class="QPushButton" name="login">
          <property name="text">
-          <string>Inscription</string>
+          <string>Se connecter</string>
+         </property>
+         <property name="autoDefault">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pwdForgot">
+         <property name="text">
+          <string>Mot de passe oublié ?</string>
          </property>
         </widget>
        </item>
@@ -59,5 +69,38 @@
   </layout>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>pwdLine</sender>
+   <signal>returnPressed()</signal>
+   <receiver>login</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>64</x>
+     <y>84</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>64</x>
+     <y>116</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>idLine</sender>
+   <signal>returnPressed()</signal>
+   <receiver>login</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>37</x>
+     <y>38</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>146</x>
+     <y>119</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
