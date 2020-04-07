@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>232</width>
-    <height>195</height>
+    <width>222</width>
+    <height>194</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,56 +15,59 @@
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
-    <layout class="QFormLayout" name="formLayout">
-     <item row="0" column="0">
-      <widget class="QLabel" name="idLab">
-       <property name="text">
-        <string>Identifiant</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLineEdit" name="idLine"/>
-     </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="pwdLab">
-       <property name="text">
-        <string>Mot de passe</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0">
-      <widget class="QLineEdit" name="pwdLine"/>
-     </item>
-     <item row="4" column="0">
-      <layout class="QVBoxLayout" name="verticalLayout">
-       <item>
-        <widget class="QPushButton" name="signin">
-         <property name="text">
-          <string>Pas encore de compte ? Inscrivez vous !</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="login">
-         <property name="text">
-          <string>Se connecter</string>
-         </property>
-         <property name="autoDefault">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="pwdForgot">
-         <property name="text">
-          <string>Mot de passe oublié ?</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-    </layout>
+    <widget class="QLabel" name="idLab">
+     <property name="text">
+      <string>Identifiant</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLineEdit" name="idLine"/>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="pwdLab">
+     <property name="text">
+      <string>Mot de passe</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLineEdit" name="pwdLine">
+     <property name="echoMode">
+      <enum>QLineEdit::Password</enum>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1">
+    <widget class="QPushButton" name="seePwd">
+     <property name="text">
+      <string>Voir</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0" colspan="2">
+    <widget class="QPushButton" name="signin">
+     <property name="text">
+      <string>Pas encore de compte ? Inscrivez vous !</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0" colspan="2">
+    <widget class="QPushButton" name="login">
+     <property name="text">
+      <string>Se connecter</string>
+     </property>
+     <property name="autoDefault">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="0" colspan="2">
+    <widget class="QPushButton" name="pwdForgot">
+     <property name="text">
+      <string>Mot de passe oublié ?</string>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>
@@ -81,8 +84,8 @@
      <y>84</y>
     </hint>
     <hint type="destinationlabel">
-     <x>64</x>
-     <y>116</y>
+     <x>73</x>
+     <y>155</y>
     </hint>
    </hints>
   </connection>
@@ -97,8 +100,8 @@
      <y>38</y>
     </hint>
     <hint type="destinationlabel">
-     <x>146</x>
-     <y>119</y>
+     <x>155</x>
+     <y>155</y>
     </hint>
    </hints>
   </connection>

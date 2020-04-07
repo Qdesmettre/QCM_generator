@@ -2,6 +2,7 @@
 #include "ui_login.h"
 #include "Headers/signin.h"
 #include <QMessageBox>
+#include "Headers/pwdforgot.h"
 LogIn::LogIn(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::LogIn)
@@ -11,13 +12,22 @@ LogIn::LogIn(QWidget *parent) :
     setFixedSize(sizeHint());
 }
 void LogIn::on_signin_clicked(){
-    SignIn *window = new SignIn;
-    window->setModal(true);
-    window->show();
+    SignIn window;
+    window.exec();
 }
 void LogIn::on_login_clicked(){
     // Load the main window
     QMessageBox::information(this, "réussi", "connexion réussie");
+}
+void LogIn::on_pwdForgot_clicked(){
+    PwdForgot a;
+    a.exec();
+}
+void LogIn::on_seePwd_pressed(){
+    ui->pwdLine->setEchoMode(QLineEdit::Normal);
+}
+void LogIn::on_seePwd_released(){
+    ui->pwdLine->setEchoMode(QLineEdit::Password);
 }
 LogIn::~LogIn()
 {
