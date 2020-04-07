@@ -21,6 +21,9 @@ public slots:
     //                                              if its ok, load the next page normally with the personnal question
 
 private:
+    bool id_mailOk();
+    QString persoQuesOf(QString id);
+    bool isAnsCorrect();
 
 
     void initAttribute();

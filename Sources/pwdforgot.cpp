@@ -61,3 +61,13 @@ void PwdForgot::initConfirmPage(){
     m_confirmPage->setLayout(m_confirmLay);
     setPage(3, m_confirmPage);
 }
+
+bool PwdForgot::id_mailOk(){
+    return true;
+}
+bool PwdForgot::isAnsCorrect(){
+    return true;
+}
+QString PwdForgot::persoQuesOf(QString id){
+    return id;
+}
