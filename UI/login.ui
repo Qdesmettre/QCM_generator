@@ -16,22 +16,8 @@
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
     <layout class="QFormLayout" name="formLayout">
-     <item row="0" column="0">
-      <widget class="QLabel" name="idLab">
-       <property name="text">
-        <string>Identifiant</string>
-       </property>
-      </widget>
-     </item>
      <item row="1" column="0">
       <widget class="QLineEdit" name="idLine"/>
-     </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="pwdLab">
-       <property name="text">
-        <string>Mot de passe</string>
-       </property>
-      </widget>
      </item>
      <item row="3" column="0">
       <widget class="QLineEdit" name="pwdLine"/>
@@ -63,6 +49,20 @@
         </widget>
        </item>
       </layout>
+     </item>
+     <item row="0" column="0" colspan="2">
+      <widget class="QLabel" name="idLab">
+       <property name="text">
+        <string>Identifiant</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0" colspan="2">
+      <widget class="QLabel" name="pwdLab">
+       <property name="text">
+        <string>Mot de passe</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>

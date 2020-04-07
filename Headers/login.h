@@ -18,6 +18,7 @@ public:
 public slots:
     void on_signin_clicked();
     void on_login_clicked();
+    void on_pwdForgot_clicked();
 
 
 private:
