@@ -22,6 +22,7 @@ public slots:
 private:
     void initAttribute();
     void initIdPage();
+    void initAnsPage();
 
     QWizardPage *m_idPage, *m_ansPage, *m_nwPwPage;
     QLabel *m_idLab, *m_quesLab, *m_nwPwdLab, *m_error;

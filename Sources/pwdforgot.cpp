@@ -28,3 +28,9 @@ void PwdForgot::initIdPage(){
     m_idPage->setLayout(m_idLay);
     setPage(0, m_idPage);
 }
+void PwdForgot::initAnsPage(){
+    m_quesLay->addWidget(m_quesLab, 0, 0, 1, 2);
+    m_quesLay->addWidget(m_ansLine, 1, 0, 1, 1);
+    m_ansPage->setLayout(m_quesLay);
+    setPage(2, m_ansPage);
+}
