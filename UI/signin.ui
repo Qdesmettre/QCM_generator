@@ -6,130 +6,157 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>480</width>
-    <height>223</height>
+    <width>282</width>
+    <height>229</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout_2">
+  <layout class="QFormLayout" name="formLayout">
    <item row="0" column="0">
-    <layout class="QGridLayout" name="gridLayout">
-     <item row="2" column="0">
-      <layout class="QHBoxLayout" name="horizontalLayout">
-       <item>
-        <widget class="QPushButton" name="confirm">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="text">
-          <string>Ok</string>
-         </property>
-         <property name="checkable">
-          <bool>false</bool>
-         </property>
-         <property name="default">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="cancel">
-         <property name="text">
-          <string>Annuler</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
+    <widget class="QLabel" name="idLab">
+     <property name="text">
+      <string>Identifiant</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QLineEdit" name="idLine">
+     <property name="clearButtonEnabled">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="mailLab">
+     <property name="text">
+      <string>Mail</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QLineEdit" name="mailLine"/>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="pwd1Lab">
+     <property name="text">
+      <string>Mot de passe</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLineEdit" name="pwd1Line">
+       <property name="echoMode">
+        <enum>QLineEdit::Password</enum>
+       </property>
+      </widget>
      </item>
-     <item row="0" column="0">
-      <layout class="QFormLayout" name="formLayout">
-       <item row="0" column="0">
-        <widget class="QLabel" name="idLab">
-         <property name="text">
-          <string>Identifiant</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QLineEdit" name="idLine"/>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="mailLab">
-         <property name="text">
-          <string>Mail</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QLineEdit" name="mailLine"/>
-       </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="pwd1Lab">
-         <property name="text">
-          <string>Mot de passe</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QLineEdit" name="pwd1Line">
-         <property name="echoMode">
-          <enum>QLineEdit::Password</enum>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="pwd2Lab">
-         <property name="text">
-          <string>Confirmation</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="QLineEdit" name="pwd2Line">
-         <property name="echoMode">
-          <enum>QLineEdit::Password</enum>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="0">
-        <widget class="QLabel" name="qSecuLab">
-         <property name="text">
-          <string>Question de sécurité</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="1">
-        <widget class="QComboBox" name="choQSecu">
-         <item>
-          <property name="text">
-           <string>&lt;Question&gt;</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Où est née votre mère ?</string>
-          </property>
-         </item>
-        </widget>
-       </item>
-       <item row="5" column="0">
-        <widget class="QLabel" name="ansQSecuLab">
-         <property name="text">
-          <string>Réponse</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="1">
-        <widget class="QLineEdit" name="ansQSecu"/>
-       </item>
-      </layout>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="error">
+     <item>
+      <widget class="QPushButton" name="seePwd1">
        <property name="text">
-        <string/>
+        <string>Voir</string>
+       </property>
+       <property name="autoDefault">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="pwd2Lab">
+     <property name="text">
+      <string>Confirmation</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1">
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QLineEdit" name="pwd2Line">
+       <property name="echoMode">
+        <enum>QLineEdit::Password</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="seePwd2">
+       <property name="text">
+        <string>Voir</string>
+       </property>
+       <property name="autoDefault">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="4" column="0">
+    <widget class="QLabel" name="qSecuLab">
+     <property name="text">
+      <string>Question de sécurité</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="QComboBox" name="choQSecu">
+     <item>
+      <property name="text">
+       <string>&lt;Question&gt;</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Où est née votre mère ?</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="5" column="0">
+    <widget class="QLabel" name="ansQSecuLab">
+     <property name="text">
+      <string>Réponse</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="1">
+    <widget class="QLineEdit" name="ansQSecu"/>
+   </item>
+   <item row="6" column="0" colspan="2">
+    <widget class="QLabel" name="error">
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="1">
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QPushButton" name="confirm">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>Ok</string>
+       </property>
+       <property name="checkable">
+        <bool>false</bool>
+       </property>
+       <property name="default">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="cancel">
+       <property name="text">
+        <string>Annuler</string>
+       </property>
+       <property name="autoDefault">
+        <bool>false</bool>
        </property>
       </widget>
      </item>
