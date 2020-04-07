@@ -17,8 +17,10 @@ public:
 
 public slots:
     void changeIndex(int index);
-    // if index = 1: check if index (0) is correct : if the id/email exists
-    //                                              if its ok, load the next page normally with the personnal question
+    void setPw1Visible();
+    void setPw1Hidden();
+    void setPw2Visible();
+    void setPw2Hidden();
 
 private:
     bool id_mailOk();
@@ -26,8 +28,7 @@ private:
     bool isAnsCorrect();
     bool changePwd(QString nw);
 
-
-
+    void initConnections();
     void initAttribute();
     void initIdPage();
     void initAnsPage();

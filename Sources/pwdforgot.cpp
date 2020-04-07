@@ -10,8 +10,7 @@ PwdForgot::PwdForgot(QWidget *parent) :
     initIdPage();
     initAnsPage();
     initNewPwdPage();
-
-    QObject::connect(this, SIGNAL(currentIdChanged(int)), this, SLOT(changeIndex(int)));
+    initConnections();
 }
 void PwdForgot::initAttribute(){
     m_idPage = (new QWizardPage);
@@ -61,7 +60,27 @@ void PwdForgot::initConfirmPage(){
     m_confirmPage->setLayout(m_confirmLay);
     setPage(3, m_confirmPage);
 }
+void PwdForgot::initConnections(){
+    QObject::connect(this, SIGNAL(currentIdChanged(int)), this, SLOT(changeIndex(int)));
+    QObject::connect(m_seePw1, SIGNAL(pressed()), this, SLOT(setPw1Visible()));
+    QObject::connect(m_seePw1, SIGNAL(released()), this, SLOT(setPw1Hidden()));
+    QObject::connect(m_seePw2, SIGNAL(pressed()), this, SLOT(setPw2Visible()));
+    QObject::connect(m_seePw2, SIGNAL(released()), this, SLOT(setPw2Hidden()));
 
+}
+
+void PwdForgot::setPw1Hidden(){
+    m_pwd1Line->setEchoMode(QLineEdit::Password);
+}
+void PwdForgot::setPw2Hidden(){
+    m_pwd2Line->setEchoMode(QLineEdit::Password);
+}
+void PwdForgot::setPw1Visible(){
+    m_pwd1Line->setEchoMode(QLineEdit::Normal);
+}
+void PwdForgot::setPw2Visible(){
+    m_pwd2Line->setEchoMode(QLineEdit::Normal);
+}
 bool PwdForgot::id_mailOk(){
     return true;
 }
