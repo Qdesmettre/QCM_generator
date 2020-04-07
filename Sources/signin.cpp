@@ -84,8 +84,18 @@ void SignIn::on_confirm_clicked(){
     registering();
     close();
 }
-
-SignIn::~SignIn()
-{
+void SignIn::on_seePwd1_pressed(){
+    ui->pwd1Line->setEchoMode(QLineEdit::Normal);
+}
+void SignIn::on_seePwd2_pressed(){
+    ui->pwd2Line->setEchoMode(QLineEdit::Normal);
+}
+void SignIn::on_seePwd1_released(){
+    ui->pwd1Line->setEchoMode(QLineEdit::Password);
+}
+void SignIn::on_seePwd2_released(){
+    ui->pwd2Line->setEchoMode(QLineEdit::Password);
+}
+SignIn::~SignIn(){
     delete ui;
 }

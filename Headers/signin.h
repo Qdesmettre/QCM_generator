@@ -23,6 +23,11 @@ public slots:
     void on_pwd2Line_textEdited(QString);
     void on_pwd1Line_textEdited(QString);
     void on_ansQSecu_textEdited(QString);
+    void on_seePwd1_pressed();
+    void on_seePwd2_pressed();
+    void on_seePwd1_released();
+    void on_seePwd2_released();
+
 
 
 private:
