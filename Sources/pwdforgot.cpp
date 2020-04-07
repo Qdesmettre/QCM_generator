@@ -17,7 +17,7 @@ void PwdForgot::initAttribute(){
     m_idPage = (new QWizardPage);
     m_ansPage = (new QWizardPage);
     m_nwPwPage = (new QWizardPage);
-    m_idLab = (new QLabel(tr("Nom d'utilisateur ou adresse mail")));
+    m_idLab = (new QLabel(tr("Nom d'utilisateur")));
     m_quesLab = (new QLabel);
     m_nwPwdLab = (new QLabel(tr("Nouveau mot de passe")));
     m_confirNwPwLab = new QLabel(tr("Confirmez le mot de passe"));
@@ -31,15 +31,19 @@ void PwdForgot::initAttribute(){
     m_seePw1 = new QPushButton(tr("Voir"));
     m_seePw2 = new QPushButton(tr("Voir"));
     m_confirmPage = new QWizardPage;
-    m_confirmChange = new QLabel(tr("Votre mot de passe a bien été modifié."));
+    m_confirmChange = new QLabel(tr("Votre mot de passe a bien été modifié.\n\nVeuillez consulter votre boite mail pour avoir confirmation."));
     m_confirmLay = new QGridLayout;
     m_idLay = new QGridLayout;
     m_quesLay = new QGridLayout;
     m_pwdLay = new QGridLayout;
+    m_mailLab = new QLabel(tr("Adresse mail"));
+    m_mailLine = new QLineEdit;
 }
 void PwdForgot::initIdPage(){
     m_idLay->addWidget(m_idLab,  0, 0, 1, 2);
     m_idLay->addWidget(m_idLine, 1, 0, 1, 1);
+    m_idLay->addWidget(m_mailLab, 2, 0, 1, 2);
+    m_idLay->addWidget(m_mailLine, 3, 0, 1, 1);
     m_idPage->setLayout(m_idLay);
     setPage(0, m_idPage);
 }
@@ -86,7 +90,7 @@ void PwdForgot::setPw2Visible(){
     m_pwd2Line->setEchoMode(QLineEdit::Normal);
 }
 bool PwdForgot::id_mailOk(){
-    return !m_idLine->text().isEmpty();
+    return m_idLine->text() == m_mailLine->text();
 }
 bool PwdForgot::isAnsCorrect(){
     return !m_ansLine->text().isEmpty();
@@ -100,10 +104,10 @@ bool PwdForgot::changePwd(QString nw){
 void PwdForgot::changeIndex(int index){
     switch(index){
         case 1:{
-            if(!id_mailOk() && m_idLay->count() < 3){
+            if(!id_mailOk() && m_idLay->count() < 5){
                 m_error->setText(tr("Identifiant ou adresse mail incorrecte"));
                 // stylesheet de m_error
-                m_idLay->addWidget(m_error, 2, 0, 1, 2);
+                m_idLay->addWidget(m_error, 4, 0, 1, 2);
                 back();
             }
             else if(id_mailOk()){
@@ -132,6 +136,12 @@ void PwdForgot::changeIndex(int index){
             if(m_pwd1Line->text() != m_pwd2Line->text()){
                 m_error->setText(tr("Les mots de passe sont différents"));
                 // stylesheet
+                if(m_pwdLay->count() < 7)
+                    m_pwdLay->addWidget(m_error, 4, 0, 1, 2);
+                back();
+            }
+            else if(m_pwd1Line->text().isEmpty()){
+                m_error->setText(tr("Le mot de passe ne peut pas être vide"));
                 if(m_pwdLay->count() < 7)
                     m_pwdLay->addWidget(m_error, 4, 0, 1, 2);
                 back();

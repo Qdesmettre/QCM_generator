@@ -12,9 +12,8 @@ LogIn::LogIn(QWidget *parent) :
     setFixedSize(sizeHint());
 }
 void LogIn::on_signin_clicked(){
-    SignIn *window = new SignIn;
-    window->setModal(true);
-    window->show();
+    SignIn window;
+    window.exec();
 }
 void LogIn::on_login_clicked(){
     // Load the main window
@@ -22,7 +21,7 @@ void LogIn::on_login_clicked(){
 }
 void LogIn::on_pwdForgot_clicked(){
     PwdForgot a;
-    int b = a.exec();
+    a.exec();
 }
 LogIn::~LogIn()
 {

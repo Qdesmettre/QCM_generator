@@ -36,8 +36,8 @@ private:
     void initConfirmPage();
 
     QWizardPage *m_idPage, *m_ansPage, *m_nwPwPage, *m_confirmPage;
-    QLabel *m_idLab, *m_quesLab, *m_nwPwdLab, *m_confirNwPwLab, *m_error, *m_confirmChange;
-    QLineEdit *m_idLine, *m_ansLine, *m_pwd1Line, *m_pwd2Line;
+    QLabel *m_idLab, *m_mailLab, *m_quesLab, *m_nwPwdLab, *m_confirNwPwLab, *m_error, *m_confirmChange;
+    QLineEdit *m_idLine, *m_mailLine, *m_ansLine, *m_pwd1Line, *m_pwd2Line;
     QPushButton *m_seePw1, *m_seePw2;
     QGridLayout *m_idLay, *m_quesLay, *m_pwdLay, *m_confirmLay;
 
