@@ -14,6 +14,7 @@ void PwdForgot::initAttribute(){
     m_idLab = (new QLabel(tr("Nom d'utilisateur ou adresse mail")));
     m_quesLab = (new QLabel);
     m_nwPwdLab = (new QLabel(tr("Nouveau mot de passe")));
+    m_confirNwPwLab = new QLabel(tr("Confirmez le mot de passe"));
     m_error = (new QLabel);
     m_idLine = new QLineEdit;
     m_ansLine = new QLineEdit;
@@ -32,5 +33,13 @@ void PwdForgot::initAnsPage(){
     m_quesLay->addWidget(m_quesLab, 0, 0, 1, 2);
     m_quesLay->addWidget(m_ansLine, 1, 0, 1, 1);
     m_ansPage->setLayout(m_quesLay);
-    setPage(2, m_ansPage);
+    setPage(1, m_ansPage);
+}
+void PwdForgot::initNewPwdPage(){
+    m_pwdLay->addWidget(m_nwPwdLab, 0, 0, 1, 2);
+    m_pwdLay->addWidget(m_pwd1Line, 1, 0, 1, 1);
+    m_pwdLay->addWidget(m_confirNwPwLab, 2, 0, 1, 2);
+    m_pwdLay->addWidget(m_pwd2Line, 3, 0, 1, 1);
+    m_nwPwPage->setLayout(m_pwdLay);
+    setPage(2, m_nwPwPage);
 }
