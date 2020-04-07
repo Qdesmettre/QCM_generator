@@ -23,6 +23,12 @@ void LogIn::on_pwdForgot_clicked(){
     PwdForgot a;
     a.exec();
 }
+void LogIn::on_seePwd_pressed(){
+    ui->pwdLine->setEchoMode(QLineEdit::Normal);
+}
+void LogIn::on_seePwd_released(){
+    ui->pwdLine->setEchoMode(QLineEdit::Password);
+}
 LogIn::~LogIn()
 {
     delete ui;
