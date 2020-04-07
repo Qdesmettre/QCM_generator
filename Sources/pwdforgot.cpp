@@ -10,6 +10,7 @@ PwdForgot::PwdForgot(QWidget *parent) :
     initIdPage();
     initAnsPage();
     initNewPwdPage();
+    initConfirmPage();
     initConnections();
 }
 void PwdForgot::initAttribute(){
@@ -32,6 +33,9 @@ void PwdForgot::initAttribute(){
     m_confirmPage = new QWizardPage;
     m_confirmChange = new QLabel(tr("Votre mot de passe a bien été modifié."));
     m_confirmLay = new QGridLayout;
+    m_idLay = new QGridLayout;
+    m_quesLay = new QGridLayout;
+    m_pwdLay = new QGridLayout;
 }
 void PwdForgot::initIdPage(){
     m_idLay->addWidget(m_idLab,  0, 0, 1, 2);
@@ -82,13 +86,13 @@ void PwdForgot::setPw2Visible(){
     m_pwd2Line->setEchoMode(QLineEdit::Normal);
 }
 bool PwdForgot::id_mailOk(){
-    return true;
+    return !m_idLine->text().isEmpty();
 }
 bool PwdForgot::isAnsCorrect(){
-    return true;
+    return !m_ansLine->text().isEmpty();
 }
 QString PwdForgot::persoQuesOf(QString id){
-    return id;
+    return "Ou est née votre mère ?";
 }
 bool PwdForgot::changePwd(QString nw){
     return true;
@@ -105,6 +109,7 @@ void PwdForgot::changeIndex(int index){
             else if(id_mailOk()){
                 m_idLay->removeWidget(m_error);
                 m_quesLab->setText(persoQuesOf(m_idLine->text()));
+                button(WizardButton::BackButton)->setEnabled(false);
             }
             else back();
             break;
@@ -118,26 +123,31 @@ void PwdForgot::changeIndex(int index){
             }
             else if(isAnsCorrect()){
                 m_quesLay->removeWidget(m_error);
+                button(WizardButton::BackButton)->setEnabled(false);
             }
             else back();
             break;
         }
         case 3:{
-            if(m_pwd1Line->text() != m_pwd2Line->text() && m_pwdLay->count() < 7){
+            if(m_pwd1Line->text() != m_pwd2Line->text()){
                 m_error->setText(tr("Les mots de passe sont différents"));
                 // stylesheet
-                m_pwdLay->addWidget(m_error, 7, 0, 1, 2);
+                if(m_pwdLay->count() < 7)
+                    m_pwdLay->addWidget(m_error, 4, 0, 1, 2);
                 back();
             }
-            else if(m_pwd1Line->text() != m_pwd2Line->text() && m_pwdLay->count() == 7)
-                back();
-            else if(m_pwd1Line->text() == m_pwd2Line->text() && !changePwd(m_pwd1Line->text())){
+            else if(!changePwd(m_pwd1Line->text())){
                 m_error->setText(tr("Impossible de changer le mot de passe. \nVeuillez vérifier votre connexion et réessayer."));
+                if(m_pwdLay->count() < 7)
+                    m_pwdLay->addWidget(m_error, 4, 0, 1, 2);
                 back();
             }
-            else
+            else{
                 m_pwdLay->removeWidget(m_error);
+                button(WizardButton::BackButton)->setEnabled(false);
+            }
             break;
         }
+
     }
 }
