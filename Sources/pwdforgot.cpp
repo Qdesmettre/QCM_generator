@@ -90,7 +90,7 @@ void PwdForgot::setPw2Visible(){
     m_pwd2Line->setEchoMode(QLineEdit::Normal);
 }
 bool PwdForgot::id_mailOk(){
-    return m_idLine->text() == m_mailLine->text();
+    return(m_idLine->text() == m_mailLine->text());
 }
 bool PwdForgot::isAnsCorrect(){
     return !m_ansLine->text().isEmpty();
@@ -104,10 +104,14 @@ bool PwdForgot::changePwd(QString nw){
 void PwdForgot::changeIndex(int index){
     switch(index){
         case 1:{
-            if(!id_mailOk() && m_idLay->count() < 5){
+            if(!id_mailOk()){
                 m_error->setText(tr("Identifiant ou adresse mail incorrecte"));
-                // stylesheet de m_error
-                m_idLay->addWidget(m_error, 4, 0, 1, 2);
+                if(m_idLay->count() < 5) m_idLay->addWidget(m_error, 4, 0, 1, 2);
+                back();
+            }
+            else if((m_mailLine->text().isEmpty() || m_idLine->text().isEmpty())){
+                m_error->setText(tr("Identifiant ou adresse mail vide"));
+                if(m_idLay->count() < 5) m_idLay->addWidget(m_error);
                 back();
             }
             else if(id_mailOk()){
