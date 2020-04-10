@@ -15,6 +15,7 @@ public:
     QString name() const;
     unsigned char num() const;
     bool isCorrect() const;
+    QHBoxLayout* layout();
 private:
     QLineEdit *m_name;
     QLabel *m_num;

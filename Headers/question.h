@@ -6,6 +6,7 @@
 #include <QFormLayout>
 #include <QString>
 #include <QPushButton>
+#include "choice.h"
 
 class Question
 {
@@ -14,7 +15,8 @@ public:
 
 private:
 
-    std::vector<QLineEdit*> m_choices;
+    std::vector<Choice> m_choices;
+    QLabel *m_num;
     QLineEdit *m_name;
     QFormLayout *m_layout;
     QPushButton *m_add, *m_del;

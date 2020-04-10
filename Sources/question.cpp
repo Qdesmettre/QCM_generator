@@ -8,11 +8,11 @@ Question::Question(const QString &name, const unsigned &choices, const unsigned 
         m_layout->addRow(QString().setNum(index)+"/", m_name);
 
     for(unsigned i(0); i<choices; i++){
-        m_choices.push_back(new QLineEdit(""));
-        m_layout->addRow(QString(char(97+i))+")", m_choices[i]);
+        m_choices.push_back(Choice("", i+1));
+        m_layout->addRow(m_choices[i].layout());
     }
 
     m_add = new QPushButton("+");
     m_del = new QPushButton("-");
-
+    m_layout->addRow(m_add, m_del);
 }
