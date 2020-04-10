@@ -24,3 +24,11 @@ void Question::initConnections(){
     QObject::connect(m_add, SIGNAL(clicked()), this, SLOT(add()));
     QObject::connect(m_del, SIGNAL(clicked()), this, SLOT(del()));
 }
+void Question::add(){
+    m_choices.push_back(Choice("", m_choices.size()+1));
+    m_layout->addRow(m_choices[m_choices.size()-1].layout());
+}
+void Question::del(){
+    m_layout->removeRow(m_choices[m_choices.size()-1].layout());
+    m_choices.pop_back();
+}
