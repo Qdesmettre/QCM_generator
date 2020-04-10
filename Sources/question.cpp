@@ -1,7 +1,7 @@
 #include "Headers\question.h"
 
-Question::Question(const QString &name, const unsigned &choices, const unsigned &index) :
-QWidget()
+Question::Question(QWidget *parent, const QString &name, const unsigned &choices, const unsigned &index) :
+QWidget(parent)
 {
 
     m_layout = new QFormLayout;
@@ -26,7 +26,7 @@ void Question::initConnections(){
 }
 void Question::add(){
     m_choices.push_back(Choice("", m_choices.size()+1));
-    m_layout->addRow(m_choices[m_choices.size()-1].layout());
+    m_layout->insertRow(m_layout->count()-2, m_choices[m_choices.size()-1].layout());
 }
 void Question::del(){
     m_layout->removeRow(m_choices[m_choices.size()-1].layout());
