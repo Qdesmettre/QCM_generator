@@ -5,36 +5,37 @@ Project::Project(QWidget *parent) : QScrollArea(parent)
 {
     initAttrib();
     initConnect();
-    setFixedSize(minimumSize());
 }
 void Project::initAttrib(){
+    m_optLay = new QHBoxLayout;
     m_add = new QPushButton("+");
     m_del = new QPushButton("-");
         m_del->setEnabled(false);
-    m_layout = new QFormLayout;
-        m_layout->addRow(m_add, m_del);
+    m_optLay->addWidget(m_add);
+    m_optLay->addWidget(m_del);
+    m_layout = new QGridLayout;
+    m_layout->addLayout(m_optLay, 0, 0);
     m_container = new QWidget;
     setLayout(m_layout);
 }
 void Project::initConnect(){
     QObject::connect(m_add, SIGNAL(clicked()), this, SLOT(add()));
     QObject::connect(m_del, SIGNAL(clicked()), this, SLOT(del()));
+    QObject::connect(this, SIGNAL(resized()), this, SLOT(replace()));
+}
+void Project::replace(){
+
 }
 void Project::add(){
     m_questions.push_back(new Question(nullptr, "", 4, m_questions.size()+1));
-    m_layout->removeWidget(m_add);
-    m_layout->removeWidget(m_del);
-    m_layout->addRow(m_questions.back());
-    m_layout->addRow(m_add, m_del);
+    m_layout->removeItem(m_optLay);
+    m_layout->addWidget(m_questions.back(), m_layout->count(), 0, 1, 2);
+    m_layout->addLayout(m_optLay, m_layout->count(), 0);
     m_del->setEnabled(true);
 }
-void Project::del(){ // modifier height
-    int height = m_questions.back()->size().height();
+void Project::del(){
     m_layout->removeWidget(m_questions.back());
     delete m_questions.back();
     m_questions.pop_back();
     if(m_questions.size() == 0) m_del->setEnabled(false);
-
-    this->resize(size().width()+1, size().height()+1);
-    std::cout << m_layout->sizeHint().height() << "  " << this->minimumSize().height() << "\n";
 }

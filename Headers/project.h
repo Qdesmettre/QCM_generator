@@ -16,6 +16,7 @@ public:
 public slots:
     void add();
     void del();
+    void replace();
 
 signals:
 
@@ -25,7 +26,8 @@ private:
 
     std::vector<Question*> m_questions;
     QPushButton *m_add, *m_del;
-    QFormLayout *m_layout;
+    QGridLayout *m_layout;
+    QHBoxLayout *m_optLay;
     QWidget *m_container;
 };
 
