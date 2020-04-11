@@ -11,6 +11,7 @@ QcmEdit::QcmEdit(QWidget *parent) :
     m_wait->setAlignment(Qt::AlignCenter);
 
     QObject::connect(ui->actionNouveau_QCM, SIGNAL(triggered()), this, SLOT(nouveau()));
+
 }
 void QcmEdit::initAttributes(){
     m_Gprojects = new QTabWidget;
