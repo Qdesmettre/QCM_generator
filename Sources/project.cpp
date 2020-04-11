@@ -57,3 +57,17 @@ void Project::del(){
     if(m_questions.size() == 0) m_del->setEnabled(false);
     else replace();
 }
+Project::~Project(){
+
+    delete m_mainLay;
+    delete m_optLay;
+    for(unsigned i(0); i<m_questions.size(); i++){
+        delete m_questions.back();
+        m_questions.pop_back();
+    }
+    delete m_add;
+    delete m_del;
+    delete m_layout;
+    delete m_container;
+    delete m_sa;
+}

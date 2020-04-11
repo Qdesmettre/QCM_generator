@@ -3,7 +3,6 @@
 Question::Question(QWidget *parent, const QString &name, const unsigned &choices, const unsigned &index) :
 QWidget(parent)
 {
-
     m_layout = new QFormLayout;
         m_num = new QLabel(QString().setNum(index)+"/");
         m_name = new QLineEdit(name);
@@ -44,7 +43,7 @@ Question::~Question(){
     delete m_add;
     delete m_del;
     for(unsigned i(0); i<m_choices.size(); i++){
-        delete m_choices[i];
+        delete m_choices.back();
         m_choices.pop_back();
     }
     delete m_layout;

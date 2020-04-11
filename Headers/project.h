@@ -12,11 +12,14 @@ class Project : public QWidget
     Q_OBJECT
 public:
     explicit Project(QWidget *parent = nullptr);
+    ~Project();
 
 public slots:
     void add();
     void del();
     void replace();
+    /*void generate();
+    void save();*/
 
 signals:
 

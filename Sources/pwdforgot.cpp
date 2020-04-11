@@ -13,6 +13,10 @@ PwdForgot::PwdForgot(QWidget *parent) :
     initConfirmPage();
     initConnections();
 }
+PwdForgot::~PwdForgot(){
+    delete m_idPage; delete m_ansPage; delete m_nwPwPage; delete m_confirmPage; delete m_idLab; delete m_mailLab;
+    delete m_quesLab;    delete m_nwPwdLab;    delete m_confirNwPwLab;    delete m_error;    delete m_confirmChange;    delete m_idLine;    delete m_mailLine;    delete m_ansLine;    delete m_pwd1Line;    delete m_pwd2Line;    delete m_seePw1;    delete m_seePw2;    delete m_idLay;delete m_quesLay;delete m_pwdLay; delete m_confirmLay;
+}
 void PwdForgot::initAttribute(){
     m_idPage = (new QWizardPage);
     m_ansPage = (new QWizardPage);

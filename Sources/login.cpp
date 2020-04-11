@@ -19,7 +19,7 @@ void LogIn::on_signin_clicked(){
 void LogIn::on_login_clicked(){
     // Load the main window
     QMessageBox::information(this, "réussi", "connexion réussie");
-    QcmEdit *a =new QcmEdit;
+    QcmEdit *a = new QcmEdit;
     a->show();
     close();
 }

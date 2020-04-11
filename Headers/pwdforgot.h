@@ -14,6 +14,7 @@ class PwdForgot : public QWizard
 
 public:
     explicit PwdForgot(QWidget *parent = nullptr);
+    ~PwdForgot();
 
 public slots:
     void changeIndex(int index);

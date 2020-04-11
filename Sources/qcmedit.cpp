@@ -40,5 +40,11 @@ void QcmEdit::on_actionTout_fermer_triggered(){
 }
 QcmEdit::~QcmEdit()
 {
-    delete ui;
+    delete ui;    
+    delete m_Gprojects;
+    for(int i(0); i<m_projects.size(); i++){
+        delete m_projects.back();
+        m_projects.pop_back();
+    }
+    delete m_wait;
 }
