@@ -1,11 +1,10 @@
 #include <QApplication>
 #include "Headers/login.h"
-#include <iostream>
-#include "Headers/question.h"
+#include "Headers/project.h"
 int main(int argc, char **argv){
     QApplication app(argc, argv);
 
-    LogIn a;
+    Project a;
     a.show();
 
 
