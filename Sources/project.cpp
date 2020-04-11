@@ -1,22 +1,31 @@
 #include "Headers\project.h"
 #include <QTimer>
 
-Project::Project(QWidget *parent) : QScrollArea(parent)
+Project::Project(QWidget *parent) : QWidget(parent)
 {
     initAttrib();
     initConnect();
 }
 void Project::initAttrib(){
+    m_mainLay = new QVBoxLayout;
+    m_optLay = new QHBoxLayout;
+    m_sa = new QScrollArea;
     m_add = new QPushButton("+");
     m_del = new QPushButton("-");
         m_del->setEnabled(false);
+    m_optLay->addWidget(m_add);
+    m_optLay->addWidget(m_del);
+    m_optLay->setAlignment(Qt::AlignLeft);
+
     m_layout = new QGridLayout;
-    m_layout->addWidget(m_add, 0,0);
-    m_layout->addWidget(m_del, 0, 1);
     m_container = new QWidget;
     m_container->setLayout(m_layout);
-    setWidget(m_container);
-    setWidgetResizable(true);
+    m_sa->setWidget(m_container);
+    m_sa->setWidgetResizable(true);
+    m_mainLay->addWidget(m_sa);
+    m_mainLay->addLayout(m_optLay);
+
+    setLayout(m_mainLay);
 }
 void Project::initConnect(){
     QObject::connect(m_add, SIGNAL(clicked()), this, SLOT(add()));
@@ -33,8 +42,6 @@ void Project::replace(){
         m_layout->addWidget(m_questions[i], i/nb, i%nb);
         if(i+1 == m_questions.size()) rows = i/nb+1;
     }
-    m_layout->addWidget(m_add, rows, 0);
-    m_layout->addWidget(m_del, rows, 1);
 }
 void Project::add(){
     m_questions.push_back(new Question(nullptr, "", 4, m_questions.size()+1));
