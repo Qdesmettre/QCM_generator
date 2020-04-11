@@ -5,14 +5,6 @@ Project::Project(QWidget *parent) : QScrollArea(parent)
 {
     initAttrib();
     initConnect();
-
-    timer = new QTimer;
-    timer->setSingleShot(false);
-    timer->start(250);
-
-    m_oldSize = size();
-
-    QObject::connect(timer, SIGNAL(timeout()), this, SLOT(check()));
 }
 void Project::initAttrib(){
     m_add = new QPushButton("+");
@@ -25,9 +17,6 @@ void Project::initAttrib(){
     m_container->setLayout(m_layout);
     setWidget(m_container);
     setWidgetResizable(true);
-}
-void Project::check(){
-
 }
 void Project::initConnect(){
     QObject::connect(m_add, SIGNAL(clicked()), this, SLOT(add()));

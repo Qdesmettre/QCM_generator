@@ -20,6 +20,9 @@ public:
 
 public slots:
     void nouveau();
+    void on_actionFermer_triggered();
+    void on_actionTout_fermer_triggered();
+
 
 private:
     void initAttributes();
