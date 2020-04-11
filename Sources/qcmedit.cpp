@@ -13,11 +13,13 @@ QcmEdit::QcmEdit(QWidget *parent) :
     QObject::connect(ui->actionNouveau_QCM, SIGNAL(triggered()), this, SLOT(nouveau()));
 }
 void QcmEdit::initAttributes(){
-    m_projects = new QTabWidget;
+    m_Gprojects = new QTabWidget;
     m_wait = new QLabel(tr("\n Pour commencer un nouveau projet, appuyez sur Ctrl+N  \n Ou pour en ouvrir un, appuyez sur Ctrl+O."));
 }
 void QcmEdit::nouveau(){
-
+    m_projects.push_back(new Project);
+    m_Gprojects->addTab(m_projects.back(), "Nouveau QCM");
+    if(centralWidget() == m_wait) setCentralWidget(m_Gprojects);
 }
 QcmEdit::~QcmEdit()
 {

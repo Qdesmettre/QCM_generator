@@ -1,10 +1,10 @@
 #include <QApplication>
 #include "Headers/login.h"
-#include "Headers/project.h"
+#include "Headers/qcmedit.h"
 int main(int argc, char **argv){
     QApplication app(argc, argv);
 
-    Project a;
+    QcmEdit a;
     a.show();
 
 

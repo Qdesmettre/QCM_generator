@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QTabWidget>
 #include <QLabel>
+#include "project.h"
 
 namespace Ui {
 class QcmEdit;
@@ -23,7 +24,10 @@ public slots:
 private:
     void initAttributes();
 
-    QTabWidget *m_projects;
+    QTabWidget *m_Gprojects;
+
+    std::vector<Project*> m_projects;
+
     QLabel *m_wait;
     Ui::QcmEdit *ui;
 };
