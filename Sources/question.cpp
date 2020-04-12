@@ -3,6 +3,12 @@
 Question::Question(QWidget *parent, const QString &name, const unsigned &choices, const unsigned &index) :
 QWidget(parent)
 {
+    m_sa = new QScrollArea;
+    m_container = new QWidget;
+    m_sa->setWidget(m_container);
+    m_sa->setWidgetResizable(true);
+    m_mainLayout = new QVBoxLayout;
+
     m_layout = new QFormLayout;
         m_num = new QLabel(QString().setNum(index)+"/");
         m_name = new QLineEdit(name);
@@ -12,11 +18,21 @@ QWidget(parent)
         m_choices.push_back(new Choice("", i+1));
         m_layout->addRow(m_choices[i]->layout());
     }
+    m_container->setLayout(m_layout);
 
     m_add = new QPushButton("+");
     m_del = new QPushButton("-");
-    m_layout->addRow(m_add, m_del);
-    setLayout(m_layout);
+
+    m_optLay = new QHBoxLayout;
+    m_optLay->addWidget(m_add);
+    m_optLay->addWidget(m_del);
+    m_optLay->setAlignment(Qt::AlignLeft);
+
+    m_mainLayout->addWidget(m_sa);
+    m_mainLayout->addLayout(m_optLay);
+
+    setLayout(m_mainLayout);
+
     initConnections();
 }
 
@@ -26,18 +42,18 @@ void Question::initConnections(){
 }
 void Question::add(){
     m_choices.push_back(new Choice("", m_choices.size()+1));
-    m_layout->removeWidget(m_add);
-    m_layout->removeWidget(m_del);
-    m_layout->addRow(m_choices[m_choices.size()-1]->layout());
-    m_layout->addRow(m_add,m_del);
+    m_layout->addRow(m_choices.back()->layout());
     m_del->setEnabled(true);
 }
 void Question::del(){
-    m_layout->removeRow(m_choices[m_choices.size()-1]->layout());
+    m_layout->removeRow(m_choices.back()->layout());
     m_choices.pop_back();
     if(m_choices.size() == 0) m_del->setEnabled(false);
 }
 Question::~Question(){
+    delete m_mainLayout;
+    delete m_sa;
+    delete m_container;
     delete m_num;
     delete m_name;
     delete m_add;

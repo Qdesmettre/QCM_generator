@@ -7,6 +7,7 @@
 #include <QString>
 #include <QPushButton>
 #include "choice.h"
+#include <QScrollArea>
 
 class Question : public QWidget
 {
@@ -28,7 +29,11 @@ private:
     QLabel *m_num;
     QLineEdit *m_name;
     QFormLayout *m_layout;
+    QHBoxLayout *m_optLay;
     QPushButton *m_add, *m_del;
+    QScrollArea *m_sa;
+    QWidget *m_container;
+    QVBoxLayout *m_mainLayout;
 };
 
 #endif // QUESTION_H
