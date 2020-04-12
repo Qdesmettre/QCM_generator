@@ -2,7 +2,6 @@
 #include "ui_projectassist.h"
 #include <QFileDialog>
 
-
 ProjectAssist::ProjectAssist(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ProjectAssist)

@@ -1,6 +1,7 @@
 #include "Headers\qcmedit.h"
 #include "ui_qcmedit.h"
 #include <QVBoxLayout>
+#include "Headers/projectassist.h"
 QcmEdit::QcmEdit(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::QcmEdit)
@@ -18,8 +19,16 @@ void QcmEdit::initAttributes(){
     m_wait = new QLabel(tr("\n Pour commencer un nouveau projet, appuyez sur Ctrl+N  \n Ou pour en ouvrir un, appuyez sur Ctrl+O."));
 }
 void QcmEdit::nouveau(){
+    ProjectAssist a;
+    a.exec();
+
     m_projects.push_back(new Project);
-    m_Gprojects->addTab(m_projects.back(), "Nouveau QCM");
+    m_Gprojects->addTab(m_projects.back(), a.name());
+
+    for(int i(0); i<a.nQuestions(); i++){
+        m_projects.back()->add();
+    }
+
     if(centralWidget() == m_wait) setCentralWidget(m_Gprojects);
 }
 void QcmEdit::on_actionFermer_triggered(){
