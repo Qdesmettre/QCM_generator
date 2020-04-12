@@ -12,8 +12,18 @@ ProjectAssist::ProjectAssist(QWidget *parent) :
 void ProjectAssist::on_chooseFolder_clicked(){
     ui->folder->setText(QFileDialog::getExistingDirectory(this));
 }
-
-
+QString ProjectAssist::name()const{
+    return ui->name->text();
+}
+QString ProjectAssist::empla() const{
+    return ui->folder->text();
+}
+int ProjectAssist::nChoices() const{
+    return ui->nChoices->value();
+}
+int ProjectAssist::nQuestions() const{
+    return ui->nQuestions->value();
+}
 ProjectAssist::~ProjectAssist()
 {
     delete ui;
