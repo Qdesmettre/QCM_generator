@@ -14,6 +14,17 @@ class ProjectAssist : public QDialog
 public:
     explicit ProjectAssist(QWidget *parent = nullptr);
     ~ProjectAssist();
+    QString name() const;
+    QString empla() const;
+    int nChoices() const;
+    int nQuestions() const;
+
+
+public slots:
+    void on_chooseFolder_clicked();
+
+signals:
+    void finished();
 
 private:
     Ui::ProjectAssist *ui;

@@ -1,5 +1,7 @@
 #include "Headers\projectassist.h"
 #include "ui_projectassist.h"
+#include <QFileDialog>
+
 
 ProjectAssist::ProjectAssist(QWidget *parent) :
     QDialog(parent),
@@ -7,6 +9,10 @@ ProjectAssist::ProjectAssist(QWidget *parent) :
 {
     ui->setupUi(this);
 }
+void ProjectAssist::on_chooseFolder_clicked(){
+    ui->folder->setText(QFileDialog::getExistingDirectory(this));
+}
+
 
 ProjectAssist::~ProjectAssist()
 {
