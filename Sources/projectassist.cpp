@@ -48,6 +48,12 @@ void ProjectAssist::check(){
         ui->ok->setEnabled(true);
     }
 }
+void ProjectAssist::on_cancel_clicked(){
+    m_ok = false;
+}
+void ProjectAssist::on_ok_clicked(){
+    m_ok = true;
+}
 ProjectAssist::~ProjectAssist()
 {
     delete ui;
