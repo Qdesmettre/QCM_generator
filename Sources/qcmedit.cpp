@@ -20,18 +20,17 @@ void QcmEdit::initAttributes(){
 }
 void QcmEdit::nouveau(){
     ProjectAssist a;
-    if(1){
+    a.exec();
+    if(a.ok()){
+        m_projects.push_back(new Project);
+        m_Gprojects->addTab(m_projects.back(), a.name());
 
+        m_projects.back()->add();
+
+        if(centralWidget() == m_wait) setCentralWidget(m_Gprojects);
     }
 
-    m_projects.push_back(new Project);
-    m_Gprojects->addTab(m_projects.back(), a.name());
 
-
-    m_projects.back()->add();
-
-
-    if(centralWidget() == m_wait) setCentralWidget(m_Gprojects);
 }
 void QcmEdit::on_actionFermer_triggered(){
     std::vector<Project*>::iterator it;
