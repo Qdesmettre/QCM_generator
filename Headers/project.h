@@ -16,7 +16,7 @@ public:
     std::vector<Question*> questions();
 
 public slots:
-    void add(int q = 1, int c = 4);
+    void add();
     void del();
     void replace();
     /*void generate();

@@ -7,51 +7,14 @@
     <x>0</x>
     <y>0</y>
     <width>375</width>
-    <height>213</height>
+    <height>160</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="3" column="0" colspan="2">
-    <widget class="QLabel" name="label_4">
-     <property name="text">
-      <string>Questions à créer</string>
-     </property>
-    </widget>
-   </item>
-   <item row="6" column="0" colspan="4">
-    <widget class="QLabel" name="error">
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="2">
-    <widget class="QLineEdit" name="name"/>
-   </item>
-   <item row="3" column="2">
-    <widget class="QSpinBox" name="nQuestions"/>
-   </item>
-   <item row="5" column="0" colspan="3">
-    <widget class="QLabel" name="label_5">
-     <property name="text">
-      <string>Toutes ces données pourront être changée plus tard</string>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="0">
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>Nom du projet</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="2">
-    <widget class="QSpinBox" name="nChoices"/>
-   </item>
-   <item row="7" column="0" colspan="2">
+   <item row="5" column="0" colspan="2">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QPushButton" name="ok">
@@ -72,13 +35,6 @@
      </item>
     </layout>
    </item>
-   <item row="2" column="0" colspan="2">
-    <widget class="QLabel" name="label_3">
-     <property name="text">
-      <string>Choix minimum</string>
-     </property>
-    </widget>
-   </item>
    <item row="1" column="3">
     <widget class="QToolButton" name="chooseFolder">
      <property name="text">
@@ -86,17 +42,27 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="0">
-    <widget class="QLabel" name="label_2">
+   <item row="4" column="0" colspan="4">
+    <widget class="QLabel" name="error">
      <property name="text">
-      <string>Emplacement</string>
+      <string/>
      </property>
     </widget>
    </item>
    <item row="1" column="2">
     <widget class="QLineEdit" name="folder"/>
    </item>
-   <item row="4" column="0" colspan="4">
+   <item row="0" column="2">
+    <widget class="QLineEdit" name="name"/>
+   </item>
+   <item row="0" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Nom du projet</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0" colspan="4">
     <spacer name="horizontalSpacer">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -108,6 +74,20 @@
       </size>
      </property>
     </spacer>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>Emplacement</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0" colspan="3">
+    <widget class="QLabel" name="label_5">
+     <property name="text">
+      <string>Ces données pourront être changée plus tard</string>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>

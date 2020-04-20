@@ -15,7 +15,6 @@ class Question : public QWidget
 
 public:
     Question(QWidget *parent = nullptr, const QString &name = "", const unsigned &choices = 4, const unsigned &index = 1);
-    ~Question();
 public slots:
     void add();
     void del();

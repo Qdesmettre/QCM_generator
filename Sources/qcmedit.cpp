@@ -23,18 +23,12 @@ void QcmEdit::nouveau(){
     a.exec();
 
     m_projects.push_back(new Project);
-    m_Gprojects->addTab(m_projects.back(), "a.name()");
+    m_Gprojects->addTab(m_projects.back(), a.name());
 
-    for(int i(0); i<a.nQuestions(); i++){
-        m_projects.back()->add(a.nQuestions(), a.nChoices());
-        /*while(m_projects.back()->questions().back()->choices()->size() < a.nChoices()){
-            m_projects.back()->questions().back()->add();
-        }
-        while(m_projects.back()->questions().back()->choices()->size() > a.nChoices()){
-            m_projects.back()->questions().back()->del();
-        }*/
 
-    }
+    m_projects.back()->add();
+
+
     if(centralWidget() == m_wait) setCentralWidget(m_Gprojects);
 }
 void QcmEdit::on_actionFermer_triggered(){

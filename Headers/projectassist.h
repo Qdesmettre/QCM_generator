@@ -16,16 +16,12 @@ public:
     ~ProjectAssist();
     QString name() const;
     QString empla() const;
-    int nChoices() const;
-    int nQuestions() const;
 
 
 public slots:
     void on_chooseFolder_clicked();
     void on_name_textEdited(QString);
     void on_folder_textEdited(QString);
-    void on_nChoices_valueChanged(int);
-    void on_nQuestions_valueChanged(int);
 
 private:
     void check();

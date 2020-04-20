@@ -46,16 +46,15 @@ void Project::replace(){
         if(i+1 == m_questions.size()) rows = i/nb+1;
     }
 }
-void Project::add(int q, int c){
-    for(int i(0); i<q; i++)
-        m_questions.push_back(new Question(nullptr, "", c, m_questions.size()+1));
+void Project::add(){
+    m_questions.push_back(new Question(nullptr, "", 4, m_questions.size()+1));
 
     replace();
 
     m_del->setEnabled(true);
 }
 void Project::del(){
-    m_layout->removeWidget(m_questions.back());
+    //m_layout->removeWidget(m_questions.back());
     delete m_questions.back();
     m_questions.pop_back();
     if(m_questions.size() == 0) m_del->setEnabled(false);

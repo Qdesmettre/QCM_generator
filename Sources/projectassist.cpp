@@ -20,22 +20,10 @@ QString ProjectAssist::name()const{
 QString ProjectAssist::empla() const{
     return ui->folder->text();
 }
-int ProjectAssist::nChoices() const{
-    return ui->nChoices->value();
-}
-int ProjectAssist::nQuestions() const{
-    return ui->nQuestions->value();
-}
 void ProjectAssist::on_name_textEdited(QString){
     check();
 }
 void ProjectAssist::on_folder_textEdited(QString){
-    check();
-}
-void ProjectAssist::on_nChoices_valueChanged(int){
-    check();
-}
-void ProjectAssist::on_nQuestions_valueChanged(int){
     check();
 }
 void ProjectAssist::check(){

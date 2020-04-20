@@ -50,17 +50,4 @@ void Question::del(){
     m_choices.pop_back();
     if(m_choices.size() == 0) m_del->setEnabled(false);
 }
-Question::~Question(){
-    delete m_mainLayout;
-    delete m_sa;
-    delete m_container;
-    delete m_num;
-    delete m_name;
-    delete m_add;
-    delete m_del;
-    for(unsigned i(0); i<m_choices.size(); i++){
-        delete m_choices.back();
-        m_choices.pop_back();
-    }
-    delete m_layout;
-}
+
