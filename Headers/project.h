@@ -13,9 +13,10 @@ class Project : public QWidget
 public:
     explicit Project(QWidget *parent = nullptr);
     ~Project();
+    std::vector<Question*> questions();
 
 public slots:
-    void add();
+    void add(int q = 1, int c = 4);
     void del();
     void replace();
     /*void generate();

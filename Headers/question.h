@@ -19,6 +19,7 @@ public:
 public slots:
     void add();
     void del();
+    //std::vector<Choice*>* choices() const;
 
 signals:
 

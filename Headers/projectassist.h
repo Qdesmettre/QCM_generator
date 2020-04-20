@@ -22,11 +22,13 @@ public:
 
 public slots:
     void on_chooseFolder_clicked();
-
-signals:
-    void finished();
+    void on_name_textEdited(QString);
+    void on_folder_textEdited(QString);
+    void on_nChoices_valueChanged(int);
+    void on_nQuestions_valueChanged(int);
 
 private:
+    void check();
     Ui::ProjectAssist *ui;
 };
 

@@ -27,6 +27,9 @@ void Project::initAttrib(){
 
     setLayout(m_mainLay);
 }
+std::vector<Question*> Project::questions(){
+    return m_questions;
+}
 void Project::initConnect(){
     QObject::connect(m_add, SIGNAL(clicked()), this, SLOT(add()));
     QObject::connect(m_del, SIGNAL(clicked()), this, SLOT(del()));
@@ -43,8 +46,9 @@ void Project::replace(){
         if(i+1 == m_questions.size()) rows = i/nb+1;
     }
 }
-void Project::add(){
-    m_questions.push_back(new Question(nullptr, "", 4, m_questions.size()+1));
+void Project::add(int q, int c){
+    for(int i(0); i<q; i++)
+        m_questions.push_back(new Question(nullptr, "", c, m_questions.size()+1));
 
     replace();
 
