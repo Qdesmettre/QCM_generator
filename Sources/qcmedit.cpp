@@ -20,7 +20,9 @@ void QcmEdit::initAttributes(){
 }
 void QcmEdit::nouveau(){
     ProjectAssist a;
-    a.exec();
+    if(1){
+
+    }
 
     m_projects.push_back(new Project);
     m_Gprojects->addTab(m_projects.back(), a.name());

@@ -16,15 +16,20 @@ public:
     ~ProjectAssist();
     QString name() const;
     QString empla() const;
+    bool ok() const;
 
 
 public slots:
     void on_chooseFolder_clicked();
     void on_name_textEdited(QString);
     void on_folder_textEdited(QString);
+    void on_cancel_clicked();
+    void on_ok_clicked();
 
 private:
     void check();
+
+    bool m_ok;
     Ui::ProjectAssist *ui;
 };
 

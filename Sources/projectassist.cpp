@@ -54,6 +54,9 @@ void ProjectAssist::on_cancel_clicked(){
 void ProjectAssist::on_ok_clicked(){
     m_ok = true;
 }
+bool ProjectAssist::ok() const{
+    return m_ok;
+}
 ProjectAssist::~ProjectAssist()
 {
     delete ui;
