@@ -22,8 +22,10 @@ void QcmEdit::nouveau(){
     ProjectAssist a;
     a.exec();
     if(a.ok()){
-        m_projects.push_back(new Project);
+        m_projects.push_back(new Project(a.empla(), a.name()));
         m_Gprojects->addTab(m_projects.back(), a.name());
+
+        // save(a.empla(), a.name());
 
         m_projects.back()->add();
 
@@ -48,7 +50,7 @@ void QcmEdit::on_actionTout_fermer_triggered(){
     }
 }
 void QcmEdit::on_actionEnregistrer_triggered(){
-    // saveAs(m_Gprojects->tabText(m_Gprojects->currentIndex())+".qcm", )
+    // save(m_projects[m_Gprojects->currentIndex()]->empla(), m_projects[m_Gprojects->currentIndex()]->name());
 
 }
 QcmEdit::~QcmEdit()
