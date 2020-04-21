@@ -11,9 +11,12 @@ class Project : public QWidget
 {
     Q_OBJECT
 public:
-    explicit Project(QWidget *parent = nullptr);
+    explicit Project(QString empla, QString name, QWidget *parent = nullptr);
     ~Project();
     std::vector<Question*> questions();
+
+    QString empla();
+    QString name();
 
 public slots:
     void add();
@@ -35,6 +38,8 @@ private:
     QGridLayout *m_layout;
     QWidget *m_container;
     QScrollArea *m_sa;
+
+    QString m_empla, m_name;
 };
 
 #endif // PROJECT_H

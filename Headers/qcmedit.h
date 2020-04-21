@@ -5,7 +5,6 @@
 #include <QTabWidget>
 #include <QLabel>
 #include "project.h"
-
 namespace Ui {
 class QcmEdit;
 }

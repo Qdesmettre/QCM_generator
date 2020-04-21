@@ -1,10 +1,19 @@
 #include "Headers\project.h"
 #include <QTimer>
 
-Project::Project(QWidget *parent) : QWidget(parent)
+Project::Project(QString empla, QString name, QWidget *parent) : QWidget(parent)
 {
+    m_name = name;
+    m_empla = empla;
+
     initAttrib();
     initConnect();
+}
+QString Project::empla(){
+    return m_empla;
+}
+QString Project::name(){
+    return m_name;
 }
 void Project::initAttrib(){
     m_mainLay = new QVBoxLayout;
