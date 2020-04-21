@@ -25,9 +25,7 @@ void QcmEdit::nouveau(){
         m_projects.push_back(new Project(a.empla(), a.name()));
         m_Gprojects->addTab(m_projects.back(), a.name());
 
-        // save(a.empla(), a.name());
-
-        m_projects.back()->add();
+        save(a.empla()+a.name()+".qcm");
 
         if(centralWidget() == m_wait) setCentralWidget(m_Gprojects);
     }
@@ -50,7 +48,10 @@ void QcmEdit::on_actionTout_fermer_triggered(){
     }
 }
 void QcmEdit::on_actionEnregistrer_triggered(){
-    // save(m_projects[m_Gprojects->currentIndex()]->empla(), m_projects[m_Gprojects->currentIndex()]->name());
+    save(m_projects[m_Gprojects->currentIndex()]->empla()+m_projects[m_Gprojects->currentIndex()]->name()+".qcm");
+
+}
+void QcmEdit::save(QString empla){
 
 }
 QcmEdit::~QcmEdit()
