@@ -47,6 +47,10 @@ void QcmEdit::on_actionTout_fermer_triggered(){
         m_projects.erase(m_projects.begin());
     }
 }
+void QcmEdit::on_actionEnregistrer_triggered(){
+    // saveAs(m_Gprojects->tabText(m_Gprojects->currentIndex())+".qcm", )
+
+}
 QcmEdit::~QcmEdit()
 {
     delete ui;    
