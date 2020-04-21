@@ -33,8 +33,7 @@ void QcmEdit::nouveau(){
 
 }
 void QcmEdit::on_actionFermer_triggered(){
-    std::vector<Project*>::iterator it;
-    it = m_projects.begin();
+    std::vector<Project*>::iterator it(m_projects.begin());
     for(int i(0); i<m_Gprojects->currentIndex(); i++){
         it++;
     }
