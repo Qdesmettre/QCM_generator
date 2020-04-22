@@ -58,6 +58,9 @@ void QcmEdit::on_actionEnregistrer_triggered(){
 
 
 }
+void QcmEdit::on_actionEnregistrer_sous_triggered(){
+
+}
 void QcmEdit::on_actionTout_enregistrer_triggered(){
     bool ok = true;
     for(unsigned i(0); i<m_Gprojects->count(); i++){
@@ -90,7 +93,7 @@ bool QcmEdit::save(Project *project){
     }
     else{
         QString error(tr("Erreur lors de l'enregistrement du projet "));
-        error.append(project->name()+tr(". Veuillez choisir un autre dossier ou nom puis rééssayer."));
+        error.append(project->name()+tr(". Veuillez choisir un autre dossier ou nom puis rééssayez."));
         QMessageBox::critical(this, tr("Enregistrement impossible"), error);
     }
 }

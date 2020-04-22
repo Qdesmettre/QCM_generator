@@ -23,6 +23,7 @@ public slots:
     void on_actionTout_fermer_triggered();
     void on_actionEnregistrer_triggered();
     void on_actionTout_enregistrer_triggered();
+    void on_actionEnregistrer_sous_triggered();
 
 
 private:
