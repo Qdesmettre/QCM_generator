@@ -50,18 +50,20 @@ void QcmEdit::on_actionTout_fermer_triggered(){
     }
 }
 void QcmEdit::on_actionEnregistrer_triggered(){
-    if(m_Gprojects->count() > 0){
-        save(m_projects.at(m_Gprojects->currentIndex()));
-
+    if(m_Gprojects->count() > 0 && save(m_projects.at(m_Gprojects->currentIndex()))){
+        QString done(tr("Enregistrement du projet "));
+        done.append(m_projects.at(m_Gprojects->currentIndex())->name()+tr(" réussi"));
+        QMessageBox::information(this, tr("Enregistrement terminé"), done);
     }
 
 
 }
 void QcmEdit::on_actionTout_enregistrer_triggered(){
+    bool ok = true;
     for(unsigned i(0); i<m_Gprojects->count(); i++){
-        save(m_projects.at(i));
+        if(!save(m_projects.at(i))) ok = false;
     }
-    if(m_Gprojects->count() != 0) QMessageBox::information(this, tr("Enregistrements terminés"), tr("Tous les projets ont bien été enregistrés."));
+    if(m_Gprojects->count() != 0 && ok) QMessageBox::information(this, tr("Enregistrements terminés"), tr("Tous les projets ont bien été enregistrés."));
 }
 bool QcmEdit::save(Project *project){
     QString empla(project->empla());
@@ -86,7 +88,11 @@ bool QcmEdit::save(Project *project){
             saving.write("<!ques>", 7);
         }
     }
-    else QMessageBox::critical(this, tr("Enregistrement impossible"), tr("Erreur lors de l'enregistrelent du projet. Veuillez choisir un autre dossier puis rééssayer."));
+    else{
+        QString error(tr("Erreur lors de l'enregistrement du projet "));
+        error.append(project->name()+tr(". Veuillez choisir un autre dossier ou nom puis rééssayer."));
+        QMessageBox::critical(this, tr("Enregistrement impossible"), error);
+    }
 }
 QcmEdit::~QcmEdit()
 {
