@@ -50,16 +50,20 @@ void QcmEdit::on_actionTout_fermer_triggered(){
     }
 }
 void QcmEdit::on_actionEnregistrer_triggered(){
-    if(m_Gprojects->count() > 0)
+    if(m_Gprojects->count() > 0){
         save(m_projects.at(m_Gprojects->currentIndex()));
+
+    }
+
 
 }
 void QcmEdit::on_actionTout_enregistrer_triggered(){
     for(unsigned i(0); i<m_Gprojects->count(); i++){
         save(m_projects.at(i));
     }
+    if(m_Gprojects->count() != 0) QMessageBox::information(this, tr("Enregistrements terminés"), tr("Tous les projets ont bien été enregistrés."));
 }
-void QcmEdit::save(Project *project){
+bool QcmEdit::save(Project *project){
     QString empla(project->empla());
     if(empla.back() != "/"|| empla.back() != "\\")
         empla.append("/");

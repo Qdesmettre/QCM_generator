@@ -26,7 +26,7 @@ public slots:
 
 
 private:
-    void save(Project *project);
+    bool save(Project *project);
     void initAttributes();
 
     QTabWidget *m_Gprojects;
