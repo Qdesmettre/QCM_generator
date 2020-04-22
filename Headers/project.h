@@ -18,6 +18,8 @@ public:
     QString empla();
     QString name();
 
+    void setEmpla(QString n);
+
 public slots:
     void add();
     void del();

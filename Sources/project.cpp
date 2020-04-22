@@ -15,6 +15,9 @@ QString Project::empla(){
 QString Project::name(){
     return m_name;
 }
+void Project::setEmpla(QString n){
+    m_empla = n;
+}
 void Project::initAttrib(){
     m_mainLay = new QVBoxLayout;
     m_optLay = new QHBoxLayout;
