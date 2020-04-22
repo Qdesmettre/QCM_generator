@@ -4,6 +4,7 @@
 #include "Headers/projectassist.h"
 #include <fstream>
 #include <QMessageBox>
+#include <QFileDialog>
 QcmEdit::QcmEdit(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::QcmEdit)
@@ -59,7 +60,10 @@ void QcmEdit::on_actionEnregistrer_triggered(){
 
 }
 void QcmEdit::on_actionEnregistrer_sous_triggered(){
-
+    if(m_Gprojects->count() != 0){
+        m_projects[m_Gprojects->currentIndex()]->setEmpla(QFileDialog::getSaveFileName(this, m_projects[m_Gprojects->currentIndex()]->name(), m_projects[m_Gprojects->currentIndex()]->empla(), tr("Fichier .qcm (*.qcm)")));
+        on_actionEnregistrer_triggered();
+    }
 }
 void QcmEdit::on_actionTout_enregistrer_triggered(){
     bool ok = true;
