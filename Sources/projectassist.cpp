@@ -28,25 +28,33 @@ void ProjectAssist::on_folder_textEdited(QString){
 }
 void ProjectAssist::check(){
     if(ui->name->text().isEmpty()){
-        ui->error->setText("Le nom ne peut pas être vide");
+        ui->error->setText(tr("Le nom ne peut pas être vide"));
         ui->ok->setEnabled(false);
+        return;
     }
     else if(ui->folder->text().isEmpty()){
-        ui->error->setText("L'emplacement de dossier ne peut être vide");
+        ui->error->setText(tr("L'emplacement de dossier ne peut être vide"));
         ui->ok->setEnabled(false);
+        return ;
     }
     else if(!opendir(ui->folder->text().toStdString().c_str())){
-        ui->error->setText("Le dossier n'existe pas.");
+        ui->error->setText(tr("Le dossier n'existe pas."));
         ui->ok->setEnabled(false);
-    }
-    else if(QFile::exists(ui->folder->text()+ui->name->text())){
-        ui->error->setText("Le projet existe déjà. Vous pouvez l'ouvrir en fermant cet outil, puis en appuyant sur Ctrl+O.");
-        ui->ok->setEnabled(false);
+        return;
     }
     else{
-        ui->error->setText("");
-        ui->ok->setEnabled(true);
+        QString folder = ui->folder->text();
+        if(folder.back() != "/" || folder.back() != "\\") folder.append("/");
+        if(QFile::exists(folder+ui->name->text()+".qcm")){
+            ui->error->setText(tr("Le projet existe déjà.\nVous pouvez l'ouvrir en fermant cet outil, \npuis en appuyant sur Ctrl+O."));
+            ui->ok->setEnabled(false);
+            return;
+        }
+
     }
+    ui->error->setText("");
+    ui->ok->setEnabled(true);
+
 }
 void ProjectAssist::on_cancel_clicked(){
     m_ok = false;

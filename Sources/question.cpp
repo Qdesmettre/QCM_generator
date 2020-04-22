@@ -35,7 +35,12 @@ QWidget(parent)
 
     initConnections();
 }
-
+std::vector<Choice*> Question::choices() const{
+    return m_choices;
+}
+std::string Question::name() const{
+    return m_name->text().toStdString();
+}
 void Question::initConnections(){
     QObject::connect(m_add, SIGNAL(clicked()), this, SLOT(add()));
     QObject::connect(m_del, SIGNAL(clicked()), this, SLOT(del()));

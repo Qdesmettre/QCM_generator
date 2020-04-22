@@ -2,6 +2,8 @@
 #include "ui_qcmedit.h"
 #include <QVBoxLayout>
 #include "Headers/projectassist.h"
+#include <fstream>
+#include <QMessageBox>
 QcmEdit::QcmEdit(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::QcmEdit)
@@ -25,7 +27,7 @@ void QcmEdit::nouveau(){
         m_projects.push_back(new Project(a.empla(), a.name()));
         m_Gprojects->addTab(m_projects.back(), a.name());
 
-        save(a.empla()+a.name()+".qcm");
+        save(m_projects.back());
 
         if(centralWidget() == m_wait) setCentralWidget(m_Gprojects);
     }
@@ -48,11 +50,35 @@ void QcmEdit::on_actionTout_fermer_triggered(){
     }
 }
 void QcmEdit::on_actionEnregistrer_triggered(){
-    save(m_projects[m_Gprojects->currentIndex()]->empla()+m_projects[m_Gprojects->currentIndex()]->name()+".qcm");
+    if(m_Gprojects->count() > 0)
+        save(m_projects.at(m_Gprojects->currentIndex()));
 
 }
-void QcmEdit::save(QString empla){
-
+void QcmEdit::save(Project *project){
+    QString empla(project->empla());
+    if(empla.back() != "/"|| empla.back() != "\\")
+        empla.append("/");
+    empla.append(project->name()+".qcm");
+    std::ofstream saving(empla.toStdString().c_str(), std::ios::out | std::ios::binary);
+    if(saving.is_open()){        
+        saving.write("<PjName>", 8);
+        saving.write(project->name().toStdString().c_str(), project->name().size());
+        saving.write("<!PjName>", 9);
+        for(unsigned i(0); i<project->questions().size(); i++){
+            saving.write("<ques>", 6);
+            saving.write(project->questions()[i]->name().c_str(), project->questions()[i]->name().size());
+            for(unsigned j(0); j<project->questions()[i]->choices().size(); j++){
+                saving.write("<ans, ok=", 9);
+                if(project->questions()[i]->choices()[j]->isCorrect()) saving.write("True>", 5);
+                else saving.write("False>", 6);
+                saving.write(project->questions()[i]->choices()[j]->name().toStdString().c_str(), project->questions()[i]->choices()[j]->name().size());
+                saving.write("<!ans>", 6);
+            }
+            saving.write("<!ques>", 7);
+        }
+        QMessageBox::information(this, tr("Enregistrement terminé"), tr("Enregstrement du projet effectué."));
+    }
+    else QMessageBox::critical(this, tr("Enregistrement impossible"), tr("Erreur lors de l'enregistrelent du projet. Veuillez choisir un autre dossier puis rééssayer."));
 }
 QcmEdit::~QcmEdit()
 {
