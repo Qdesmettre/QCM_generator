@@ -54,6 +54,11 @@ void QcmEdit::on_actionEnregistrer_triggered(){
         save(m_projects.at(m_Gprojects->currentIndex()));
 
 }
+void QcmEdit::on_actionTout_enregistrer_triggered(){
+    for(unsigned i(0); i<m_Gprojects->count(); i++){
+        save(m_projects.at(i));
+    }
+}
 void QcmEdit::save(Project *project){
     QString empla(project->empla());
     if(empla.back() != "/"|| empla.back() != "\\")
@@ -76,7 +81,6 @@ void QcmEdit::save(Project *project){
             }
             saving.write("<!ques>", 7);
         }
-        QMessageBox::information(this, tr("Enregistrement terminé"), tr("Enregstrement du projet effectué."));
     }
     else QMessageBox::critical(this, tr("Enregistrement impossible"), tr("Erreur lors de l'enregistrelent du projet. Veuillez choisir un autre dossier puis rééssayer."));
 }
