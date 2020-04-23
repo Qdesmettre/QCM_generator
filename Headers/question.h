@@ -17,6 +17,7 @@ public:
     Question(QWidget *parent = nullptr, const QString &name = "", const unsigned &choices = 4, const unsigned &index = 1);
     std::vector<Choice*> choices() const;
     std::string name() const;
+    void setChoices(std::vector<Choice*> const& choices);
 public slots:
     void add();
     void del();

@@ -8,8 +8,11 @@ ProjectAssist::ProjectAssist(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ProjectAssist)
 {
+
+    m_ok = false;
     ui->setupUi(this);
     resize(sizeHint());
+    setWindowTitle(tr("Nouveau projet"));
 }
 void ProjectAssist::on_chooseFolder_clicked(){
     ui->folder->setText(QFileDialog::getExistingDirectory(this));

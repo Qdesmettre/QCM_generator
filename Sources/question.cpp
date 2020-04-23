@@ -35,6 +35,17 @@ QWidget(parent)
 
     initConnections();
 }
+void Question::setChoices(std::vector<Choice *> const& choices){
+    while(m_choices.size() != 0){
+        delete m_choices.back();
+        m_choices.pop_back();
+    }
+    m_choices = choices;
+    for(unsigned i(0); i<m_choices.size(); i++){
+        m_layout->addRow(m_choices[i]->layout());
+    }
+    m_del->setEnabled(true);
+}
 std::vector<Choice*> Question::choices() const{
     return m_choices;
 }

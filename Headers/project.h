@@ -18,7 +18,9 @@ public:
     QString empla();
     QString name();
 
-    void setEmpla(QString n);
+    void setQuestions(std::vector<Question*> const& questions);
+    void setEmpla(QString const& n);
+    void setName(QString n);
 
 public slots:
     void add();

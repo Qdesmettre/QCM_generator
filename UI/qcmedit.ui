@@ -31,8 +31,6 @@
     </property>
     <addaction name="actionNouveau_QCM"/>
     <addaction name="actionOuvrir"/>
-    <addaction name="actionR_cent"/>
-    <addaction name="separator"/>
     <addaction name="actionEnregistrer"/>
     <addaction name="actionEnregistrer_sous"/>
     <addaction name="actionTout_enregistrer"/>
@@ -105,7 +103,7 @@
   </action>
   <action name="actionFermer">
    <property name="text">
-    <string>Fermer &quot;&quot;</string>
+    <string>Fermer </string>
    </property>
   </action>
   <action name="actionTout_fermer">

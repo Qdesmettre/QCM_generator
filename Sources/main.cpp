@@ -3,9 +3,8 @@
 int main(int argc, char **argv){
     QApplication app(argc, argv);
 
-    LogIn a;
-    a.show();
-
+    LogIn login;
+    login.show();
 
     return app.exec();
 }

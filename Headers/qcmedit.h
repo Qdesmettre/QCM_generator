@@ -24,11 +24,14 @@ public slots:
     void on_actionEnregistrer_triggered();
     void on_actionTout_enregistrer_triggered();
     void on_actionEnregistrer_sous_triggered();
+    void on_actionOuvrir_triggered();
+    void on_actionQuitter_triggered();
 
 
 private:
     bool save(Project *project);
     void initAttributes();
+    static QString nameOf(QString path);
 
     QTabWidget *m_Gprojects;
 

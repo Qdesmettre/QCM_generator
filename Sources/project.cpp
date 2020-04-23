@@ -4,19 +4,45 @@
 Project::Project(QString empla, QString name, QWidget *parent) : QWidget(parent)
 {
     m_name = name;
-    m_empla = empla;
+    // Le chemin complet est spécifié vers un fichier précis
+    if((QString(empla[empla.size()-1])+empla[empla.size()-2]+
+         empla[empla.size()-3]+empla[empla.size()-4]) == "mcq.") m_empla = empla;
+    // Un chemin vers un dossier spécifié, mais sans slash au bout
+    else if(empla.back() == "/" ||empla.back() == "\\")
+        m_empla = empla+"/";
+    // Un chemin vers un dossier bien spécifié
+    else m_empla = empla;
 
     initAttrib();
     initConnect();
 }
+void Project::setQuestions(const std::vector<Question *> &questions){
+    while(m_questions.size() != 0){
+        delete m_questions.back();
+        m_questions.pop_back();
+    }
+    m_questions = questions;
+    replace();
+    m_del->setEnabled(true);
+}
 QString Project::empla(){
-    return m_empla;
+    // Le chemin complet est spécifié vers un fichier précis
+    if((QString(m_empla[m_empla.size()-1])+m_empla[m_empla.size()-2]+
+         m_empla[m_empla.size()-3]+m_empla[m_empla.size()-4]) == "mcq.") return m_empla;
+    // Un chemin vers un dossier spécifié, mais sans slash au bout
+    else if(m_empla.back() != "/" ||m_empla.back() != "\\")
+        return m_empla+"/"+m_name+".qcm";
+    // Un chemin vers un dossier bien spécifié
+    else return m_empla+".qcm";
 }
 QString Project::name(){
     return m_name;
 }
-void Project::setEmpla(QString n){
+void Project::setEmpla(const QString &n){
     m_empla = n;
+}
+void Project::setName(QString n){
+    m_name = n;
 }
 void Project::initAttrib(){
     m_mainLay = new QVBoxLayout;
@@ -47,15 +73,14 @@ void Project::initConnect(){
     QObject::connect(m_del, SIGNAL(clicked()), this, SLOT(del()));
 }
 void Project::replace(){
+    // On enlève tous les éléments du layout
     for(int i(0); i<m_layout->count(); i++){
         m_layout->removeItem(m_layout->takeAt(i));
     }
-
+    // On calcule le max de widget par ligne
     int nb = m_container->size().width() / m_questions.back()->sizeHint().width();
-    int rows = 0;
     for(unsigned i(0); i<m_questions.size(); i++){
         m_layout->addWidget(m_questions[i], i/nb, i%nb);
-        if(i+1 == m_questions.size()) rows = i/nb+1;
     }
 }
 void Project::add(){
