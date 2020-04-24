@@ -17,6 +17,7 @@ public:
     explicit QcmEdit(QWidget *parent = nullptr);
     ~QcmEdit();
     void open(QString const& empla);
+    static std::string from(unsigned beg, unsigned const& end, std::string const& l);
 
 private slots:
     void nouveau();

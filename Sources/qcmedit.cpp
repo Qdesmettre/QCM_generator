@@ -14,7 +14,7 @@ QString QcmEdit::nameOf(QString path){
     }
     return name;
 }
-std::string from(unsigned beg, unsigned const& end, std::string const& l){
+std::string QcmEdit::from(unsigned beg, unsigned const& end, std::string const& l){
     std::string rtrn = "";
     while(beg < end && beg < l.size()){
         rtrn += l[beg];
@@ -28,11 +28,15 @@ QcmEdit::QcmEdit(QWidget *parent) :
 {
     initAttributes();
     ui->setupUi(this);
+    setAcceptDrops(true);
+
     setCentralWidget(m_wait);
 
     setWindowTitle(tr("Qcm Maker"));
 
     m_wait->setAlignment(Qt::AlignCenter);
+    m_wait->setAcceptDrops(true);
+    m_Gprojects->setAcceptDrops(true);
 
     QObject::connect(ui->actionNouveau_QCM, SIGNAL(triggered()), this, SLOT(nouveau()));
 }
@@ -90,7 +94,6 @@ void QcmEdit::open(const QString &empla){
             }
         }
         m_projects.push_back(new Project(empla, Pname));
-        std::cout << m_projects.back()->empla().toStdString() << std::endl;
         if(ok) m_projects.back()->setQuestions(questions);
 
         m_Gprojects->addTab(m_projects.back(), Pname+".qcm");
@@ -166,12 +169,11 @@ void QcmEdit::on_actionOuvrir_triggered(){
     open(QFileDialog::getOpenFileName(this, QString(), QString(), tr("Qcm (*.qcm)")));
 }
 void QcmEdit::on_actionQuitter_triggered(){
-    qApp->quit();
+    //qApp->quit();
 }
 bool QcmEdit::save(Project *project){
 
     std::ofstream saving(project->empla().toStdString().c_str(), std::ios::out | std::ios::binary);
-    std::cout << project->empla().toStdString() << std::endl;
     if(saving.is_open()){
         saving.write("<PjName>", 8);
         saving.write(project->name().toStdString().c_str(), project->name().size());
