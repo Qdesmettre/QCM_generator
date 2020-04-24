@@ -5,7 +5,9 @@
 #include <fstream>
 #include <QMessageBox>
 #include <QFileDialog>
+#include <QMimeData>
 #include <iostream>
+
 QString QcmEdit::nameOf(QString path){
     QString name;
     while(path.back() != "/" && path.back() != "\\"){
@@ -28,18 +30,28 @@ QcmEdit::QcmEdit(QWidget *parent) :
 {
     initAttributes();
     ui->setupUi(this);
-    setAcceptDrops(true);
-
     setCentralWidget(m_wait);
-
     setWindowTitle(tr("Qcm Maker"));
-
     m_wait->setAlignment(Qt::AlignCenter);
-    m_wait->setAcceptDrops(true);
-    m_Gprojects->setAcceptDrops(true);
+    setAcceptDrops(true);
 
     QObject::connect(ui->actionNouveau_QCM, SIGNAL(triggered()), this, SLOT(nouveau()));
 }
+void QcmEdit::dragEnterEvent(QDragEnterEvent *event){
+    if(event->mimeData()->hasUrls()){
+        event->acceptProposedAction();
+    }
+}
+void QcmEdit::dropEvent(QDropEvent *event){
+    if(event->mimeData()->urls().isEmpty() || event->mimeData()->urls().first().toLocalFile().isEmpty())
+        return;
+    else if(QFileInfo(event->mimeData()->urls().first().toLocalFile()).suffix() != "qcm"){
+        QMessageBox::critical(this, tr("Erreur"), event->mimeData()->urls().first().toLocalFile()+tr(" n'est pas un fichier supporté. \n Ne sont supportés que les fichiers .qcm."));
+    }
+    else
+        open(event->mimeData()->urls().first().toLocalFile());
+}
+
 void QcmEdit::open(const QString &empla){
     std::ifstream open(empla.toStdString().c_str()
                        , std::ios::in | std::ios::binary);
@@ -97,7 +109,10 @@ void QcmEdit::open(const QString &empla){
         if(ok) m_projects.back()->setQuestions(questions);
 
         m_Gprojects->addTab(m_projects.back(), Pname+".qcm");
-        if(centralWidget() == m_wait) setCentralWidget(m_Gprojects);
+        if(centralWidget() == m_wait){
+            setCentralWidget(m_Gprojects);
+        }
+
         QMessageBox::information(this, tr("Ouverture réussie"), tr("Ouverture de ")+Pname+tr(" réussie."));
     }
     else QMessageBox::critical(this, tr("Erreur"), tr("Erreur lors de l'ouverture de")+empla);

@@ -5,6 +5,9 @@
 #include <QTabWidget>
 #include <QLabel>
 #include "project.h"
+#include <QDragLeaveEvent>
+#include <QDragEnterEvent>
+#include <QDropEvent>
 namespace Ui {
 class QcmEdit;
 }
@@ -28,6 +31,10 @@ private slots:
     void on_actionEnregistrer_sous_triggered();
     void on_actionOuvrir_triggered();
     void on_actionQuitter_triggered();
+
+protected:
+    void dragEnterEvent(QDragEnterEvent *event) override;
+    void dropEvent(QDropEvent *event) override;
 
 
 private:
