@@ -63,7 +63,24 @@ void Question::add(){
 }
 void Question::del(){
     m_layout->removeRow(m_choices.back()->layout());
+    //delete m_choices.back();
     m_choices.pop_back();
     if(m_choices.size() == 0) m_del->setEnabled(false);
 }
+Question::~Question(){
+    while(m_choices.size() != 0){
+        delete m_choices.back();
+        m_choices.pop_back();
+    }
+    delete m_num;
+    delete m_name;
+    delete m_layout;
+    delete m_container;
+    delete m_sa;
 
+    delete m_del;
+    delete m_add;
+    delete m_optLay;
+
+    delete m_mainLayout;
+}
