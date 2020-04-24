@@ -92,6 +92,9 @@
    <property name="text">
     <string>Enregistrer sous...</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+Alt+S</string>
+   </property>
   </action>
   <action name="actionTout_enregistrer">
    <property name="text">
@@ -105,10 +108,16 @@
    <property name="text">
     <string>Fermer </string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+W</string>
+   </property>
   </action>
   <action name="actionTout_fermer">
    <property name="text">
     <string>Tout fermer</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+W</string>
    </property>
   </action>
   <action name="actionD_connexion">

@@ -135,13 +135,15 @@ void QcmEdit::nouveau(){
     }
 }
 void QcmEdit::on_actionFermer_triggered(){
-    std::vector<Project*>::iterator it(m_projects.begin());
-    for(int i(0); i<m_Gprojects->currentIndex(); i++){
-        it++;
-    }
-    m_projects.erase(it);
+    if(m_Gprojects->count() > 0 && m_projects.size() > 0){
+        std::vector<Project*>::iterator it(m_projects.begin());
+        for(int i(0); i<m_Gprojects->currentIndex(); i++){
+            it++;
+        }
+        m_projects.erase(it);
 
-    m_Gprojects->removeTab(m_Gprojects->currentIndex());
+        m_Gprojects->removeTab(m_Gprojects->currentIndex());
+    }
 }
 void QcmEdit::on_actionTout_fermer_triggered(){
     while(m_projects.size() != 0){
