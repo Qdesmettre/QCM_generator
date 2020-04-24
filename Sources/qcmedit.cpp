@@ -36,6 +36,69 @@ QcmEdit::QcmEdit(QWidget *parent) :
 
     QObject::connect(ui->actionNouveau_QCM, SIGNAL(triggered()), this, SLOT(nouveau()));
 }
+void QcmEdit::open(const QString &empla){
+    std::ifstream open(empla.toStdString().c_str()
+                       , std::ios::in | std::ios::binary);
+    if(open.is_open()){
+        // Le nom du projet
+        QString Pname = "";
+
+        // Les questions
+        std::vector<Question*> questions;
+
+        std::string ligne;
+        unsigned indexQ = 0;
+        bool ok = false;
+
+        // On va récupérer le nom du projet ainsi que les questions et leur réponses
+        while(getline(open, ligne)){
+            switch (ligne[1]) {
+            case 'P':
+                for(unsigned i(8); ligne[i] != '<' && ligne[i+1] != '!' && ligne[i+2] != 'P'; i++){
+                    Pname += ligne[i];
+                }
+                break;
+            // Une nouvelle question est demandée
+            case 'q':
+                ok= true;
+                std::vector<Choice*> choices;
+                // On récupère l'intitulé de la question
+                QString qname = "";
+                for(unsigned i(6); i<ligne.size(); i++){
+                    qname += ligne[i];
+                }
+
+
+                // On récupère l'intitulé des choix
+                char indexA = 0;
+                while(getline(open, ligne) && ligne != "<!ques>"){
+                    bool ok = ligne[9]=='T';
+                    QString name = "";
+                    for(unsigned i(14); from(i, i+6, ligne) != "<!ans>"; i++){
+                        name+=ligne[i];
+                    }
+                    indexA++;
+                    choices.push_back(new Choice(name, indexA, ok));
+                }
+
+                // Et on rajoute une question au vector :
+                indexQ++;
+                questions.push_back(new Question(nullptr, qname, choices.size(), indexQ));
+                // On attribut les choix trouvés
+                questions.back()->setChoices(choices);
+                break;
+            }
+        }
+        m_projects.push_back(new Project(empla, Pname));
+        std::cout << m_projects.back()->empla().toStdString() << std::endl;
+        if(ok) m_projects.back()->setQuestions(questions);
+
+        m_Gprojects->addTab(m_projects.back(), Pname+".qcm");
+        if(centralWidget() == m_wait) setCentralWidget(m_Gprojects);
+        QMessageBox::information(this, tr("Ouverture réussie"), tr("Ouverture de ")+Pname+tr(" réussie."));
+    }
+    else QMessageBox::critical(this, tr("Erreur"), tr("Erreur lors de l'ouverture de")+empla);
+}
 void QcmEdit::initAttributes(){
 
     m_Gprojects = new QTabWidget;
@@ -100,69 +163,7 @@ void QcmEdit::on_actionTout_enregistrer_triggered(){
     if(m_Gprojects->count() != 0 && ok) QMessageBox::information(this, tr("Enregistrements terminés"), tr("Tous les projets ont bien été enregistrés."));
 }
 void QcmEdit::on_actionOuvrir_triggered(){
-    // Ouverture du fichier
-    QString empla = QFileDialog::getOpenFileName(this, QString(), QString(), tr("Qcm (*.qcm)"));
-    std::ifstream open(empla.toStdString().c_str()
-                       , std::ios::in | std::ios::binary);
-    if(open.is_open()){
-        // Le nom du projet
-        QString Pname = "";
-
-        // Les questions
-        std::vector<Question*> questions;
-
-        std::string ligne;
-        unsigned indexQ = 0;
-        bool ok = false;
-
-        // On va récupérer le nom du projet ainsi que les questions et leur réponses
-        while(getline(open, ligne)){
-            switch (ligne[1]) {
-            case 'P':
-                for(unsigned i(8); ligne[i] != '<' && ligne[i+1] != '!' && ligne[i+2] != 'P'; i++){
-                    Pname += ligne[i];
-                }
-                break;
-            // Une nouvelle question est demandée
-            case 'q':
-                ok= true;
-                std::vector<Choice*> choices;
-                // On récupère l'intitulé de la question
-                QString qname = "";
-                for(unsigned i(6); i<ligne.size(); i++){
-                    qname += ligne[i];
-                }
-
-
-                // On récupère l'intitulé des choix
-                char indexA = 0;
-                while(getline(open, ligne) && ligne != "<!ques>"){
-                    bool ok = ligne[9]=='T';
-                    QString name = "";
-                    for(unsigned i(14); from(i, i+6, ligne) != "<!ans>"; i++){
-                        name+=ligne[i];
-                    }
-                    indexA++;
-                    choices.push_back(new Choice(name, indexA, ok));
-                }
-
-                // Et on rajoute une question au vector :
-                indexQ++;
-                questions.push_back(new Question(nullptr, qname, choices.size(), indexQ));
-                // On attribut les choix trouvés
-                questions.back()->setChoices(choices);
-                break;
-            }
-        }
-        m_projects.push_back(new Project(empla, Pname));
-        std::cout << m_projects.back()->empla().toStdString() << std::endl;
-        if(ok) m_projects.back()->setQuestions(questions);
-
-        m_Gprojects->addTab(m_projects.back(), Pname+".qcm");
-        if(centralWidget() == m_wait) setCentralWidget(m_Gprojects);
-        QMessageBox::information(this, tr("Ouverture réussie"), tr("Ouverture de ")+Pname+tr(" réussie."));
-    }
-    else QMessageBox::critical(this, tr("Erreur"), tr("Erreur lors de l'ouverture de")+empla);
+    open(QFileDialog::getOpenFileName(this, QString(), QString(), tr("Qcm (*.qcm)")));
 }
 void QcmEdit::on_actionQuitter_triggered(){
     qApp->quit();

@@ -16,8 +16,9 @@ class QcmEdit : public QMainWindow
 public:
     explicit QcmEdit(QWidget *parent = nullptr);
     ~QcmEdit();
+    void open(QString const& empla);
 
-public slots:
+private slots:
     void nouveau();
     void on_actionFermer_triggered();
     void on_actionTout_fermer_triggered();
