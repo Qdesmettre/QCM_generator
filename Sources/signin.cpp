@@ -10,6 +10,7 @@ SignIn::SignIn(QWidget *parent) :
     ui->setupUi(this);
     setFixedSize(sizeHint());
     setWindowTitle(tr("Inscription"));
+
 }
 void SignIn::on_cancel_clicked(){
     QMessageBox::StandardButton choice =
