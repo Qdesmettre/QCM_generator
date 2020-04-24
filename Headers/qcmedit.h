@@ -18,7 +18,7 @@ class QcmEdit : public QMainWindow
 
 public:
     explicit QcmEdit(QWidget *parent = nullptr);
-    ~QcmEdit();
+    ~QcmEdit() override;
     void open(QString const& empla);
     static std::string from(unsigned beg, unsigned const& end, std::string const& l);
 

@@ -91,14 +91,12 @@ void Project::add(){
     m_del->setEnabled(true);
 }
 void Project::del(){
-    //m_layout->removeWidget(m_questions.back());
     delete m_questions.back();
     m_questions.pop_back();
     if(m_questions.size() == 0) m_del->setEnabled(false);
     else replace();
 }
 Project::~Project(){
-
     delete m_mainLay;
     delete m_optLay;
     for(unsigned i(0); i<m_questions.size(); i++){

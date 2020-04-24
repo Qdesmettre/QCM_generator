@@ -31,7 +31,7 @@ QcmEdit::QcmEdit(QWidget *parent) :
     initAttributes();
     ui->setupUi(this);
     setCentralWidget(m_wait);
-    setWindowTitle(tr("Qcm Maker"));
+    setWindowTitle(tr("Qcm Maker", "This is the name of the application"));
     m_wait->setAlignment(Qt::AlignCenter);
     setAcceptDrops(true);
 
@@ -46,7 +46,7 @@ void QcmEdit::dropEvent(QDropEvent *event){
     if(event->mimeData()->urls().isEmpty() || event->mimeData()->urls().first().toLocalFile().isEmpty())
         return;
     else if(QFileInfo(event->mimeData()->urls().first().toLocalFile()).suffix() != "qcm"){
-        QMessageBox::critical(this, tr("Erreur"), event->mimeData()->urls().first().toLocalFile()+tr(" n'est pas un fichier supporté. \n Ne sont supportés que les fichiers .qcm."));
+        QMessageBox::critical(this, tr("Erreur"), event->mimeData()->urls().first().toLocalFile()+tr(" n'est pas un fichier supporté. \n Ne sont supportés que les fichiers .qcm.", "Just before, the path of the unsuported file is specified"));
     }
     else
         open(event->mimeData()->urls().first().toLocalFile());
@@ -113,14 +113,14 @@ void QcmEdit::open(const QString &empla){
             setCentralWidget(m_Gprojects);
         }
 
-        QMessageBox::information(this, tr("Ouverture réussie"), tr("Ouverture de ")+Pname+tr(" réussie."));
+        QMessageBox::information(this, tr("Ouverture réussie"), tr("Ouverture du projet ", "Just after, will be the project name")+Pname+tr(" réussie.", "Just before, there's the project name"));
     }
-    else QMessageBox::critical(this, tr("Erreur"), tr("Erreur lors de l'ouverture de")+empla);
+    else QMessageBox::critical(this, tr("Erreur"), tr("Erreur lors de l'ouverture de ", "Just after, there's the project path")+empla);
 }
 void QcmEdit::initAttributes(){
 
     m_Gprojects = new QTabWidget;
-    m_wait = new QLabel(tr("\n Pour commencer un nouveau projet, appuyez sur Ctrl+N  \n Ou pour en ouvrir un, appuyez sur Ctrl+O."));
+    m_wait = new QLabel(tr("\n Pour commencer un nouveau projet, appuyez sur Ctrl+N  \n Ou pour en ouvrir un, appuyez sur Ctrl+O.", "This is the home message"));
 }
 void QcmEdit::nouveau(){
     ProjectAssist a;
@@ -151,7 +151,7 @@ void QcmEdit::on_actionTout_fermer_triggered(){
 }
 void QcmEdit::on_actionEnregistrer_triggered(){
     if(m_Gprojects->count() > 0 && save(m_projects.at(m_Gprojects->currentIndex()))){
-        QString done(tr("Enregistrement du projet "));
+        QString done(tr("Enregistrement du projet ", "There is the project name just after"));
         done.append(m_projects.at(m_Gprojects->currentIndex())->name()+tr(" réussi"));
         QMessageBox::information(this, tr("Enregistrement terminé"), done);
     }
@@ -217,8 +217,7 @@ bool QcmEdit::save(Project *project){
     }
 }
 QcmEdit::~QcmEdit()
-{
-    delete ui;    
+{   delete ui;
     delete m_Gprojects;
     for(unsigned i(0); i<m_projects.size(); i++){
         delete m_projects.back();
@@ -226,4 +225,3 @@ QcmEdit::~QcmEdit()
     }
     delete m_wait;
 }
-//195+

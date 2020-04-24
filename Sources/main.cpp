@@ -19,8 +19,5 @@ int main(int argc, char **argv){
             mainW.open(argv[i]);
         else QMessageBox::critical(&mainW, QObject::tr("Erreur"), QObject::tr("Impossible d'ouvrir ")+argv[i]);
     }
-
-
-
     return app.exec();
 }

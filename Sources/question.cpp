@@ -20,8 +20,8 @@ QWidget(parent)
     }
     m_container->setLayout(m_layout);
 
-    m_add = new QPushButton("+");
-    m_del = new QPushButton("-");
+    m_add = new QPushButton(tr("+"));
+    m_del = new QPushButton(tr("-"));
 
     m_optLay = new QHBoxLayout;
     m_optLay->addWidget(m_add);
