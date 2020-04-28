@@ -1,6 +1,6 @@
 #include "Headers\project.h"
 #include <QTimer>
-
+#include <iostream>
 Project::Project(QString empla, QString name, QWidget *parent) : QWidget(parent)
 {
     m_name = name;
@@ -22,8 +22,10 @@ void Project::setQuestions(const std::vector<Question *> &questions){
         m_questions.pop_back();
     }
     m_questions = questions;
+    for(unsigned i(0); i<m_questions.size(); i++){
+        connect(m_questions[i], SIGNAL(destroyed(int)), this, SLOT(rename(int)));
+    }
     replace();
-    m_del->setEnabled(true);
 }
 QString Project::empla(){
     // Le chemin complet est spécifié vers un fichier précis
@@ -49,10 +51,7 @@ void Project::initAttrib(){
     m_optLay = new QHBoxLayout;
     m_sa = new QScrollArea;
     m_add = new QPushButton("+");
-    m_del = new QPushButton("-");
-        m_del->setEnabled(false);
     m_optLay->addWidget(m_add);
-    m_optLay->addWidget(m_del);
     m_optLay->setAlignment(Qt::AlignLeft);
 
     m_layout = new QGridLayout;
@@ -70,7 +69,6 @@ std::vector<Question*> Project::questions(){
 }
 void Project::initConnect(){
     QObject::connect(m_add, SIGNAL(clicked()), this, SLOT(add()));
-    QObject::connect(m_del, SIGNAL(clicked()), this, SLOT(del()));
 }
 void Project::replace(){
     // On enlève tous les éléments du layout
@@ -85,27 +83,33 @@ void Project::replace(){
 }
 void Project::add(){
     m_questions.push_back(new Question(nullptr, "", 4, m_questions.size()+1));
+    connect(m_questions.back(), SIGNAL(destroyed(int)), this, SLOT(rename(int)));
 
     replace();
-
-    m_del->setEnabled(true);
 }
-void Project::del(){
-    delete m_questions.back();
-    m_questions.pop_back();
-    if(m_questions.size() == 0) m_del->setEnabled(false);
-    else replace();
+void Project::rename(int const& n){
+    std::vector<Question*>::iterator it;
+    it = m_questions.begin();
+    for(int i(0); i<n; i++){
+        it++;
+    }
+    m_questions.erase(it);
+
+    for(unsigned i(0); i<m_questions.size(); i++){
+        m_questions[i]->setNum(uchar(i+49));
+    }
+    replace();
 }
 Project::~Project(){
-    delete m_mainLay;
-    delete m_optLay;
-    for(unsigned i(0); i<m_questions.size(); i++){
+    while(m_questions.size() != 0){
         delete m_questions.back();
         m_questions.pop_back();
     }
-    delete m_add;
-    delete m_del;
     delete m_layout;
     delete m_container;
     delete m_sa;
+    delete m_add;
+    delete m_optLay;
+    delete m_mainLay;
 }
+

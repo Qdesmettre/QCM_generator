@@ -24,8 +24,8 @@ public:
 
 public slots:
     void add();
-    void del();
     void replace();
+    void rename(int const& n);
     /*void generate();
     void save();*/
 
@@ -38,10 +38,16 @@ private:
     QVBoxLayout *m_mainLay;
     QHBoxLayout *m_optLay;
     std::vector<Question*> m_questions;
-    QPushButton *m_add, *m_del;
+    QPushButton *m_add;
     QGridLayout *m_layout;
     QWidget *m_container;
     QScrollArea *m_sa;
+
+    // m_mainLay contient m_sa+m_optLay
+    //  m_optLay contient m_add+m_del
+    //  m_sa contient m_container
+    //      m_container contient m_layout
+    //          m_layout contient m_questions
 
     QString m_empla, m_name;
 };

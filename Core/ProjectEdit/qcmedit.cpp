@@ -6,7 +6,6 @@
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QMimeData>
-#include <iostream>
 
 QString QcmEdit::nameOf(QString path){
     QString name;
@@ -53,6 +52,7 @@ void QcmEdit::dropEvent(QDropEvent *event){
 }
 
 void QcmEdit::open(const QString &empla){
+
     std::ifstream open(empla.toStdString().c_str()
                        , std::ios::in | std::ios::binary);
     if(open.is_open()){
@@ -186,7 +186,7 @@ void QcmEdit::on_actionOuvrir_triggered(){
     open(QFileDialog::getOpenFileName(this, QString(), QString(), tr("Qcm (*.qcm)")));
 }
 void QcmEdit::on_actionQuitter_triggered(){
-    //qApp->quit();
+    qApp->quit();
 }
 bool QcmEdit::save(Project *project){
 
@@ -219,11 +219,11 @@ bool QcmEdit::save(Project *project){
     }
 }
 QcmEdit::~QcmEdit()
-{   delete ui;
-    delete m_Gprojects;
-    for(unsigned i(0); i<m_projects.size(); i++){
+{
+    delete ui;
+    while(m_projects.size() != 0){
         delete m_projects.back();
         m_projects.pop_back();
     }
-    delete m_wait;
+    delete m_Gprojects;
 }
