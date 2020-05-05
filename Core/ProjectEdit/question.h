@@ -15,10 +15,9 @@ class Question : public QWidget
 
 public:
     Question(QWidget *parent = nullptr, const QString &name = "", const unsigned &choices = 4, const unsigned &index = 1);
-    virtual ~Question();
-    std::vector<Choice*> choices() const;
+    std::vector<Choice> choices() const;
     std::string name() const;
-    void setChoices(std::vector<Choice*> const& choices);
+    void setChoices(std::vector<Choice> const& choices);
     void setNum(uchar const& n);
 public slots:
     void add();
@@ -31,18 +30,18 @@ signals:
 private:
     void initConnections();
 
-    QPushButton *m_delete;
+    QPushButton m_delete;
 
-    std::vector<Choice*> m_choices;
-    QLabel *m_num;
-    QLineEdit *m_name;
+    std::vector<Choice> m_choices;
+    QLabel m_num;
+    QLineEdit m_name;
 
-    QFormLayout *m_layout;
-    QHBoxLayout *m_optLay;
-    QPushButton *m_add;
-    QScrollArea *m_sa;
-    QWidget *m_container;
-    QVBoxLayout *m_mainLayout;
+    QFormLayout m_layout;
+    QHBoxLayout m_optLay;
+    QPushButton m_add;
+    QScrollArea m_sa;
+    QWidget m_container;
+    QVBoxLayout m_mainLayout;
 
     // Mainlayout contient m_sa+m_optLay;
     //      m_optLay contient m_add
