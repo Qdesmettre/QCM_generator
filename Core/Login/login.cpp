@@ -1,9 +1,8 @@
-#include "Headers\login.h"
+#include "login.h"
 #include "ui_login.h"
-#include "Headers/signin.h"
+#include "signin.h"
 #include <QMessageBox>
-#include "Headers/pwdforgot.h"
-#include "Headers/qcmedit.h"
+#include "pwdforgot.h"
 LogIn::LogIn(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::LogIn)
@@ -18,9 +17,8 @@ void LogIn::on_signin_clicked(){
 }
 void LogIn::on_login_clicked(){
     // Load the main window
-    QMessageBox::information(this, "réussi", "connexion réussie");
-    QcmEdit *a = new QcmEdit;
-    a->show();
+    QMessageBox::information(this, tr("Réussi"), tr("Connexion réussie"));
+    emit connected();
     close();
 }
 void LogIn::on_pwdForgot_clicked(){

@@ -1,7 +1,7 @@
-#include "Headers\qcmedit.h"
+#include "qcmedit.h"
 #include "ui_qcmedit.h"
 #include <QVBoxLayout>
-#include "Headers/projectassist.h"
+#include "projectassist.h"
 #include <fstream>
 #include <QMessageBox>
 #include <QFileDialog>
@@ -52,6 +52,8 @@ void QcmEdit::dropEvent(QDropEvent *event){
 }
 
 void QcmEdit::open(const QString &empla){
+    if(empla.isEmpty())
+        return;
 
     std::ifstream open(empla.toStdString().c_str()
                        , std::ios::in | std::ios::binary);

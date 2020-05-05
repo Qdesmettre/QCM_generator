@@ -22,6 +22,9 @@ public slots:
     void on_seePwd_pressed();
     void on_seePwd_released();
 
+signals:
+    void connected();
+
 
 private:
 

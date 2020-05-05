@@ -1,4 +1,4 @@
-#include "Headers\projectassist.h"
+#include "projectassist.h"
 #include "ui_projectassist.h"
 #include <QFileDialog>
 #include <dirent.h>

@@ -1,4 +1,4 @@
-#include "Headers\choice.h"
+#include "choice.h"
 
 Choice::Choice(const QString &name, const char &num, const bool &isCorrect, QWidget *parent):
     QWidget(parent)

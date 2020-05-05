@@ -1,4 +1,4 @@
-#include "Headers\pwdforgot.h"
+#include "pwdforgot.h"
 
 #include <QVBoxLayout>
 

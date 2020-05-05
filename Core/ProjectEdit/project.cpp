@@ -1,5 +1,4 @@
-#include "Headers\project.h"
-#include <QTimer>
+#include "project.h"
 #include <iostream>
 Project::Project(QString empla, QString name, QWidget *parent) : QWidget(parent)
 {

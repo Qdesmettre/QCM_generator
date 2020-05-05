@@ -1,4 +1,4 @@
-#include "Headers\question.h"
+#include "question.h"
 #include <iostream>
 Question::Question(QWidget *parent, const QString &name, const unsigned &choices, const unsigned &index) :
 QWidget(parent)
