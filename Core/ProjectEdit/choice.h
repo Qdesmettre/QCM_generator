@@ -16,7 +16,7 @@ public:
     unsigned char num() const;
     bool isCorrect() const;
 
-    void setNum(unsigned char n);
+    void setNum(unsigned char const& n);
 
 public slots:
     void del();
