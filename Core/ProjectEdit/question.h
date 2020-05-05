@@ -2,10 +2,8 @@
 #define QUESTION_H
 
 #include <vector>
-#include <QLineEdit>
 #include <QFormLayout>
 #include <QString>
-#include <QPushButton>
 #include "choice.h"
 #include <QScrollArea>
 
@@ -14,11 +12,15 @@ class Question : public QWidget
     Q_OBJECT
 
 public:
-    Question(QWidget *parent = nullptr, const QString &name = "", const unsigned &choices = 4, const unsigned &index = 1);
+    explicit Question(QWidget *parent = nullptr, const QString &name = "", const unsigned &choices = 4, const unsigned &index = 1);
+    Question(const Question& q);
+    ~Question() override;
     std::vector<Choice> choices() const;
     std::string name() const;
     void setChoices(std::vector<Choice> const& choices);
     void setNum(uchar const& n);
+
+    void operator=(const Question &q);
 public slots:
     void add();
     void del();

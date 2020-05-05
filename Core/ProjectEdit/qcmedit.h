@@ -38,15 +38,15 @@ protected:
 
 
 private:
-    bool save(Project *project);
+    bool save(Project const& project);
     void initAttributes();
-    static QString nameOf(QString path);
+    static QString nameOf(const QString &path);
 
-    QTabWidget *m_Gprojects;
+    QTabWidget m_Gprojects;
 
-    std::vector<Project*> m_projects;
+    std::vector<Project> m_projects;
 
-    QLabel *m_wait;
+    QLabel m_wait;
     Ui::QcmEdit *ui;
 };
 

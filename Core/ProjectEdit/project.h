@@ -1,10 +1,7 @@
 #ifndef PROJECT_H
 #define PROJECT_H
 
-#include <QScrollArea>
-#include <QPushButton>
 #include <QGridLayout>
-#include <vector>
 #include "question.h"
 
 class Project : public QWidget
@@ -12,14 +9,18 @@ class Project : public QWidget
     Q_OBJECT
 public:
     explicit Project(QString empla, QString name, QWidget *parent = nullptr);
+    Project(const Project& p);
+    ~Project() override;
     std::vector<Question> questions() const;
 
-    QString empla() const;
+    QString empla()const;
     QString name()const;
 
     void setQuestions(std::vector<Question> const& questions);
     void setEmpla(QString const& n);
     void setName(QString const& n);
+
+    void operator=(const Project& p);
 
 public slots:
     void add();
