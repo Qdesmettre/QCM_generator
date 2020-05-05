@@ -23,7 +23,7 @@ QWidget(parent)
     for(unsigned i(0); i<choices; i++){
         m_choices.push_back(new Choice("", i+1));
         QObject::connect(m_choices.back(), SIGNAL(destroyed(int)), this, SLOT(rename(int)));
-        m_layout->addRow(m_choices[i]->layout());
+        m_layout->addRow(m_choices[i]);
     }
     m_container->setLayout(m_layout);
 
@@ -62,7 +62,7 @@ void Question::setChoices(std::vector<Choice *> const& choices){
     }
     m_choices = choices;
     for(unsigned i(0); i<m_choices.size(); i++){
-        m_layout->addRow(m_choices[i]->layout());
+        m_layout->addRow(m_choices[i]);
         connect(m_choices[i], SIGNAL(destroyed(int)), this, SLOT(rename(int)));
     }
 }
@@ -78,7 +78,7 @@ void Question::initConnections(){
 void Question::add(){
     m_choices.push_back(new Choice("", m_choices.size()+1));
     QObject::connect(m_choices.back(), SIGNAL(destroyed(int)), this, SLOT(rename(int)));
-    m_layout->addRow(m_choices.back()->layout());
+    m_layout->addRow(m_choices.back());
 }
 void Question::del(){
     emit destroyed(int(m_num->text().toStdString()[0])-49);
