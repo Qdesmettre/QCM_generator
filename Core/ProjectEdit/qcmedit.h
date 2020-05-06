@@ -8,6 +8,7 @@
 #include <QDragLeaveEvent>
 #include <QDragEnterEvent>
 #include <QDropEvent>
+#include <QTime>
 namespace Ui {
 class QcmEdit;
 }
@@ -49,6 +50,8 @@ private:
 
     QLabel *m_wait;
     Ui::QcmEdit *ui;
+
+    QTime m_timer;
 };
 
 #endif // QCMEDIT_H

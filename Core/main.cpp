@@ -10,7 +10,7 @@ int main(int argc, char **argv){
 
     QcmEdit mainW;
     // Au cas où plusieurs fichier sont à ouvrir
-    for(int i(1); i<argc; i++){
+    /*for(int i(1); i<argc; i++){
         QString empla = argv[i];
         if(empla.back() == "m" &&
                 empla[empla.size()-2] == "c" &&
@@ -19,7 +19,7 @@ int main(int argc, char **argv){
 
             mainW.open(argv[i]);
         else QMessageBox::critical(&mainW, QObject::tr("Erreur"), QObject::tr("Impossible d'ouvrir ")+argv[i]);
-    }
+    }*/
 
 
     QObject::connect(&start, SIGNAL(connected()), &mainW, SLOT(show()));
