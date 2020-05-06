@@ -50,7 +50,11 @@ void QcmEdit::dropEvent(QDropEvent *event){
     else
         open(event->mimeData()->urls().first().toLocalFile());
 }
-
+void QcmEdit::resizeEvent(QResizeEvent *resize){
+    for(unsigned i(0); i<m_projects.size(); i++){
+        m_projects[i]->replace();
+    }
+}
 void QcmEdit::open(const QString &empla){
     if(empla.isEmpty())
         return;

@@ -74,25 +74,22 @@ void Project::replace(){
     for(int i(0); i<m_layout->count(); i++){
         m_layout->removeItem(m_layout->takeAt(i));
     }
+    if(m_questions.size() > 0){
     // On calcule le max de widget par ligne
-    int nb = m_container->size().width() / m_questions.back()->sizeHint().width();
-    for(unsigned i(0); i<m_questions.size(); i++){
-        m_layout->addWidget(m_questions[i], i/nb, i%nb);
+        int nb = m_container->size().width() / m_questions.back()->sizeHint().width();
+        if(nb == 0) nb++;
+        for(unsigned i(0); i<m_questions.size(); i++){
+            m_layout->addWidget(m_questions[i], i/nb, i%nb);
+        }
     }
 }
 void Project::add(){
     m_questions.push_back(new Question(nullptr, "", 4, m_questions.size()+1));
     connect(m_questions.back(), SIGNAL(destroyed(int)), this, SLOT(rename(int)));
-
     replace();
 }
 void Project::rename(int const& n){
-    std::vector<Question*>::iterator it;
-    it = m_questions.begin();
-    for(int i(0); i<n; i++){
-        it++;
-    }
-    m_questions.erase(it);
+    m_questions.erase(m_questions.begin()+n);
 
     for(unsigned i(0); i<m_questions.size(); i++){
         m_questions[i]->setNum(uchar(i+49));
