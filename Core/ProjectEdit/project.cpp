@@ -14,34 +14,28 @@ Project::Project(QString empla, QString name, QWidget *parent) : QWidget(parent)
     initAttrib();
     initConnect();
 }
-Project::Project(const Project& p)// : QWidget(nullptr)
+Project::Project(const Project& p) : QWidget(nullptr)
 {
-    /*m_name = p.m_name;
-    // Le chemin complet est spécifié vers un fichier précis
-    if((QString(p.m_name[p.m_name.size()-1])+p.m_name[p.m_name.size()-2]+
-         p.m_name[p.m_name.size()-3]+p.m_name[p.m_name.size()-4]) == "mcq.") m_name = p.m_name;
-    // Un chemin vers un dossier spécifié, mais sans slash au bout
-    else if(p.m_name.back() == "/" ||p.m_name.back() == "\\")
-        m_empla = p.m_name+"/";
-    // Un chemin vers un dossier bien spécifié
-    else m_empla = p.m_name;
-
-    initAttrib();
-    initConnect();*/
+    operator=(p);
 }
 void Project::operator=(const Project &p){
-    /*m_name = p.m_name;
+    m_name = p.m_name;
     // Le chemin complet est spécifié vers un fichier précis
-    if((QString(p.m_name[p.m_name.size()-1])+p.m_name[p.m_name.size()-2]+
+    /*if((QString(p.m_name[p.m_name.size()-1])+p.m_name[p.m_name.size()-2]+
          p.m_name[p.m_name.size()-3]+p.m_name[p.m_name.size()-4]) == "mcq.") m_name = p.m_name;
     // Un chemin vers un dossier spécifié, mais sans slash au bout
     else if(p.m_name.back() == "/" ||p.m_name.back() == "\\")
         m_empla = p.m_name+"/";
     // Un chemin vers un dossier bien spécifié
-    else m_empla = p.m_name;
+    else m_empla = p.m_name;*/
 
+    m_questions.clear();
+    for(unsigned i(0); i<p.m_questions.size(); i++){
+        m_questions.push_back(p.m_questions[i]);
+        connect(&m_questions.back(), SIGNAL(destroyed(int)), this, SLOT(rename(int)));
+    }
     initAttrib();
-    initConnect();*/
+    initConnect();
 }
 
 void Project::setQuestions(const std::vector<Question> &questions){

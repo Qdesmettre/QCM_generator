@@ -31,8 +31,8 @@ signals:
 
 private:
     void initConnections();
-
-    QPushButton m_delete;
+    void initBaseAttrib();
+    void initSpeAttrib(const QString &name, const unsigned &choices, const unsigned &index);
 
     std::vector<Choice> m_choices;
     QLabel m_num;
@@ -40,7 +40,7 @@ private:
 
     QFormLayout m_layout;
     QHBoxLayout m_optLay;
-    QPushButton m_add;
+    QPushButton m_add,m_delete;
     QScrollArea m_sa;
     QWidget m_container;
     QVBoxLayout m_mainLayout;
