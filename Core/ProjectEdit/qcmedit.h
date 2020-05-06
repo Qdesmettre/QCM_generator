@@ -8,7 +8,6 @@
 #include <QDragLeaveEvent>
 #include <QDragEnterEvent>
 #include <QDropEvent>
-#include <QTime>
 namespace Ui {
 class QcmEdit;
 }
@@ -43,8 +42,6 @@ private:
     bool save(Project *project);
     void initAttributes();
     static QString nameOf(QString path);
-
-    QTime timer;
 
     QTabWidget *m_Gprojects;
 
