@@ -1,11 +1,12 @@
 #include "question.h"
+#include <iostream>
 Question::Question(QWidget *parent, const QString &name, const unsigned &choices, const unsigned &index) :
 QWidget(parent)
 {
     m_sa.setWidget(&m_container);
     m_sa.setWidgetResizable(true);
 
-    QHBoxLayout temp;
+        QHBoxLayout temp;
         m_delete.setText("x");
         m_num.setText(QString().setNum(index)+"/");
         m_name.setText(name);
@@ -13,7 +14,7 @@ QWidget(parent)
         temp.addWidget(&m_name);
         temp.addWidget(&m_delete);
         connect(&m_delete, SIGNAL(clicked()), this, SLOT(del()));
-    m_layout.addRow(&temp);
+        m_layout.addRow(&temp);
 
     for(unsigned i(0); i<choices; i++){
         m_choices.push_back(Choice("", i+1));
@@ -33,72 +34,6 @@ QWidget(parent)
     setLayout(&m_mainLayout);
 
     initConnections();
-}
-Question::Question(const Question& q) //: QWidget(nullptr)
-{
-    /*m_sa.setWidget(&m_container);
-    m_sa.setWidgetResizable(true);
-    QHBoxLayout temp;
-        m_delete.setText("x");
-        m_num.setText(q.m_num.text());
-        m_name.setText(q.m_name.text());
-        temp.addWidget(&m_num);
-        temp.addWidget(&m_name);
-        temp.addWidget(&m_delete);
-        connect(&m_delete, SIGNAL(clicked()), this, SLOT(del()));
-    m_layout.addRow(&temp);
-
-    for(unsigned i(0); i<q.m_choices.size(); i++){
-        m_choices.push_back(m_choices[i]);
-        QObject::connect(&m_choices.back(), SIGNAL(destroyed(int)), this, SLOT(rename(int)));
-        m_layout.addRow(&m_choices[i]);
-    }
-    m_container.setLayout(&m_layout);
-
-    m_add.setText(tr("+"));
-
-    m_optLay.addWidget(&m_add);
-    m_optLay.setAlignment(Qt::AlignLeft);
-
-    m_mainLayout.addWidget(&m_sa);
-    m_mainLayout.addLayout(&m_optLay);
-
-    setLayout(&m_mainLayout);
-
-    initConnections();*/
-
-}
-void Question::operator=(const Question &q){
-    /*m_sa.setWidget(&m_container);
-    m_sa.setWidgetResizable(true);
-    QHBoxLayout temp;
-        m_delete.setText("x");
-        m_num.setText(q.m_num.text());
-        m_name.setText(q.m_name.text());
-        temp.addWidget(&m_num);
-        temp.addWidget(&m_name);
-        temp.addWidget(&m_delete);
-        connect(&m_delete, SIGNAL(clicked()), this, SLOT(del()));
-    m_layout.addRow(&temp);
-
-    for(unsigned i(0); i<q.m_choices.size(); i++){
-        m_choices.push_back(m_choices[i]);
-        QObject::connect(&m_choices.back(), SIGNAL(destroyed(int)), this, SLOT(rename(int)));
-        m_layout.addRow(&m_choices[i]);
-    }
-    m_container.setLayout(&m_layout);
-
-    m_add.setText(tr("+"));
-
-    m_optLay.addWidget(&m_add);
-    m_optLay.setAlignment(Qt::AlignLeft);
-
-    m_mainLayout.addWidget(&m_sa);
-    m_mainLayout.addLayout(&m_optLay);
-
-    setLayout(&m_mainLayout);
-
-    initConnections();*/
 }
 void Question::rename(int const& n){
     std::vector<Choice>::iterator it;
@@ -140,7 +75,4 @@ void Question::add(){
 void Question::del(){
     emit destroyed(int(m_num.text().toStdString()[0])-49);
     delete this;
-}
-Question::~Question(){
-
 }
