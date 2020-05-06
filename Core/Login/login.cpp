@@ -22,8 +22,7 @@ void LogIn::on_login_clicked(){
     close();
 }
 void LogIn::on_pwdForgot_clicked(){
-    PwdForgot a;
-    a.exec();
+    PwdForgot a; a.exec();
 }
 void LogIn::on_seePwd_pressed(){
     ui->pwdLine->setEchoMode(QLineEdit::Normal);

@@ -23,7 +23,7 @@ std::string QcmEdit::from(unsigned beg, unsigned const& end, std::string const& 
     }
     return rtrn;
 }
-QcmEdit::QcmEdit(QWidget *parent) :
+QcmEdit::QcmEdit(const int &argc, QStringList const& list, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::QcmEdit)
 {
@@ -36,6 +36,17 @@ QcmEdit::QcmEdit(QWidget *parent) :
 
     QObject::connect(ui->actionNouveau_QCM, SIGNAL(triggered()), this, SLOT(nouveau()));
     m_timer.start();
+
+    m_argc = argc;
+    m_argv = list;
+}
+void QcmEdit::show(){
+    QWidget::show();
+    for(int i(1); i<m_argv.size(); i++){
+        if(QFileInfo(m_argv[i]).suffix() == "qcm")
+            open(m_argv[i]);
+        else QMessageBox::critical(this, QObject::tr("Erreur"), QObject::tr("Impossible d'ouvrir ")+m_argv[i]);
+    }
 }
 void QcmEdit::dragEnterEvent(QDragEnterEvent *event){
     if(event->mimeData()->hasUrls()){

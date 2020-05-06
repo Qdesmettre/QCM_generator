@@ -18,10 +18,13 @@ class QcmEdit : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit QcmEdit(QWidget *parent = nullptr);
+    explicit QcmEdit(int const& argc = 0, QStringList const& list = QStringList(""), QWidget *parent = nullptr);
     ~QcmEdit() override;
     void open(QString const& empla);
     static std::string from(unsigned beg, unsigned const& end, std::string const& l);
+
+public slots:
+    void show();
 
 private slots:
     void nouveau();
@@ -32,6 +35,7 @@ private slots:
     void on_actionEnregistrer_sous_triggered();
     void on_actionOuvrir_triggered();
     void on_actionQuitter_triggered();
+
 
 protected:
     void dragEnterEvent(QDragEnterEvent *event) override;
@@ -52,6 +56,9 @@ private:
     Ui::QcmEdit *ui;
 
     QTime m_timer;
+
+    int m_argc;
+    QStringList m_argv;
 };
 
 #endif // QCMEDIT_H
