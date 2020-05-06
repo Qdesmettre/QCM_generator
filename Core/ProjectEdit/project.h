@@ -12,14 +12,15 @@ class Project : public QWidget
     Q_OBJECT
 public:
     explicit Project(QString empla, QString name, QWidget *parent = nullptr);
-    std::vector<Question> questions() const;
+    ~Project();
+    std::vector<Question*> questions();
 
-    QString empla() const;
-    QString name()const;
+    QString empla();
+    QString name();
 
-    void setQuestions(std::vector<Question> const& questions);
+    void setQuestions(std::vector<Question*> const& questions);
     void setEmpla(QString const& n);
-    void setName(QString const& n);
+    void setName(QString n);
 
 public slots:
     void add();
@@ -34,13 +35,13 @@ private:
     void initAttrib();
     void initConnect();
 
-    QVBoxLayout m_mainLay;
-    QHBoxLayout m_optLay;
-    std::vector<Question> m_questions;
-    QPushButton m_add;
-    QGridLayout m_layout;
-    QWidget m_container;
-    QScrollArea m_sa;
+    QVBoxLayout *m_mainLay;
+    QHBoxLayout *m_optLay;
+    std::vector<Question*> m_questions;
+    QPushButton *m_add;
+    QGridLayout *m_layout;
+    QWidget *m_container;
+    QScrollArea *m_sa;
 
     // m_mainLay contient m_sa+m_optLay
     //  m_optLay contient m_add+m_del
