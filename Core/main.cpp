@@ -18,6 +18,7 @@ int main(int argc, char **argv){
 
 
     QObject::connect(&start, SIGNAL(connected()), &mainW, SLOT(show()));
+    QObject::connect(&mainW, SIGNAL(disconnect()), &start, SLOT(show()));
 
     start.show();
 

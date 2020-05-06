@@ -41,7 +41,7 @@
     <addaction name="actionD_connexion"/>
     <addaction name="actionQuitter"/>
    </widget>
-   <widget class="QMenu" name="menuksueg">
+   <widget class="QMenu" name="menuEdition">
     <property name="title">
      <string>Edition</string>
     </property>
@@ -50,7 +50,7 @@
     <addaction name="separator"/>
    </widget>
    <addaction name="menuFile"/>
-   <addaction name="menuksueg"/>
+   <addaction name="menuEdition"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionNouveau_QCM">

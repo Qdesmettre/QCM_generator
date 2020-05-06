@@ -208,6 +208,13 @@ void QcmEdit::on_actionOuvrir_triggered(){
 void QcmEdit::on_actionQuitter_triggered(){
     qApp->quit();
 }
+void QcmEdit::on_actionD_connexion_triggered(){
+    on_actionTout_enregistrer_triggered();
+    on_actionTout_fermer_triggered();
+    emit disconnect();
+    close();
+    QMessageBox::information(this, tr("Déconnecté"), tr("Vous avez bien été déconnecté. A bientôt !"));
+}
 bool QcmEdit::save(Project *project){
 
     std::ofstream saving(project->empla().toStdString().c_str(), std::ios::out | std::ios::binary);
