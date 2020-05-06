@@ -29,8 +29,14 @@ QcmEdit::QcmEdit(QWidget *parent) :
 {
     initAttributes();
     ui->setupUi(this);
-}
+    setCentralWidget(m_wait);
+    setWindowTitle(tr("Qcm Maker", "This is the name of the application"));
+    m_wait->setAlignment(Qt::AlignCenter);
+    setAcceptDrops(true);
 
+    QObject::connect(ui->actionNouveau_QCM, SIGNAL(triggered()), this, SLOT(nouveau()));
+    timer.start();
+}
 void QcmEdit::dragEnterEvent(QDragEnterEvent *event){
     if(event->mimeData()->hasUrls()){
         event->acceptProposedAction();
@@ -121,14 +127,9 @@ void QcmEdit::open(const QString &empla){
     else QMessageBox::critical(this, tr("Erreur"), tr("Erreur lors de l'ouverture de ", "Just after, there's the project path")+empla);
 }
 void QcmEdit::initAttributes(){
+
     m_Gprojects = new QTabWidget;
     m_wait = new QLabel(tr("\n Pour commencer un nouveau projet, appuyez sur Ctrl+N  \n Ou pour en ouvrir un, appuyez sur Ctrl+O.", "This is the home message"));
-    setCentralWidget(m_wait);
-    setWindowTitle(tr("Qcm Maker", "This is the name of the application"));
-    m_wait->setAlignment(Qt::AlignCenter);
-    setAcceptDrops(true);
-    QObject::connect(ui->actionNouveau_QCM, SIGNAL(triggered()), this, SLOT(nouveau()));
-    timer.start();
 }
 void QcmEdit::nouveau(){
     ProjectAssist a;
