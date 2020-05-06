@@ -11,14 +11,14 @@ class Choice : public QWidget
 {
     Q_OBJECT
 public:
-    explicit Choice(const QString &name = "", const uchar &num = 1, const bool &isCorrect = false, QWidget *parent = nullptr);
+    explicit Choice(const QString &name = "", const char &num = 1, const bool &isCorrect = false, QWidget *parent = nullptr);
     ~Choice() override;
     Choice(const Choice& c);
     QString name() const;
     unsigned char num() const;
     bool isCorrect() const;
 
-    void setNum(const uchar &n);
+    void setNum(unsigned char const& n);
 
     void operator=(const Choice& c);
 
