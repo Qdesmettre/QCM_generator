@@ -35,6 +35,7 @@ QcmEdit::QcmEdit(QWidget *parent) :
     setAcceptDrops(true);
 
     QObject::connect(ui->actionNouveau_QCM, SIGNAL(triggered()), this, SLOT(nouveau()));
+    timer.start();
 }
 void QcmEdit::dragEnterEvent(QDragEnterEvent *event){
     if(event->mimeData()->hasUrls()){
@@ -51,8 +52,10 @@ void QcmEdit::dropEvent(QDropEvent *event){
         open(event->mimeData()->urls().first().toLocalFile());
 }
 void QcmEdit::resizeEvent(QResizeEvent *resize){
-    for(unsigned i(0); i<m_projects.size(); i++){
-        m_projects[i]->replace();
+    if(timer.elapsed() > 500){
+        for(unsigned i(0); i<m_projects.size(); i++)
+            m_projects[i]->replace();
+        timer.start();
     }
 }
 void QcmEdit::open(const QString &empla){
