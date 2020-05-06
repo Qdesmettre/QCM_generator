@@ -17,7 +17,7 @@ Choice::Choice(const QString &name, const char &num, const bool &isCorrect, QWid
     setLayout(&m_layout);
     QObject::connect(&m_delete, SIGNAL(clicked()), this, SLOT(del()));
 }
-void Choice::setNum(unsigned char const& n){
+void Choice::setNum(unsigned char n){
     m_num.setText(QString(char(96+n))+")");
 }
 void Choice::del(){
