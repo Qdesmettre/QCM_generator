@@ -48,6 +48,7 @@
     <addaction name="actionAnnuler"/>
     <addaction name="actionR_tablir"/>
     <addaction name="separator"/>
+    <addaction name="actionImprimer"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdition"/>
@@ -150,6 +151,14 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Y</string>
+   </property>
+  </action>
+  <action name="actionImprimer">
+   <property name="text">
+    <string>Imprimer</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+P</string>
    </property>
   </action>
  </widget>

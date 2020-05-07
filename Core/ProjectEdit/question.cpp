@@ -66,6 +66,9 @@ std::vector<Choice*> Question::choices() const{
 std::string Question::name() const{
     return m_name->text().toStdString();
 }
+QString Question::name(int)const{
+    return m_name->text();
+}
 void Question::initConnections(){
     QObject::connect(m_add, SIGNAL(clicked()), this, SLOT(add()));
 }

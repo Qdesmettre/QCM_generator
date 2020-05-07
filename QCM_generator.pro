@@ -9,7 +9,9 @@ SOURCES += \
 	Core/Login/pwdforgot.cpp \
 	Core/ProjectEdit/qcmedit.cpp \
 	Core/ProjectEdit/question.cpp \
-	Core/Login/signin.cpp
+        Core/Login/signin.cpp \
+        Core/ProjectEdit/pdf.cpp \
+        Core/ProjectEdit/metrics.cpp
 
 HEADERS += \
 	Core/ProjectEdit/choice.h \
@@ -19,7 +21,9 @@ HEADERS += \
 	Core/Login/pwdforgot.h \
 	Core/ProjectEdit/qcmedit.h \
 	Core/ProjectEdit/question.h \
-	Core/Login/signin.h
+        Core/Login/signin.h \
+        Core/ProjectEdit/pdf.h \
+        Core/ProjectEdit/metrics.h
 
 FORMS += \
 	Core/Login/login.ui \

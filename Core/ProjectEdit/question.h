@@ -18,6 +18,7 @@ public:
     virtual ~Question();
     std::vector<Choice*> choices() const;
     std::string name() const;
+    QString name(int) const;
     void setChoices(std::vector<Choice*> const& choices);
     void setNum(uchar const& n);
 public slots:

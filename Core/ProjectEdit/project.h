@@ -26,6 +26,7 @@ public slots:
     void add();
     void replace();
     void rename(int const& n);
+    void printToPdf(std::string const& empla);
     /*void generate();
     void save();*/
 
@@ -34,6 +35,7 @@ signals:
 private:
     void initAttrib();
     void initConnect();
+    static std::string toString(const QString &str);
 
     QVBoxLayout *m_mainLay;
     QHBoxLayout *m_optLay;

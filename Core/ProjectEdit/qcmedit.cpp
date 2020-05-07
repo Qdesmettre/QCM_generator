@@ -6,7 +6,7 @@
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QMimeData>
-
+#include <iostream>
 QString QcmEdit::nameOf(QString path){
     QString name;
     while(path.back() != "/" && path.back() != "\\"){
@@ -53,14 +53,26 @@ void QcmEdit::dragEnterEvent(QDragEnterEvent *event){
         event->acceptProposedAction();
     }
 }
+void QcmEdit::on_actionImprimer_triggered(){
+    if(m_Gprojects->count() > 0)
+        m_projects[m_Gprojects->currentIndex()]->printToPdf(
+                QFileDialog::getSaveFileName(this,
+                                             m_projects[m_Gprojects->currentIndex()]->name(),
+                                             m_projects[m_Gprojects->currentIndex()]->empla(),
+                                             tr("Pdf (*.pdf)")).toStdString());
+}
 void QcmEdit::dropEvent(QDropEvent *event){
     if(event->mimeData()->urls().isEmpty() || event->mimeData()->urls().first().toLocalFile().isEmpty())
         return;
-    else if(QFileInfo(event->mimeData()->urls().first().toLocalFile()).suffix() != "qcm"){
-        QMessageBox::critical(this, tr("Erreur"), event->mimeData()->urls().first().toLocalFile()+tr(" n'est pas un fichier supporté. \n Ne sont supportés que les fichiers .qcm.", "Just before, the path of the unsuported file is specified"));
+    std::cout << event->mimeData()->urls().size() << std::endl;
+    for(int i(0); i<event->mimeData()->urls().size(); i++){
+        if(QFileInfo(event->mimeData()->urls()[i].toLocalFile()).suffix() != "qcm"){
+            QMessageBox::critical(this, tr("Erreur"), event->mimeData()->urls().first().toLocalFile()+tr(" n'est pas un fichier supporté. \n Ne sont supportés que les fichiers .qcm.", "Just before, the path of the unsuported file is specified"));
+        }
+        else
+            open(event->mimeData()->urls()[i].toLocalFile());
     }
-    else
-        open(event->mimeData()->urls().first().toLocalFile());
+
 }
 void QcmEdit::resizeEvent(QResizeEvent *resize){
     if(m_timer.elapsed() > 500){

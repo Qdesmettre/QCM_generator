@@ -1,5 +1,13 @@
 #include "project.h"
-#include <iostream>
+#include <QMessageBox>
+#include <sstream>
+#include "pdf.h"
+std::string Project::toString(const QString &str){
+    std::string returned = "";
+    for(int i(0); i<str.size(); i++)
+        returned += str[i].toLatin1();
+    return returned;
+}
 Project::Project(QString empla, QString name, QWidget *parent) : QWidget(parent)
 {
     m_name = name;
@@ -95,6 +103,47 @@ void Project::rename(int const& n){
         m_questions[i]->setNum(uchar(i+49));
     }
     replace();
+}
+void Project::printToPdf(const std::string &empla){
+    PDF p;
+
+    p.setFont(PDF::HELVETICA, 12);
+
+    std::vector<string> fText;
+    for(unsigned i(0); i<m_questions.size(); i++){
+
+
+        std::vector<std::string> s;
+        QString tText = "";
+
+        // Une ligne par question
+        tText += (QString().setNum(i+1))+ + "/ " + m_questions[i]->name(0);
+        s = p.wrapText(toString(tText), p.getWidth(), false);
+        for(unsigned t(0); t<s.size(); t++){
+            fText.push_back(s[t]);
+        }
+        tText = "";
+
+        for(unsigned j(0); j<m_questions[i]->choices().size(); j++){
+            tText += "- " + m_questions[i]->choices()[j]->name();
+            s = p.wrapText(toString(tText), p.getWidth()-100, false);
+            for(unsigned t(0); t<s.size(); t++){
+                fText.push_back(s[t]);
+            }
+            tText = "";
+        }
+        fText.push_back("");
+    }
+    for(unsigned i(0), n(fText.size()); i<n; i++){
+        p.showTextXY(fText[i], 50, 745- 20*i);
+    }
+
+    std::string errMsg;
+    if(p.writeToFile(empla, errMsg))
+        QMessageBox::information(parentWidget()->parentWidget(), tr("Impression terminée"), tr("L'impression de votre qcm est terminée."));
+    else
+        QMessageBox::critical(parentWidget()->parentWidget(), tr("Impression annulée"), tr("Erreur lors de l'impression Pdf de votre qcm.\n Veuillez rééssayer."));
+
 }
 Project::~Project(){
     while(m_questions.size() != 0){

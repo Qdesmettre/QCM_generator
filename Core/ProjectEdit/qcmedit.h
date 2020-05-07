@@ -39,6 +39,7 @@ private slots:
     void on_actionOuvrir_triggered();
     void on_actionQuitter_triggered();
     void on_actionD_connexion_triggered();
+    void on_actionImprimer_triggered();
 
 
 protected:
