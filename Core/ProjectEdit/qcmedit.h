@@ -51,6 +51,7 @@ protected:
 private:
     bool save(Project *project);
     void initAttributes();
+    std::string toString(Project *project);
     static QString nameOf(QString path);
 
     QTabWidget *m_Gprojects;

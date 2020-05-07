@@ -2,6 +2,8 @@
 #include <QMessageBox>
 #include <sstream>
 #include "pdf.h"
+#include <QDesktopServices>
+#include <Qurl>
 std::string Project::toString(const QString &str){
     std::string returned = "";
     for(int i(0); i<str.size(); i++)
@@ -111,8 +113,6 @@ void Project::printToPdf(const std::string &empla){
 
     std::vector<string> fText;
     for(unsigned i(0); i<m_questions.size(); i++){
-
-
         std::vector<std::string> s;
         QString tText = "";
 
@@ -140,7 +140,15 @@ void Project::printToPdf(const std::string &empla){
 
     std::string errMsg;
     if(p.writeToFile(empla, errMsg))
-        QMessageBox::information(parentWidget()->parentWidget(), tr("Impression terminée"), tr("L'impression de votre qcm est terminée."));
+        if(QMessageBox::question(parentWidget()->parentWidget(), tr("Impression terminée"),
+                                 tr("L'impression de votre qcm est terminée.\nDésirez vous l'ouvrir maintenant ?"),
+                                 QMessageBox::Yes | QMessageBox::No)== QMessageBox::Yes){
+            QString path= "";
+            for(unsigned i(0); i<empla.size(); i++)
+                path += empla[i];
+            QDesktopServices::openUrl(QUrl(path));
+        }
+        else;
     else
         QMessageBox::critical(parentWidget()->parentWidget(), tr("Impression annulée"), tr("Erreur lors de l'impression Pdf de votre qcm.\n Veuillez rééssayer."));
 

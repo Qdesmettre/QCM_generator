@@ -228,26 +228,10 @@ void QcmEdit::on_actionD_connexion_triggered(){
     QMessageBox::information(this, tr("Déconnecté"), tr("Vous avez bien été déconnecté. A bientôt !"));
 }
 bool QcmEdit::save(Project *project){
-
     std::ofstream saving(project->empla().toStdString().c_str(), std::ios::out | std::ios::binary);
     if(saving.is_open()){
-        saving.write("<PjName>", 8);
-        saving.write(project->name().toStdString().c_str(), project->name().size());
-        saving.write("<!PjName>\n", 10);
-        for(unsigned i(0); i<project->questions().size(); i++){
-            saving.write("<ques>", 6);
-            saving.write(project->questions()[i]->name().c_str(), project->questions()[i]->name().size());
-            saving.write("\n", 1);
-            for(unsigned j(0); j<project->questions()[i]->choices().size(); j++){
-                saving.write("<ans, ok=", 9);
-                if(project->questions()[i]->choices()[j]->isCorrect()) saving.write("True>", 5);
-                else saving.write("Fals>", 5);
-                saving.write(project->questions()[i]->choices()[j]->name().toStdString().c_str(),
-                             project->questions()[i]->choices()[j]->name().size());
-                saving.write("<!ans>\n", 7);
-            }
-            saving.write("<!ques>\n", 8);
-        }        
+        std::string file = toString(project);
+        saving.write(file.c_str(), file.size());
         return true;
     }
     else{
@@ -256,6 +240,25 @@ bool QcmEdit::save(Project *project){
         QMessageBox::critical(this, tr("Enregistrement impossible"), error);
         return false;
     }
+}
+std::string QcmEdit::toString(Project *project){
+    std::string text = "";
+    text += "<PjName>";
+    text += Project::toString(project->name());
+    text += "<!PjName>\n";
+    for(unsigned i(0); i<project->questions().size(); i++){
+        text += "<ques>";
+        text += Project::toString(project->questions()[i]->name(0)) + '\n';
+        for(unsigned j(0); j<project->questions()[i]->choices().size(); j++){
+            text += "<ans, ok=";
+            if(project->questions()[i]->choices()[j]->isCorrect()) text += ("True>");
+            else text += ("Fals>");
+            text += Project::toString(project->questions()[i]->choices()[j]->name());
+            text += "<!ans>\n";
+        }
+        text += "<!ques>\n";
+    }
+    return text;
 }
 QcmEdit::~QcmEdit()
 {

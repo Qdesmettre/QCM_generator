@@ -22,6 +22,7 @@ public:
     void setEmpla(QString const& n);
     void setName(QString n);
 
+    static std::string toString(const QString &str);
 public slots:
     void add();
     void replace();
@@ -35,7 +36,7 @@ signals:
 private:
     void initAttrib();
     void initConnect();
-    static std::string toString(const QString &str);
+
 
     QVBoxLayout *m_mainLay;
     QHBoxLayout *m_optLay;
