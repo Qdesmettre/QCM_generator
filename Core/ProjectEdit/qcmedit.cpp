@@ -6,7 +6,6 @@
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QMimeData>
-#include <iostream>
 QString QcmEdit::nameOf(QString path){
     QString name;
     while(path.back() != "/" && path.back() != "\\"){
@@ -64,7 +63,6 @@ void QcmEdit::on_actionImprimer_triggered(){
 void QcmEdit::dropEvent(QDropEvent *event){
     if(event->mimeData()->urls().isEmpty() || event->mimeData()->urls().first().toLocalFile().isEmpty())
         return;
-    std::cout << event->mimeData()->urls().size() << std::endl;
     for(int i(0); i<event->mimeData()->urls().size(); i++){
         if(QFileInfo(event->mimeData()->urls()[i].toLocalFile()).suffix() != "qcm"){
             QMessageBox::critical(this, tr("Erreur"), event->mimeData()->urls().first().toLocalFile()+tr(" n'est pas un fichier supporté. \n Ne sont supportés que les fichiers .qcm.", "Just before, the path of the unsuported file is specified"));
@@ -80,6 +78,9 @@ void QcmEdit::resizeEvent(QResizeEvent *resize){
             m_projects[i]->replace();
         m_timer.start();
     }
+}
+void QcmEdit::closeEvent(QCloseEvent *event){
+    on_actionTout_fermer_triggered();
 }
 void QcmEdit::open(const QString &empla){
     if(empla.isEmpty())
@@ -167,7 +168,7 @@ void QcmEdit::on_actionFermer_triggered(){
 }
 void QcmEdit::on_actionTout_fermer_triggered(){
     while(m_projects.size() != 0){
-        closeProject(0);
+        closeProject(m_Gprojects->currentIndex());
     }
 }
 void QcmEdit::on_actionEnregistrer_triggered(){
@@ -264,6 +265,8 @@ bool QcmEdit::save(Project *project){
 std::string QcmEdit::toString(Project *project){
     std::string text = "";
     text += "<PjName>";
+    QString pjName  = project->name();
+    if(QFileInfo(pjName).suffix() == "qcm") pjName.remove(pjName.size()-4, 4);
     text += Project::toString(project->name());
     text += "<!PjName>\n";
     for(unsigned i(0); i<project->questions().size(); i++){

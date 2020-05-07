@@ -46,6 +46,7 @@ protected:
     void dragEnterEvent(QDragEnterEvent *event) override;
     void dropEvent(QDropEvent *event) override;
     void resizeEvent(QResizeEvent *resize) override;
+    void closeEvent(QCloseEvent* event) override;
 
 
 private:
