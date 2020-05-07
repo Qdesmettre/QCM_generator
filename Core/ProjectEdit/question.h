@@ -28,6 +28,10 @@ public slots:
 
 signals:
     void destroyed(int const& n);
+    void edited();
+
+private slots:
+    void changed();
 
 private:
     void initConnections();

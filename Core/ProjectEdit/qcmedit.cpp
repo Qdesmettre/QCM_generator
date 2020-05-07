@@ -137,7 +137,7 @@ void QcmEdit::open(const QString &empla){
                 break;
             }
         }
-        m_projects.push_back(new Project(empla, Pname));
+        m_projects.push_back(new Project(empla, Pname, m_Gprojects));
         if(ok) m_projects.back()->setQuestions(questions);
 
         m_Gprojects->addTab(m_projects.back(), Pname+".qcm");
@@ -155,42 +155,38 @@ void QcmEdit::initAttributes(){
     m_wait = new QLabel(tr("\n Pour commencer un nouveau projet, appuyez sur Ctrl+N  \n Ou pour en ouvrir un, appuyez sur Ctrl+O.", "This is the home message"));
 }
 void QcmEdit::nouveau(){
-    ProjectAssist a;
-    a.exec();
-    if(a.ok()){
-        m_projects.push_back(new Project(a.empla(), a.name()));
-        m_Gprojects->addTab(m_projects.back(), a.name()+".qcm");
+    m_projects.push_back(new Project("", "", m_Gprojects));
+    m_Gprojects->addTab(m_projects.back(), "new.qcm");
+    if(centralWidget() == m_wait) setCentralWidget(m_Gprojects);
 
-        save(m_projects.back());
-
-        if(centralWidget() == m_wait) setCentralWidget(m_Gprojects);
-    }
 }
 void QcmEdit::on_actionFermer_triggered(){
-    if(m_Gprojects->count() > 0 && m_projects.size() > 0){
-        std::vector<Project*>::iterator it(m_projects.begin());
-        for(int i(0); i<m_Gprojects->currentIndex(); i++){
-            it++;
-        }
-        m_projects.erase(it);
-
-        m_Gprojects->removeTab(m_Gprojects->currentIndex());
-    }
+    if(m_Gprojects->count() == 0 || m_projects.size() == 0)
+        return;
+    closeProject(unsigned(m_Gprojects->currentIndex()));
 }
 void QcmEdit::on_actionTout_fermer_triggered(){
     while(m_projects.size() != 0){
-        m_Gprojects->removeTab(0);
-        m_projects.erase(m_projects.begin());
+        closeProject(0);
     }
 }
 void QcmEdit::on_actionEnregistrer_triggered(){
-    if(m_Gprojects->count() > 0 && save(m_projects.at(m_Gprojects->currentIndex()))){
-        QString done(tr("Enregistrement du projet ", "There is the project name just after"));
-        done.append(m_projects.at(m_Gprojects->currentIndex())->name()+tr(" réussi"));
-        QMessageBox::information(this, tr("Enregistrement terminé"), done);
+    if(m_Gprojects->count() == 0)
+        return;
+
+    int i= m_Gprojects->currentIndex();
+    if(m_projects[i]->empla().isEmpty())
+        on_actionEnregistrer_sous_triggered();
+    else{
+        if(save(m_projects[i])){
+            QString done(tr("Enregistrement du projet ", "There is the project name just after"));
+            done.append(m_projects.at(m_Gprojects->currentIndex())->name()+tr(" réussi"));
+            QMessageBox::information(this, tr("Enregistrement terminé"), done);
+        }
     }
 }
 void QcmEdit::on_actionEnregistrer_sous_triggered(){
+
     if(m_Gprojects->count() != 0){
         QString empla = QFileDialog::getSaveFileName(this,
                                                      m_projects[(m_Gprojects->currentIndex())]->name(),
@@ -215,7 +211,9 @@ void QcmEdit::on_actionTout_enregistrer_triggered(){
     if(m_Gprojects->count() != 0 && ok) QMessageBox::information(this, tr("Enregistrements terminés"), tr("Tous les projets ont bien été enregistrés."));
 }
 void QcmEdit::on_actionOuvrir_triggered(){
-    open(QFileDialog::getOpenFileName(this, QString(), QString(), tr("Qcm (*.qcm)")));
+    QString file = QFileDialog::getOpenFileName(this, QString(), QString(), tr("Qcm (*.qcm)"));
+    if(!file.isEmpty())
+        open(file);
 }
 void QcmEdit::on_actionQuitter_triggered(){
     qApp->quit();
@@ -227,11 +225,33 @@ void QcmEdit::on_actionD_connexion_triggered(){
     close();
     QMessageBox::information(this, tr("Déconnecté"), tr("Vous avez bien été déconnecté. A bientôt !"));
 }
+void QcmEdit::closeProject(const unsigned &index){
+    if(!m_projects[index]->isSaved()){
+        QMessageBox::StandardButtons choice =
+                QMessageBox::question(this, tr("Projet non sauvegardé"),
+                                            tr("Voulez vous abandonner les modifications non enregistrées ?"),
+                                            QMessageBox::No | QMessageBox::Yes | QMessageBox::Cancel);
+        if(choice == QMessageBox::No){
+            if(m_projects[index]->empla().isEmpty()){
+                on_actionEnregistrer_sous_triggered();
+            }
+            else{
+                save(m_projects[index]);
+            }
+        }
+        else if(choice == QMessageBox::Cancel){
+            return;
+        }
+    }
+    m_projects.erase(m_projects.begin()+m_Gprojects->currentIndex());
+    m_Gprojects->removeTab(index);
+}
 bool QcmEdit::save(Project *project){
     std::ofstream saving(project->empla().toStdString().c_str(), std::ios::out | std::ios::binary);
     if(saving.is_open()){
         std::string file = toString(project);
         saving.write(file.c_str(), file.size());
+        project->setSaved(true);
         return true;
     }
     else{

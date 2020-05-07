@@ -3,27 +3,34 @@
 #include <sstream>
 #include "pdf.h"
 #include <QDesktopServices>
-#include <Qurl>
+#include <QUrl>
 std::string Project::toString(const QString &str){
     std::string returned = "";
     for(int i(0); i<str.size(); i++)
         returned += str[i].toLatin1();
     return returned;
 }
-Project::Project(QString empla, QString name, QWidget *parent) : QWidget(parent)
+Project::Project(QString empla, QString name, QTabWidget *tParent, QWidget *parent) : QWidget(parent)
 {
-    m_name = name;
-    // Le chemin complet est spécifié vers un fichier précis
-    if((QString(empla[empla.size()-1])+empla[empla.size()-2]+
-         empla[empla.size()-3]+empla[empla.size()-4]) == "mcq.") m_empla = empla;
-    // Un chemin vers un dossier spécifié, mais sans slash au bout
-    else if(empla.back() == "/" ||empla.back() == "\\")
-        m_empla = empla+"/";
-    // Un chemin vers un dossier bien spécifié
-    else m_empla = empla;
+    m_name = name;    
 
     initAttrib();
     initConnect();
+
+    m_isSaved = true;
+    m_parent = tParent;
+
+    if(m_empla.size()>4){
+        // Le chemin complet est spécifié vers un fichier précis
+        if((QString(empla[empla.size()-1])+empla[empla.size()-2]+
+             empla[empla.size()-3]+empla[empla.size()-4]) == "mcq.") m_empla = empla;
+        // Un chemin vers un dossier spécifié, mais sans slash au bout
+        else if(empla.back() == "/" ||empla.back() == "\\")
+            m_empla = empla+"/";
+        // Un chemin vers un dossier bien spécifié
+        else m_empla = empla;
+    }
+    else m_empla = empla;
 }
 void Project::setQuestions(const std::vector<Question *> &questions){
     while(m_questions.size() != 0){
@@ -33,10 +40,12 @@ void Project::setQuestions(const std::vector<Question *> &questions){
     m_questions = questions;
     for(unsigned i(0); i<m_questions.size(); i++){
         connect(m_questions[i], SIGNAL(destroyed(int)), this, SLOT(rename(int)));
+        connect(m_questions[i], SIGNAL(edited()), this, SLOT(nSaved()));
     }
     replace();
 }
 QString Project::empla(){
+    if(m_empla.size() > 4){
     // Le chemin complet est spécifié vers un fichier précis
     if((QString(m_empla[m_empla.size()-1])+m_empla[m_empla.size()-2]+
          m_empla[m_empla.size()-3]+m_empla[m_empla.size()-4]) == "mcq.") return m_empla;
@@ -45,6 +54,8 @@ QString Project::empla(){
         return m_empla+"/"+m_name+".qcm";
     // Un chemin vers un dossier bien spécifié
     else return m_empla+".qcm";
+    }
+    else return m_empla;
 }
 QString Project::name(){
     return m_name;
@@ -96,7 +107,9 @@ void Project::replace(){
 void Project::add(){
     m_questions.push_back(new Question(nullptr, "", 4, m_questions.size()+1));
     connect(m_questions.back(), SIGNAL(destroyed(int)), this, SLOT(rename(int)));
+    connect(m_questions.back(), SIGNAL(edited()), this, SLOT(nSaved()));
     replace();
+    nSaved();
 }
 void Project::rename(int const& n){
     m_questions.erase(m_questions.begin()+n);
@@ -152,6 +165,25 @@ void Project::printToPdf(const std::string &empla){
     else
         QMessageBox::critical(parentWidget()->parentWidget(), tr("Impression annulée"), tr("Erreur lors de l'impression Pdf de votre qcm.\n Veuillez rééssayer."));
 
+}
+void Project::setSaved(const bool &s){
+    int i = m_parent->currentIndex();
+    if(!s){
+        if(m_parent->tabText(i).front() != '*'){
+            QString text = m_parent->tabText(i);
+            text.push_front('*');
+            m_parent->setTabText(i, text);
+        }
+    }
+    else{
+        if(m_parent->tabText(i).front() == '*'){
+            m_parent->setTabText(i, m_parent->tabText(i).remove(0,1));
+        }
+    }
+    m_isSaved = s;
+}
+void Project::nSaved(){
+    setSaved(false);
 }
 Project::~Project(){
     while(m_questions.size() != 0){

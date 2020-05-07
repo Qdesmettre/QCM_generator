@@ -17,12 +17,13 @@ QWidget(parent)
         temp->addWidget(m_num);
         temp->addWidget(m_name);
         temp->addWidget(m_delete);
-        connect(m_delete, SIGNAL(clicked()), this, SLOT(del()));
+
         m_layout->addRow(temp);
 
     for(unsigned i(0); i<choices; i++){
         m_choices.push_back(new Choice("", i+1));
-        QObject::connect(m_choices.back(), SIGNAL(destroyed(int)), this, SLOT(rename(int)));
+        connect(m_choices.back(), SIGNAL(destroyed(int)), this, SLOT(rename(int)));
+        connect(m_choices.back(), SIGNAL(edited()), this, SLOT(changed()));
         m_layout->addRow(m_choices[i]->layout());
     }
     m_container->setLayout(m_layout);
@@ -41,6 +42,7 @@ QWidget(parent)
     initConnections();
 }
 void Question::rename(int const& n){
+    emit edited();
     m_choices.erase(m_choices.begin()+n);
     for(unsigned i(0); i<m_choices.size(); i++){
         m_choices[i]->setNum(uchar(i+1));
@@ -71,17 +73,21 @@ QString Question::name(int)const{
 }
 void Question::initConnections(){
     QObject::connect(m_add, SIGNAL(clicked()), this, SLOT(add()));
+    connect(m_delete, SIGNAL(clicked()), this, SLOT(del()));
+    connect(m_name, SIGNAL(textEdited(QString)), this, SLOT(changed()));
 }
 void Question::add(){
     m_choices.push_back(new Choice("", m_choices.size()+1));
     QObject::connect(m_choices.back(), SIGNAL(destroyed(int)), this, SLOT(rename(int)));
     m_layout->addRow(m_choices.back()->layout());
+    emit edited();
 }
 void Question::del(){
+    emit edited();
     emit destroyed(int(m_num->text().toStdString()[0])-49);
     delete this;
 }
-
+void Question::changed(){emit edited();}
 Question::~Question(){
     while(m_choices.size() != 0){
         delete m_choices.back();

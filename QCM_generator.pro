@@ -30,3 +30,4 @@ FORMS += \
 	Core/ProjectEdit/projectassist.ui \
 	Core/ProjectEdit/qcmedit.ui \
 	Core/Login/signin.ui
+TRANSLATIONS = QCM_generator_en.ts QCM_generator_es.ts QCM_generator_fr.ts

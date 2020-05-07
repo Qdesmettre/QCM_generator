@@ -23,8 +23,12 @@ public:
 public slots:
     void del();
 
+private slots:
+    void changed();
+
 signals:
     void destroyed(int const& index);
+    void edited();
 
 private:
     QPushButton *m_delete;

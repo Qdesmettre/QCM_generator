@@ -2,12 +2,12 @@
 #include "ProjectEdit/qcmedit.h"
 #include "Login/login.h"
 #include <QMessageBox>
+#include <QTranslator>
 
 int main(int argc, char **argv){
     QApplication app(argc, argv);
 
     LogIn start;
-
     // Au cas où plusieurs fichiers sont à ouvrir
     QStringList list;
     for(int i(0); i<argc; i++){
