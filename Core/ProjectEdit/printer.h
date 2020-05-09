@@ -16,6 +16,14 @@ public:
     ~Printer();
 
 public slots:
+    void on_fontSizeE_currentIndexChanged(int const& i);
+    void on_fontE_currentIndexChanged(int const& i);
+    void on_boldE_clicked();
+    void on_obliqueE_clicked();
+    void on_leftToRight_clicked();
+    void on_center_clicked();
+    void on_rightToLeft_clicked();
+
     void on_affQues_currentIndexChanged(int const& i);
     void on_boldQ_clicked();
     void on_fontQ_currentIndexChanged(int const& i);
@@ -28,6 +36,8 @@ public slots:
 
 private:
     Ui::Printer *ui;
+
+    bool m_bold, m_oblique;
 };
 
 #endif // PRINTER_H
