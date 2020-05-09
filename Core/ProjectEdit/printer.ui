@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Printer</class>
- <widget class="QDialog" name="Printer">
+ <class>PrintSetter</class>
+ <widget class="QDialog" name="PrintSetter">
   <property name="geometry">
    <rect>
     <x>0</x>

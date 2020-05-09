@@ -2,20 +2,37 @@
 #define PRINTER_H
 
 #include <QDialog>
-
+#include <QTextEdit>
 namespace Ui {
-class Printer;
+class PrintSetter;
 }
 
-class Printer : public QDialog
+class PrintSetter : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit Printer(QWidget *parent = nullptr);
-    ~Printer();
+    explicit PrintSetter(QWidget *parent = nullptr);
+    ~PrintSetter();
+
+    QTextEdit *text() const;
+    QString preQ() const;
+    QString preC() const;
+    QString persoQ() const;
+    QString persoC() const;
+    int fontQ() const;
+    int fontC() const;
+    int fontSizeQ() const;
+    int fontSizeC() const;
+    bool letterQ() const;
+    bool letterC() const;
+    bool boldQ() const;
+    bool boldC() const;
+
 
 public slots:
+    int exe();
+
     void actuBut();
     void on_fontSizeE_currentIndexChanged(int const& i);
     void on_fontE_currentIndexChanged(int const& i);
@@ -36,9 +53,26 @@ public slots:
     void on_fontSizeC_currentIndexChanged(int const& i);
 
 private:
-    Ui::Printer *ui;
+    Ui::PrintSetter *ui;
 
     bool m_bold, m_oblique;
+};
+
+class PrinterInfo{
+public:
+
+    PrinterInfo(PrintSetter const& set);
+
+private:
+    QString text;
+    QString preQ, persoQ,
+            preC, persoC;
+    int fontSizeQ, fontSizeC,
+        fontQ, fontC;
+    bool letterQ, boldQ,
+         letterC, boldC;
+
+
 };
 
 #endif // PRINTER_H

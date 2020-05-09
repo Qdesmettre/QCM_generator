@@ -11,7 +11,7 @@ int main(int argc, char **argv){
         list.push_back(argv[i]);
     }
 
-    Printer mainW;
+    PrintSetter mainW;
 
     mainW.show();
 
