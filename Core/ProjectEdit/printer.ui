@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>520</width>
-    <height>549</height>
+    <width>643</width>
+    <height>551</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -119,13 +119,6 @@
            </widget>
           </item>
           <item>
-           <widget class="Line" name="line">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-           </widget>
-          </item>
-          <item>
            <widget class="QComboBox" name="fontE">
             <item>
              <property name="text">
@@ -145,6 +138,13 @@
            </widget>
           </item>
           <item>
+           <widget class="Line" name="line">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QPushButton" name="boldE">
             <property name="text">
              <string>Gras</string>
@@ -153,6 +153,9 @@
              <bool>false</bool>
             </property>
             <property name="autoExclusive">
+             <bool>false</bool>
+            </property>
+            <property name="autoDefault">
              <bool>false</bool>
             </property>
             <property name="default">
@@ -168,6 +171,9 @@
             <property name="text">
              <string>Italique</string>
             </property>
+            <property name="autoDefault">
+             <bool>false</bool>
+            </property>
            </widget>
           </item>
           <item>
@@ -180,7 +186,10 @@
           <item>
            <widget class="QPushButton" name="leftToRight">
             <property name="text">
-             <string>Gauche à doite</string>
+             <string>Gauche à droite</string>
+            </property>
+            <property name="autoDefault">
+             <bool>false</bool>
             </property>
            </widget>
           </item>
@@ -189,12 +198,18 @@
             <property name="text">
              <string>Centré</string>
             </property>
+            <property name="autoDefault">
+             <bool>false</bool>
+            </property>
            </widget>
           </item>
           <item>
            <widget class="QPushButton" name="rightToLeft">
             <property name="text">
              <string>Droite à gauche</string>
+            </property>
+            <property name="autoDefault">
+             <bool>false</bool>
             </property>
            </widget>
           </item>
@@ -222,11 +237,6 @@
         <layout class="QGridLayout" name="gridLayout_4">
          <item row="0" column="0">
           <widget class="QComboBox" name="affQues">
-           <item>
-            <property name="text">
-             <string>&lt;Affichage&gt;</string>
-            </property>
-           </item>
            <item>
             <property name="text">
              <string>Question X :</string>
@@ -486,11 +496,6 @@
         <layout class="QGridLayout" name="gridLayout_2">
          <item row="0" column="0">
           <widget class="QComboBox" name="affC">
-           <item>
-            <property name="text">
-             <string>&lt;Affichage&gt;</string>
-            </property>
-           </item>
            <item>
             <property name="text">
              <string>X :</string>

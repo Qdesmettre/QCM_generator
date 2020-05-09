@@ -16,6 +16,7 @@ public:
     ~Printer();
 
 public slots:
+    void actuBut();
     void on_fontSizeE_currentIndexChanged(int const& i);
     void on_fontE_currentIndexChanged(int const& i);
     void on_boldE_clicked();
