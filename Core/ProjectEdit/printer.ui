@@ -311,11 +311,6 @@
           <widget class="QComboBox" name="fontQ">
            <item>
             <property name="text">
-             <string>&lt;Police d'écriture&gt;</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
              <string>Courier</string>
             </property>
            </item>
@@ -326,18 +321,16 @@
            </item>
            <item>
             <property name="text">
-             <string>Times</string>
+             <string>Times New Roman</string>
             </property>
            </item>
           </widget>
          </item>
          <item row="0" column="2">
           <widget class="QComboBox" name="fontSizeQ">
-           <item>
-            <property name="text">
-             <string>&lt;Taille de la police&gt;</string>
-            </property>
-           </item>
+           <property name="currentIndex">
+            <number>6</number>
+           </property>
            <item>
             <property name="text">
              <string>6</string>
@@ -375,23 +368,68 @@
            </item>
            <item>
             <property name="text">
-             <string>13</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
              <string>14</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>15</string>
+             <string>16</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>18</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>20</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>22</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>24</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>26</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>28</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>36</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>48</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>72</string>
             </property>
            </item>
           </widget>
          </item>
          <item row="1" column="0" colspan="3">
           <widget class="QLabel" name="resultQ">
+           <property name="font">
+            <font>
+             <family>Courier</family>
+            </font>
+           </property>
            <property name="text">
             <string>&lt;strong&gt;Résultat</string>
            </property>
@@ -501,11 +539,6 @@
           <widget class="QComboBox" name="fontC">
            <item>
             <property name="text">
-             <string>&lt;Police d'écriture&gt;</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
              <string>Courier</string>
             </property>
            </item>
@@ -516,18 +549,16 @@
            </item>
            <item>
             <property name="text">
-             <string>Times</string>
+             <string>Times New Roman</string>
             </property>
            </item>
           </widget>
          </item>
          <item row="0" column="2">
           <widget class="QComboBox" name="fontSizeC">
-           <item>
-            <property name="text">
-             <string>&lt;Taille de la police&gt;</string>
-            </property>
-           </item>
+           <property name="currentIndex">
+            <number>6</number>
+           </property>
            <item>
             <property name="text">
              <string>6</string>
@@ -565,23 +596,68 @@
            </item>
            <item>
             <property name="text">
-             <string>13</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
              <string>14</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>15</string>
+             <string>16</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>18</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>20</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>22</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>24</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>26</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>28</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>36</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>48</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>72</string>
             </property>
            </item>
           </widget>
          </item>
          <item row="1" column="0" colspan="3">
           <widget class="QLabel" name="resultC">
+           <property name="font">
+            <font>
+             <family>Courier</family>
+            </font>
+           </property>
            <property name="text">
             <string>Résultat</string>
            </property>
