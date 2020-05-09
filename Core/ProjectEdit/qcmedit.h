@@ -26,9 +26,6 @@ public:
 public slots:
     void show();
 
-signals:
-    void disconnect();
-
 private slots:
     void nouveau();
     void on_actionFermer_triggered();
@@ -38,7 +35,6 @@ private slots:
     void on_actionEnregistrer_sous_triggered();
     void on_actionOuvrir_triggered();
     void on_actionQuitter_triggered();
-    void on_actionD_connexion_triggered();
     void on_actionImprimer_triggered();
 
 

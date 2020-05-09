@@ -1,0 +1,600 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Printer</class>
+ <widget class="QDialog" name="Printer">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>520</width>
+    <height>549</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_5">
+   <item>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>En-tête</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_4">
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <widget class="QComboBox" name="fontSizeE">
+            <item>
+             <property name="text">
+              <string>6</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>7</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>8</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>9</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>10</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>11</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>12</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>14</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>16</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>18</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>20</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>22</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>24</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>26</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>28</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>36</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>48</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>72</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item>
+           <widget class="Line" name="line">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="boldE">
+            <property name="text">
+             <string>Gras</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="obliqueE">
+            <property name="text">
+             <string>Italique</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="Line" name="line_2">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="leftToRight">
+            <property name="text">
+             <string>Gauche à doite</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="center">
+            <property name="text">
+             <string>Centré</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="rightToLeft">
+            <property name="text">
+             <string>Droite à gauche</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QPlainTextEdit" name="enTete"/>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_5">
+     <property name="title">
+      <string>Style des Questions</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QGroupBox" name="groupBox_6">
+        <property name="title">
+         <string>Pré texte</string>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_4">
+         <item row="0" column="0">
+          <widget class="QComboBox" name="affQues">
+           <item>
+            <property name="text">
+             <string>&lt;Affichage&gt;</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Question X :</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Question X /</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Question X )</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>X :</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>X /</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>X )</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Question n° X :</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Question n° X /</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Question n° X )</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Personaliser</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLineEdit" name="persoQues">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="inputMask">
+            <string/>
+           </property>
+           <property name="placeholderText">
+            <string>Utilisez X comme numéro/lettre des questions</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0" colspan="2">
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <item>
+            <widget class="QRadioButton" name="lettreQ">
+             <property name="text">
+              <string>Lettre</string>
+             </property>
+             <property name="checked">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QRadioButton" name="numQ">
+             <property name="text">
+              <string>Numéro</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="groupBox_7">
+        <property name="title">
+         <string>Texte général</string>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_5">
+         <item row="0" column="0">
+          <widget class="QCheckBox" name="boldQ">
+           <property name="layoutDirection">
+            <enum>Qt::LeftToRight</enum>
+           </property>
+           <property name="text">
+            <string>Gras</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QComboBox" name="fontQ">
+           <item>
+            <property name="text">
+             <string>&lt;Police d'écriture&gt;</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Courier</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Helvetica</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Times</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item row="0" column="2">
+          <widget class="QComboBox" name="fontSizeQ">
+           <item>
+            <property name="text">
+             <string>&lt;Taille de la police&gt;</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>6</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>7</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>8</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>9</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>10</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>11</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>12</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>13</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>14</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>15</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item row="1" column="0" colspan="3">
+          <widget class="QLabel" name="resultQ">
+           <property name="text">
+            <string>&lt;strong&gt;Résultat</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="title">
+      <string>Style des choix</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QGroupBox" name="groupBox_3">
+        <property name="title">
+         <string>Pré texte</string>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_2">
+         <item row="0" column="0">
+          <widget class="QComboBox" name="affC">
+           <item>
+            <property name="text">
+             <string>&lt;Affichage&gt;</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>X :</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>X /</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>X )</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Personnaliser...</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLineEdit" name="persoC">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="inputMask">
+            <string/>
+           </property>
+           <property name="placeholderText">
+            <string>Utilisez X comme numéro/lettre des choix</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0" colspan="2">
+          <layout class="QHBoxLayout" name="horizontalLayout">
+           <item>
+            <widget class="QRadioButton" name="lettreC">
+             <property name="text">
+              <string>Lettre</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QRadioButton" name="numC">
+             <property name="text">
+              <string>Numéro</string>
+             </property>
+             <property name="checked">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="groupBox_4">
+        <property name="title">
+         <string>Texte général</string>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_3">
+         <item row="0" column="0">
+          <widget class="QCheckBox" name="boldC">
+           <property name="text">
+            <string>Gras</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QComboBox" name="fontC">
+           <item>
+            <property name="text">
+             <string>&lt;Police d'écriture&gt;</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Courier</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Helvetica</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Times</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item row="0" column="2">
+          <widget class="QComboBox" name="fontSizeC">
+           <item>
+            <property name="text">
+             <string>&lt;Taille de la police&gt;</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>6</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>7</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>8</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>9</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>10</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>11</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>12</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>13</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>14</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>15</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item row="1" column="0" colspan="3">
+          <widget class="QLabel" name="resultC">
+           <property name="text">
+            <string>Résultat</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

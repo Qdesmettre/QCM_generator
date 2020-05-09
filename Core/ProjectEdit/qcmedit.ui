@@ -38,7 +38,6 @@
     <addaction name="actionFermer"/>
     <addaction name="actionTout_fermer"/>
     <addaction name="separator"/>
-    <addaction name="actionD_connexion"/>
     <addaction name="actionQuitter"/>
    </widget>
    <widget class="QMenu" name="menuEdition">

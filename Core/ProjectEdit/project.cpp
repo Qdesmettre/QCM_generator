@@ -161,7 +161,7 @@ void Project::printToPdf(const std::string &empla){
                 path += empla[i];
             QDesktopServices::openUrl(QUrl(path));
         }
-        else;
+        else{}
     else
         QMessageBox::critical(parentWidget()->parentWidget(), tr("Impression annulée"), tr("Erreur lors de l'impression Pdf de votre qcm.\n Veuillez rééssayer."));
 

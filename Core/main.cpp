@@ -1,26 +1,19 @@
 #include <QApplication>
-#include "ProjectEdit/qcmedit.h"
-#include "Login/login.h"
-#include <QMessageBox>
+#include "ProjectEdit/printer.h"
 #include <QTranslator>
 
 int main(int argc, char **argv){
     QApplication app(argc, argv);
 
-    LogIn start;
     // Au cas où plusieurs fichiers sont à ouvrir
     QStringList list;
     for(int i(0); i<argc; i++){
         list.push_back(argv[i]);
     }
 
-    QcmEdit mainW(argc, list);
+    Printer mainW;
 
-
-    QObject::connect(&start, SIGNAL(connected()), &mainW, SLOT(show()));
-    QObject::connect(&mainW, SIGNAL(disconnect()), &start, SLOT(show()));
-
-    start.show();
+    mainW.show();
 
 
 

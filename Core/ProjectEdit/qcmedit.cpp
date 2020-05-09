@@ -53,12 +53,15 @@ void QcmEdit::dragEnterEvent(QDragEnterEvent *event){
     }
 }
 void QcmEdit::on_actionImprimer_triggered(){
-    if(m_Gprojects->count() > 0)
-        m_projects[m_Gprojects->currentIndex()]->printToPdf(
-                QFileDialog::getSaveFileName(this,
-                                             m_projects[m_Gprojects->currentIndex()]->name(),
-                                             m_projects[m_Gprojects->currentIndex()]->empla(),
-                                             tr("Pdf (*.pdf)")).toStdString());
+    if(m_Gprojects->count() == 0)
+        return;
+    QString pEmpla =  QFileDialog::getSaveFileName(this,
+                                                   m_projects[m_Gprojects->currentIndex()]->name(),
+                                                   m_projects[m_Gprojects->currentIndex()]->empla(),
+                                                   tr("Pdf (*.pdf)"));
+    if(!pEmpla.isEmpty())
+        m_projects[m_Gprojects->currentIndex()]->printToPdf(pEmpla.toStdString());
+
 }
 void QcmEdit::dropEvent(QDropEvent *event){
     if(event->mimeData()->urls().isEmpty() || event->mimeData()->urls().first().toLocalFile().isEmpty())
@@ -217,14 +220,8 @@ void QcmEdit::on_actionOuvrir_triggered(){
         open(file);
 }
 void QcmEdit::on_actionQuitter_triggered(){
-    qApp->quit();
-}
-void QcmEdit::on_actionD_connexion_triggered(){
-    on_actionTout_enregistrer_triggered();
     on_actionTout_fermer_triggered();
-    emit disconnect();
-    close();
-    QMessageBox::information(this, tr("Déconnecté"), tr("Vous avez bien été déconnecté. A bientôt !"));
+    qApp->quit();
 }
 void QcmEdit::closeProject(const unsigned &index){
     if(!m_projects[index]->isSaved()){

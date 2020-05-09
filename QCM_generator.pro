@@ -3,6 +3,7 @@ QT += widgets
 SOURCES += \
 	Core/ProjectEdit/choice.cpp \
 	Core/Login/login.cpp \
+    Core/ProjectEdit/printer.cpp \
 	Core/main.cpp \
 	Core/ProjectEdit/project.cpp \
 	Core/ProjectEdit/projectassist.cpp \
@@ -16,6 +17,7 @@ SOURCES += \
 HEADERS += \
 	Core/ProjectEdit/choice.h \
 	Core/Login/login.h \
+    Core/ProjectEdit/printer.h \
 	Core/ProjectEdit/project.h \
 	Core/ProjectEdit/projectassist.h \
 	Core/Login/pwdforgot.h \
@@ -27,6 +29,7 @@ HEADERS += \
 
 FORMS += \
 	Core/Login/login.ui \
+	Core/ProjectEdit/printer.ui \
 	Core/ProjectEdit/projectassist.ui \
 	Core/ProjectEdit/qcmedit.ui \
 	Core/Login/signin.ui
