@@ -1,2 +1,2 @@
 # QCM_generator
-A powerfull tool that allow you to create, edit and publish online/offline/on paper your own MCQ
+A tool to edit your mcq's, and print them to pdf format.
