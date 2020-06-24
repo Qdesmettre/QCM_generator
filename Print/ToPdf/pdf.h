@@ -132,16 +132,16 @@
             Font currentFont, int currentSize, const string &text
          );
 
-         int stringWidth(const string &text);
+         int stringWidth(const string &text) const;
 
          void setFont(Font theFont, int size);
          void showTextXY(const string &text, int x, int y);
-         void showTextXY(const char &text, int x, int y);
+         void showTextXY(const char& text, int x, int y);
          void rightJustifyTextXY(const string &text, int x, int y);
 
          vector<string> wrapText(
             const string &text, int maxWidth, bool rightJustify
-         );
+         ) const;
 
          void setLineWidth(int value);
          void drawLine(int x0, int y0, int x1, int y1);

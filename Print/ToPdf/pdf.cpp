@@ -577,7 +577,7 @@ int PDF::stringWidth(
    return(width);
 }
 
-int PDF::stringWidth(const string &text)
+int PDF::stringWidth(const string &text)const
 {
    int width = 0;
 
@@ -605,7 +605,7 @@ void PDF::showTextXY(const string &text, int x, int y)
 {
    string theText;
 
-   for(int i = 0, n = text.size(); i < n; i ++)
+   for(unsigned i = 0, n = text.size(); i < n; i ++)
    {
       if(text[i] == '(' || text[i] == ')')
          theText += "\\";
@@ -620,6 +620,21 @@ void PDF::showTextXY(const string &text, int x, int y)
 
    mCurrentPageContents += out.str();
 }
+void PDF::showTextXY(const char &text, int x, int y){
+    string theText;
+
+    if(text == '(' || text == ')'){
+        theText += "\\";
+    }
+    theText += text;
+
+    ostringstream out;
+
+    out << "1 0 0 1" << " " << x << " " << y << " " << OP_TEXT_MATRIX << "\n";
+    out << "(" << theText << ")" << " " << OP_TEXT_SHOW << "\n";
+
+    mCurrentPageContents += out.str();
+}
 void PDF::rightJustifyTextXY(const string &text, int x, int y)
 {
    if(mCurrentFont != NONE)
@@ -630,7 +645,7 @@ void PDF::rightJustifyTextXY(const string &text, int x, int y)
 
 vector<string> PDF::wrapText(
    const string &text, int maxWidth, bool rightJustify
-)
+)const
 {
    // First, break 'text' up into separate words
 

@@ -1,9 +1,9 @@
 #include "choice.h"
-
+#include <iostream>
 Choice::Choice(const QString &name, const char &num, const bool &isCorrect, QWidget *parent):
     QWidget(parent)
 {
-    m_delete = new QPushButton("x");
+    m_delete = new QPushButton("Suppr.");
     m_name = new QLineEdit(name);
     m_num = new QLabel(QString(char(96+num))+")");
     m_correct = new QCheckBox;
@@ -17,7 +17,35 @@ Choice::Choice(const QString &name, const char &num, const bool &isCorrect, QWid
     m_layout->addWidget(m_delete);
 
     QObject::connect(m_delete, SIGNAL(clicked()), this, SLOT(del()));
-    QObject::connect(m_name, SIGNAL(textEdited(QString)), this, SLOT(changed()));
+    QObject::connect(m_name, SIGNAL(textChanged(QString)), this, SLOT(changed()));
+    QObject::connect(m_correct, SIGNAL(clicked()), this, SLOT(changed()));
+}
+Choice::Choice(const Choice& c){
+    m_delete = new QPushButton("Suppr.");
+    m_name = new QLineEdit(c.m_name->text());
+    m_num = new QLabel(c.m_num->text());
+    m_correct = new QCheckBox;
+    m_correct->setChecked(c.isCorrect());
+    m_layout = new QHBoxLayout;
+
+    m_layout->addWidget(m_num);
+    m_layout->addWidget(m_name);
+    m_layout->addWidget(m_correct);
+    m_layout->addWidget(m_delete);
+
+
+    QObject::connect(m_delete, SIGNAL(clicked()), this, SLOT(del()));
+    QObject::connect(m_name, SIGNAL(textChanged(QString)), this, SLOT(changed()));
+}
+Choice::Choice(const TempChoice& t){
+    m_name->setText(t.name);
+    m_num->setText(QString(t.num+96)+")");
+    m_correct->setChecked(t.correct);
+}
+void Choice::operator=(const Choice &c){
+    m_name->setText(c.m_name->text());
+    m_num->setText(c.m_num->text());
+    m_correct->setChecked(c.isCorrect());
 }
 void Choice::setNum(unsigned char n){
     m_num->setText(QString(char(96+n))+")");

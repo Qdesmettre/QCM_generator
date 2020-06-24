@@ -6,11 +6,14 @@
 #include <QCheckBox>
 #include <QHBoxLayout>
 #include <QPushButton>
+#include "Temp/tempchoice.h"
 class Choice : public QWidget
 {
     Q_OBJECT
 public:
     Choice(const QString &name = "", const char &num = 1, const bool &isCorrect = false, QWidget *parent = nullptr);
+    Choice(const Choice& c);
+    Choice(const TempChoice& t);
     ~Choice();
 
     QString name() const;
@@ -19,6 +22,8 @@ public:
     QHBoxLayout* layout();
 
     void setNum(unsigned char n);
+
+    void operator=(const Choice& c);
 
 public slots:
     void del();

@@ -1,11 +1,12 @@
 #include "qcmedit.h"
 #include "ui_qcmedit.h"
 #include <QVBoxLayout>
-#include "projectassist.h"
 #include <fstream>
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QMimeData>
+#include <iostream>
+#include <QSettings>
 QString QcmEdit::nameOf(QString path){
     QString name;
     while(path.back() != "/" && path.back() != "\\"){
@@ -29,15 +30,30 @@ QcmEdit::QcmEdit(const int &argc, QStringList const& list, QWidget *parent) :
     initAttributes();
     ui->setupUi(this);
     setCentralWidget(m_wait);
-    setWindowTitle(tr("Qcm Maker", "This is the name of the application"));
+    setWindowTitle(tr("QCMake", "This is the name of the application"));
     m_wait->setAlignment(Qt::AlignCenter);
     setAcceptDrops(true);
 
     QObject::connect(ui->actionNouveau_QCM, SIGNAL(triggered()), this, SLOT(nouveau()));
     m_timer.start();
 
+    m_fileTimer.setInterval(0);
+    m_fileTimer.setSingleShot(false);
+    m_fileTimer.start(250);
+    connect(&m_fileTimer, SIGNAL(timeout()), this, SLOT(checkForNewFiles()));
+
     m_argc = argc;
     m_argv = list;
+    m_Gprojects->setTabsClosable(true);
+    connect(m_Gprojects, SIGNAL(tabCloseRequested(int)), this, SLOT(close(int)));
+}
+void QcmEdit::checkForNewFiles(){
+    QSettings settings("QDesmettre", "QCMake");
+    if(settings.value("editor/newFilesToOpen").toBool()){
+        m_argv = settings.value("editor/newFiles").toStringList();
+        settings.setValue("editor/newFilesToOpen", false);
+        QcmEdit::show();
+    }
 }
 void QcmEdit::show(){
     QWidget::show();
@@ -47,6 +63,9 @@ void QcmEdit::show(){
         else QMessageBox::critical(this, QObject::tr("Erreur"), QObject::tr("Impossible d'ouvrir ")+m_argv[i]);
     }
 }
+void QcmEdit::close(const int& index){
+    closeProject(index);
+}
 void QcmEdit::dragEnterEvent(QDragEnterEvent *event){
     if(event->mimeData()->hasUrls()){
         event->acceptProposedAction();
@@ -55,13 +74,7 @@ void QcmEdit::dragEnterEvent(QDragEnterEvent *event){
 void QcmEdit::on_actionImprimer_triggered(){
     if(m_Gprojects->count() == 0)
         return;
-    QString pEmpla =  QFileDialog::getSaveFileName(this,
-                                                   m_projects[m_Gprojects->currentIndex()]->name(),
-                                                   m_projects[m_Gprojects->currentIndex()]->empla(),
-                                                   tr("Pdf (*.pdf)"));
-    if(!pEmpla.isEmpty())
-        m_projects[m_Gprojects->currentIndex()]->printToPdf(pEmpla.toStdString());
-
+    m_projects[m_Gprojects->currentIndex()]->printToPdf();
 }
 void QcmEdit::dropEvent(QDropEvent *event){
     if(event->mimeData()->urls().isEmpty() || event->mimeData()->urls().first().toLocalFile().isEmpty())
@@ -84,14 +97,21 @@ void QcmEdit::resizeEvent(QResizeEvent *resize){
 }
 void QcmEdit::closeEvent(QCloseEvent *event){
     on_actionTout_fermer_triggered();
+    QSettings settings("QDesmettre", "QCMake");
+    settings.setValue("editor/openned", false);
 }
 void QcmEdit::open(const QString &empla){
     if(empla.isEmpty())
         return;
 
+
     std::ifstream open(empla.toStdString().c_str()
                        , std::ios::in | std::ios::binary);
     if(open.is_open()){
+        if(QFileInfo(empla).suffix() != "qcm"){
+            QMessageBox::critical(this, "Erreur", "Erreur lors de l'ouverture de "+empla+" : \nType de fichier inconnu.");
+            return;
+        }
         // Le nom du projet
         QString Pname = "";
 
@@ -167,6 +187,7 @@ void QcmEdit::nouveau(){
 void QcmEdit::on_actionFermer_triggered(){
     if(m_Gprojects->count() == 0 || m_projects.size() == 0)
         return;
+
     closeProject(unsigned(m_Gprojects->currentIndex()));
 }
 void QcmEdit::on_actionTout_fermer_triggered(){
@@ -221,6 +242,8 @@ void QcmEdit::on_actionOuvrir_triggered(){
 }
 void QcmEdit::on_actionQuitter_triggered(){
     on_actionTout_fermer_triggered();
+    QSettings settings("QDesmettre", "QCMake");
+    settings.setValue("editor/openned", false);
     qApp->quit();
 }
 void QcmEdit::closeProject(const unsigned &index){
@@ -234,7 +257,11 @@ void QcmEdit::closeProject(const unsigned &index){
                 on_actionEnregistrer_sous_triggered();
             }
             else{
-                save(m_projects[index]);
+                if(save(m_projects[index])){
+                    QString done(tr("Enregistrement du projet "));
+                    done.append(m_Gprojects->tabText(index)+tr(" réussi"));
+                    QMessageBox::information(this, tr("Enregistrement terminé"), done);
+                }
             }
         }
         else if(choice == QMessageBox::Cancel){
@@ -264,21 +291,31 @@ std::string QcmEdit::toString(Project *project){
     text += "<PjName>";
     QString pjName  = project->name();
     if(QFileInfo(pjName).suffix() == "qcm") pjName.remove(pjName.size()-4, 4);
-    text += Project::toString(project->name());
+    text += Print::toString(project->name());
     text += "<!PjName>\n";
     for(unsigned i(0); i<project->questions().size(); i++){
         text += "<ques>";
-        text += Project::toString(project->questions()[i]->name(0)) + '\n';
+        text += Print::toString(project->questions()[i]->name(0)) + '\n';
         for(unsigned j(0); j<project->questions()[i]->choices().size(); j++){
             text += "<ans, ok=";
             if(project->questions()[i]->choices()[j]->isCorrect()) text += ("True>");
             else text += ("Fals>");
-            text += Project::toString(project->questions()[i]->choices()[j]->name());
+            text += Print::toString(project->questions()[i]->choices()[j]->name());
             text += "<!ans>\n";
         }
         text += "<!ques>\n";
     }
     return text;
+}
+void QcmEdit::on_actionR_tablir_triggered(){
+    if(m_projects.size() > 0){
+        //m_projects[m_Gprojects->currentIndex()]->redo();
+    }
+}
+void QcmEdit::on_actionAnnuler_triggered(){
+    if(m_projects.size() > 0){
+        //m_projects[m_Gprojects->currentIndex()]->undo();
+    }
 }
 QcmEdit::~QcmEdit()
 {

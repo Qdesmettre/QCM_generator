@@ -9,6 +9,7 @@
 #include <QDragEnterEvent>
 #include <QDropEvent>
 #include <QTime>
+#include <QTimer>
 namespace Ui {
 class QcmEdit;
 }
@@ -36,6 +37,10 @@ private slots:
     void on_actionOuvrir_triggered();
     void on_actionQuitter_triggered();
     void on_actionImprimer_triggered();
+    void on_actionAnnuler_triggered();
+    void on_actionR_tablir_triggered();
+    void close(const int& index);
+    void checkForNewFiles();
 
 
 protected:
@@ -52,6 +57,7 @@ private:
     std::string toString(Project *project);
     static QString nameOf(QString path);
 
+
     QTabWidget *m_Gprojects;
 
     std::vector<Project*> m_projects;
@@ -60,6 +66,7 @@ private:
     Ui::QcmEdit *ui;
 
     QTime m_timer;
+    QTimer m_fileTimer;
 
     int m_argc;
     QStringList m_argv;

@@ -8,19 +8,27 @@
 #include <QPushButton>
 #include "choice.h"
 #include <QScrollArea>
-
+#include "Temp/tempquestion.h"
 class Question : public QWidget
 {
     Q_OBJECT
 
 public:
     Question(QWidget *parent = nullptr, const QString &name = "", const unsigned &choices = 4, const unsigned &index = 1);
+    Question(const Question& q);
+
     virtual ~Question();
     std::vector<Choice*> choices() const;
     std::string name() const;
     QString name(int) const;
+
+    int num() const{return m_num->text().remove("/").toUShort();}
+    QString num(QString) const{return m_num->text().remove("/");}
+
     void setChoices(std::vector<Choice*> const& choices);
     void setNum(uchar const& n);
+
+    void operator=(const Question& q);
 public slots:
     void add();
     void del();
