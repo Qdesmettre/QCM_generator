@@ -50,9 +50,25 @@
     <addaction name="actionR_tablir"/>
     <addaction name="separator"/>
     <addaction name="actionD_placer"/>
+    <addaction name="actionBarre_d_outils"/>
+   </widget>
+   <widget class="QMenu" name="menuAffichage">
+    <property name="title">
+     <string>Affichage</string>
+    </property>
+    <addaction name="actionMode_sombre"/>
+   </widget>
+   <widget class="QMenu" name="menuAide">
+    <property name="title">
+     <string>Aide</string>
+    </property>
+    <addaction name="actionA_propos"/>
+    <addaction name="actionComment_utiliser_QCMake"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdition"/>
+   <addaction name="menuAffichage"/>
+   <addaction name="menuAide"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionNouveau_QCM">
@@ -75,11 +91,6 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+O</string>
-   </property>
-  </action>
-  <action name="actionR_cent">
-   <property name="text">
-    <string>Récents...</string>
    </property>
   </action>
   <action name="actionEnregistrer">
@@ -122,14 +133,6 @@
     <string>Ctrl+Shift+W</string>
    </property>
   </action>
-  <action name="actionD_connexion">
-   <property name="text">
-    <string>Déconnexion</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+D</string>
-   </property>
-  </action>
   <action name="actionQuitter">
    <property name="text">
     <string>Quitter</string>
@@ -168,6 +171,29 @@
    </property>
    <property name="text">
     <string>Déplacer</string>
+   </property>
+  </action>
+  <action name="actionA_propos">
+   <property name="text">
+    <string>A propos</string>
+   </property>
+  </action>
+  <action name="actionComment_utiliser_QCMake">
+   <property name="text">
+    <string>Comment utiliser QCMake</string>
+   </property>
+  </action>
+  <action name="actionMode_sombre">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Mode sombre</string>
+   </property>
+  </action>
+  <action name="actionBarre_d_outils">
+   <property name="text">
+    <string>Barre d'outils...</string>
    </property>
   </action>
  </widget>
