@@ -16,7 +16,6 @@ class PrintSetter : public QDialog
 public:
     explicit PrintSetter(QWidget *parent = nullptr);
     explicit PrintSetter(const PrintSetter &prtStr);
-    ~PrintSetter();
 
     QTextEdit *text() const;
     QString preQ() const;
@@ -75,6 +74,7 @@ class Print{
 public:
     Print(const PrintSetter &prtStr,
           const vector<Question*> &questions, const QString &path);
+    ~Print(){}
 
     bool printToPdf();
     static string toString(const QString &q);

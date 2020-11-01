@@ -234,10 +234,6 @@ void PrintSetter::on_fontSizeC_currentIndexChanged(int const& i){
 PrintSetter::PrintSetter(const PrintSetter &prtStr){
     ui = prtStr.ui;
 }
-PrintSetter::~PrintSetter()
-{
-    delete ui;
-}
 
 
 Print::Print(const PrintSetter &prtStr,
@@ -347,33 +343,33 @@ vector<string> Print::wordsOf(const string &str){
 QString Print::getIntitQ(const Question &ques){
     if(m_printSetter.preQ() == "Personaliser"){
         if(m_printSetter.letterQ()){
-            return m_printSetter.persoQ().replace("X", QString(ques.num()+97)) + " " + ques.name(0);
+            return m_printSetter.persoQ().replace("&X", QString(ques.num()+97)) + " " + ques.name(0);
         }
         else
-            return m_printSetter.persoQ().replace("X", ques.num("")) + " "+ques.name(0);
+            return m_printSetter.persoQ().replace("&X", ques.num("")) + " "+ques.name(0);
     }
     else{
         if(m_printSetter.letterQ()){
-            return m_printSetter.preQ().replace("X",QString(ques.num()+96)) + " " + ques.name(0);
+            return m_printSetter.preQ().replace("&X",QString(ques.num()+96)) + " " + ques.name(0);
         }
         else
-            return m_printSetter.preQ().replace("X", ques.num("")) + " "+ques.name(0);
+            return m_printSetter.preQ().replace("&X", ques.num("")) + " "+ques.name(0);
     }
 }
 QString Print::getIntitC(const quint8 i, const quint8 j, const Choice& c){
     if(m_printSetter.preC() == "Personnaliser..."){
         if(m_printSetter.letterC()){
-            return m_printSetter.persoC().replace("X", QString(j+97)) + " " + c.name();
+            return m_printSetter.persoC().replace("&X", QString(j+97)) + " " + c.name();
         }
         else
-            return m_printSetter.persoC().replace("X", QString().setNum(j+1)) + " "+c.name();
+            return m_printSetter.persoC().replace("&X", QString().setNum(j+1)) + " "+c.name();
     }
     else{
         if(m_printSetter.letterC()){
-            return m_printSetter.preC().replace("X", QString(j+97)) + " " + c.name();
+            return m_printSetter.preC().replace("&X", QString(j+97)) + " " + c.name();
         }
         else
-            return m_printSetter.preC().replace("X", QString().setNum(j+1)) + " "+c.name();
+            return m_printSetter.preC().replace("&X", QString().setNum(j+1)) + " "+c.name();
     }
 }
 int Print::addCountY(vector<std::string> intit, int fontSize){

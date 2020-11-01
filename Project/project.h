@@ -38,7 +38,7 @@ public slots:
     void add();
     void replace();
     void rename(int const& n);
-    void printToPdf();
+    void exportProject();
     void undo();
     void redo();
     void projectChanged();
@@ -58,6 +58,11 @@ private:
 
     bool hasOneCorrect() const;
     bool hasChoices() const;
+
+    void printToPdf(const PrintSetter& pr, const QString& path);
+    void printToDocx(const PrintSetter& pr, const QString& path);
+    void printToTxt(const PrintSetter& pr, const QString& path);
+    void printToOdt(const PrintSetter& pr, const QString& path);
 
     QString m_empla, m_name;
 

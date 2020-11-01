@@ -3,9 +3,9 @@ QT += widgets
 SOURCES += \
 	Login/pwdforgot.cpp \
 	Login/signin.cpp \
-	Print\printer.cpp \
-	Print\ToPdf\pdf.cpp \
-	Print\ToPdf\metrics.cpp \
+        Print/printer.cpp \
+        Print/ToPdf\pdf.cpp \
+        Print/ToPdf\metrics.cpp \
 	Project/Temp/tempchoice.cpp \
 	Project/Temp/tempproject.cpp \
 	Project/Temp/tempquestion.cpp \
@@ -17,9 +17,9 @@ SOURCES += \
 HEADERS += \
 	Login/pwdforgot.h \
 	Login/signin.h \
-	Print\printer.h \
-	Print\ToPdf\pdf.h \
-	Print\ToPdf\metrics.h \
+        Print/printer.h \
+        Print/ToPdf/pdf.h \
+        Print/ToPdf/metrics.h \
 	Project/Temp/tempchoice.h \
 	Project/Temp/tempproject.h \
 	Project/Temp/tempquestion.h \

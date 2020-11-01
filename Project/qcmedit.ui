@@ -159,7 +159,7 @@
   </action>
   <action name="actionImprimer">
    <property name="text">
-    <string>Imprimer</string>
+    <string>Exporter</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+P</string>

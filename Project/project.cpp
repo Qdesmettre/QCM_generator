@@ -110,18 +110,18 @@ void Project::rename(int const& n){
     }
     replace();
 }
-void Project::printToPdf(){
+void Project::exportProject(){
     if(!hasChoices()){
         QMessageBox::warning(parentWidget()->parentWidget(),
                              "Avertissement",
-                             "Il est impossible d'imprimer en PDF votre projet, car certaines questions n'ont pas de choix.\n"
+                             "Il est impossible d'exporter votre projet, car certaines questions n'ont pas de choix.\n"
                              "Veuillez utiliser au moins 1 choix par question.");
         return;
     }
     if(!hasOneCorrect()){
         QMessageBox::warning(parentWidget()->parentWidget(),
                              "Avertissement",
-                             "Il est impossible d'imprimer en PDF votre projet, car certaines questions n'ont pas de réponse marquées correcte.\n"
+                             "Il est impossible d'exporter votre projet, car certaines questions n'ont pas de réponse marquées correcte.\n"
                              "Veuillez marquer au moins une réponse correcte par question.");
         return;
     }
@@ -135,25 +135,31 @@ void Project::printToPdf(){
     if(pr.exec() == 0)
         return;
 
-    QString path = QFileDialog::getSaveFileName(parentWidget()->parentWidget(),
-                                                "Enregistrer",
-                                                empla().remove(".qcm"),
-                                                "Fichier PDF (*.pdf)");
-    if(path == "")
+
+    QFileDialog d(parentWidget()->parentWidget(),
+                  "Enregistrer",
+                  empla().remove(".qcm"),
+                  "Document PDF (*.pdf);;Document Word (*.docx);;Document OpenOffice (*.odt);;Fichier texte (*.txt)");
+    d.setAcceptMode(QFileDialog::AcceptSave);
+    d.setFileMode(QFileDialog::AnyFile);
+
+    if(d.exec() == 0 || d.selectedFiles().size() == 0)
         return;
 
-    Print printer(pr, m_questions, path);
-    if(printer.printToPdf()){
-        if(QMessageBox::question(parentWidget()->parentWidget(), tr("Impression terminée"),
-                                 tr("L'impression de votre qcm est terminée.\nDésirez vous l'ouvrir maintenant ?"),
-                                 QMessageBox::Yes | QMessageBox::No)== QMessageBox::Yes)
-            QDesktopServices::openUrl(QUrl(path));
-        else{}
-    }
-    else{
-        QMessageBox::critical(parentWidget()->parentWidget(), tr("Impression annulée"),
-                              tr("Erreur lors de l'impression Pdf de votre qcm.\n Veuillez rééssayer."));
-    }
+    QString path = d.selectedFiles().at(0);
+    QString filter = d.selectedNameFilter();
+
+    if(path == "" || filter == "")
+        return;
+
+    if(filter == "Document PDF (*.pdf)")
+        printToPdf(pr, path);
+    else if(filter == "Document Word (*.docx)")
+        printToDocx(pr, path);
+    else if(filter == "Document OpenOffice (*.odt)")
+        printToOdt(pr, path);
+    else if(filter == "Fichier texte (*.txt)")
+        printToTxt(pr, path);
 }
 void Project::undo(){
     if(m_oldTemps.empty())
@@ -270,6 +276,29 @@ void Project::projectChanged(){
     m_futureTemps = std::stack<TempProject>();
     m_oldTemps.push(m_current);
     m_current = currentTemp();
+}
+void Project::printToPdf(const PrintSetter& pr, const QString& path){
+    Print printer(pr, m_questions, path);
+    if(printer.printToPdf()){
+        if(QMessageBox::question(parentWidget()->parentWidget(), tr("Impression terminée"),
+                                 tr("L'impression de votre qcm est terminée.\nDésirez vous l'ouvrir maintenant ?"),
+                                 QMessageBox::Yes | QMessageBox::No)== QMessageBox::Yes)
+            QDesktopServices::openUrl(QUrl(path));
+        else{}
+    }
+    else{
+        QMessageBox::critical(parentWidget()->parentWidget(), tr("Impression annulée"),
+                              tr("Erreur lors de l'impression Pdf de votre qcm.\n Veuillez rééssayer."));
+    }
+}
+void Project::printToDocx(const PrintSetter &pr, const QString &path){
+
+}
+void Project::printToOdt(const PrintSetter& pr, const QString& path){
+
+}
+void Project::printToTxt(const PrintSetter& pr, const QString& path){
+
 }
 Project::~Project(){
     while(m_questions.size() != 0){

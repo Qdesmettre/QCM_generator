@@ -70,7 +70,7 @@ void QcmEdit::on_actionImprimer_triggered(){
         return;
     int i= m_Gprojects->currentIndex();
     Project* temp = qobject_cast<Project*>(m_Gprojects->widget(i));
-    temp->printToPdf();
+    temp->exportProject();
 }
 void QcmEdit::dropEvent(QDropEvent *event){
     if(event->mimeData()->urls().isEmpty() || event->mimeData()->urls().first().toLocalFile().isEmpty())
