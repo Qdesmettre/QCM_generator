@@ -1,6 +1,7 @@
 #include <QApplication>
 #include "Project/qcmedit.h"
 #include <QSettings>
+#include <QFile>
 int main(int argc, char **argv){
     QStringList list;
     for(int i(0); i<argc; i++){
@@ -25,8 +26,15 @@ int main(int argc, char **argv){
     }*/
     QApplication app(argc, argv);
 
+    QFile f(":/Dark/darkOrange.qss");
+    f.open(QFile::ReadOnly);
+    QString ss = f.readAll();
+    app.setStyleSheet(ss);
+    f.close();
+
     srand(time(nullptr));
     QcmEdit mainW(argc, list);
     mainW.show();
+
     return app.exec();
 }

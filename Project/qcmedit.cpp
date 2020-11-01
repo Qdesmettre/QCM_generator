@@ -273,7 +273,7 @@ void QcmEdit::closeProject(const unsigned &index){
     Project* temp = qobject_cast<Project*>(m_Gprojects->widget(index));
     if(!temp->isSaved()){
         QMessageBox::StandardButtons choice =
-                QMessageBox::question(this, tr("Projet non sauvegardé"),
+                QMessageBox::warning(this, tr("Projet non sauvegardé"),
                                             tr("Voulez vous abandonner les modifications non enregistrées ?"),
                                             QMessageBox::No | QMessageBox::Yes | QMessageBox::Cancel);
         if(choice == QMessageBox::No){

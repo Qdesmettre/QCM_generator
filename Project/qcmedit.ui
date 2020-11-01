@@ -52,12 +52,6 @@
     <addaction name="actionD_placer"/>
     <addaction name="actionBarre_d_outils"/>
    </widget>
-   <widget class="QMenu" name="menuAffichage">
-    <property name="title">
-     <string>Affichage</string>
-    </property>
-    <addaction name="actionMode_sombre"/>
-   </widget>
    <widget class="QMenu" name="menuAide">
     <property name="title">
      <string>Aide</string>
@@ -67,7 +61,6 @@
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdition"/>
-   <addaction name="menuAffichage"/>
    <addaction name="menuAide"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -181,14 +174,6 @@
   <action name="actionComment_utiliser_QCMake">
    <property name="text">
     <string>Comment utiliser QCMake</string>
-   </property>
-  </action>
-  <action name="actionMode_sombre">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Mode sombre</string>
    </property>
   </action>
   <action name="actionBarre_d_outils">

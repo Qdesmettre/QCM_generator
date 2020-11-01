@@ -11,6 +11,7 @@
 #include <stack>
 #include "../Print/printer.h"
 #include "Temp/tempproject.h"
+#include <QAction>
 using std::string;
 using std::vector;
 using std::stack;
@@ -85,6 +86,8 @@ private:
     stack<TempProject> m_oldTemps; // La pile utilisée quand on fait ctrl z
     stack<TempProject> m_futureTemps; // La pile utilisée quand on fait ctrl y
     TempProject m_current;
+
+    QAction m_addAction;
 
 };
 

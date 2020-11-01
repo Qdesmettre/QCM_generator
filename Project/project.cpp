@@ -10,7 +10,8 @@ Project::Project(const QString &empla, const QString &name, QTabWidget *tParent,
     QWidget(parent),
     m_name(name),
     m_parent(tParent),
-    m_isSaved(true)
+    m_isSaved(true),
+    m_addAction("Ajouter une question")
 {
     initAttrib();
     initConnect();
@@ -51,10 +52,15 @@ void Project::setName(QString n){
     m_name = n;
 }
 void Project::initAttrib(){
+    m_addAction.setShortcut(QKeySequence("Ctrl++"));
+
     m_mainLay = new QVBoxLayout;
     m_optLay = new QHBoxLayout;
     m_sa = new QScrollArea;
     m_add = new QPushButton("Ajouter question");
+    m_add->setToolTip("Appuyez sur Ctrl et + en même temps");
+    m_add->addAction(&m_addAction);
+    m_add->setToolTipDuration(0);
     m_optLay->addWidget(m_add);
     m_optLay->setAlignment(Qt::AlignLeft);
 
@@ -71,13 +77,17 @@ void Project::initAttrib(){
     m_oldTemps = stack<TempProject>();
     m_futureTemps = stack<TempProject>();
     m_current = currentTemp();
+
+
+
 }
 std::vector<Question*> Project::questions() const{
     return m_questions;
 }
 void Project::initConnect(){
-    QObject::connect(m_add, SIGNAL(clicked()), this, SLOT(add()));
-    connect(m_add, SIGNAL(clicked()), this, SLOT(projectChanged()));
+    connect(m_add, SIGNAL(clicked()), &m_addAction, SLOT(trigger()));
+    connect(&m_addAction, SIGNAL(triggered()), this, SLOT(add()));
+    connect(&m_addAction, SIGNAL(triggered()), this, SLOT(projectChanged()));
 }
 void Project::replace(){
     // On enlève tous les éléments du layout

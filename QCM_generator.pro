@@ -13,7 +13,7 @@ SOURCES += \
 	Project/project.cpp \	
 	Project/qcmedit.cpp \
 	Project/question.cpp \
-	main.cpp 
+        main.cpp
 HEADERS += \
 	Login/pwdforgot.h \
 	Login/signin.h \
@@ -26,10 +26,12 @@ HEADERS += \
 	Project/choice.h \
 	Project/project.h \	
 	Project/qcmedit.h \
-	Project/question.h 
+        Project/question.h
+
 FORMS += \
 	Login/login.ui \
 	Login/signin.ui \
 	Print/printer.ui \
-	Project/qcmedit.ui \
-	
+        Project/qcmedit.ui
+RESOURCES += \
+    themes.qrc
