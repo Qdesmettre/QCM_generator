@@ -17,11 +17,11 @@ public:
     ~Choice();
 
     QString name() const;
-    unsigned char num() const;
+    unsigned short num() const;
     bool isCorrect() const;
     QHBoxLayout* layout();
 
-    void setNum(unsigned char n);
+    void setNum(qulonglong n);
 
     void operator=(const Choice& c);
 

@@ -22,7 +22,7 @@
      <x>0</x>
      <y>0</y>
      <width>640</width>
-     <height>22</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -34,6 +34,8 @@
     <addaction name="actionEnregistrer"/>
     <addaction name="actionEnregistrer_sous"/>
     <addaction name="actionTout_enregistrer"/>
+    <addaction name="separator"/>
+    <addaction name="actionImprimer"/>
     <addaction name="separator"/>
     <addaction name="actionFermer"/>
     <addaction name="actionTout_fermer"/>
@@ -47,7 +49,7 @@
     <addaction name="actionAnnuler"/>
     <addaction name="actionR_tablir"/>
     <addaction name="separator"/>
-    <addaction name="actionImprimer"/>
+    <addaction name="actionD_placer"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdition"/>
@@ -93,7 +95,7 @@
     <string>Enregistrer sous...</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+Alt+S</string>
+    <string>Ctrl+Shift+S</string>
    </property>
   </action>
   <action name="actionTout_enregistrer">
@@ -101,7 +103,7 @@
     <string>Tout enregistrer</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+Shift+S</string>
+    <string>Ctrl+Alt+S</string>
    </property>
   </action>
   <action name="actionFermer">
@@ -158,6 +160,14 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+P</string>
+   </property>
+  </action>
+  <action name="actionD_placer">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Déplacer</string>
    </property>
   </action>
  </widget>

@@ -5,6 +5,7 @@ Choice::Choice(const QString &name, const char &num, const bool &isCorrect, QWid
 {
     m_delete = new QPushButton("Suppr.");
     m_name = new QLineEdit(name);
+
     m_num = new QLabel(QString(char(96+num))+")");
     m_correct = new QCheckBox;
     m_correct->setChecked(isCorrect);
@@ -35,7 +36,7 @@ Choice::Choice(const Choice& c){
 
 
     QObject::connect(m_delete, SIGNAL(clicked()), this, SLOT(del()));
-    QObject::connect(m_name, SIGNAL(textChanged(QString)), this, SLOT(changed()));
+    QObject::connect(m_name, SIGNAL(editingFinished()), this, SLOT(changed()));
 }
 Choice::Choice(const TempChoice& t){
     m_name->setText(t.name);
@@ -47,7 +48,7 @@ void Choice::operator=(const Choice &c){
     m_num->setText(c.m_num->text());
     m_correct->setChecked(c.isCorrect());
 }
-void Choice::setNum(unsigned char n){
+void Choice::setNum(qulonglong n){
     m_num->setText(QString(char(96+n))+")");
 }
 void Choice::changed(){emit edited();}
@@ -57,7 +58,7 @@ void Choice::del(){
     delete this;
 }
 QString Choice::name() const{return m_name->text();}
-unsigned char Choice::num() const{return m_num->text().remove(QString(")")).toUShort();}
+unsigned short Choice::num() const{return m_num->text().remove(QString(")")).toUShort();}
 bool Choice::isCorrect() const{return m_correct->isChecked();}
 QHBoxLayout* Choice::layout(){return m_layout;}
 Choice::~Choice(){

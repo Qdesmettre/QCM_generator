@@ -6,31 +6,15 @@
 #include <QSpinBox>
 #include <iostream>
 
-Project::Project(const QString &empla, const QString &name, QTabWidget *tParent, QWidget *parent) : QWidget(parent)
+Project::Project(const QString &empla, const QString &name, QTabWidget *tParent, QWidget *parent) :
+    QWidget(parent),
+    m_name(name),
+    m_parent(tParent),
+    m_isSaved(true)
 {
-
-    m_name = name;    
-
     initAttrib();
     initConnect();
-
-    m_isSaved = true;
-    m_parent = tParent;
-
-    if(m_empla.size()>4){
-        // Le chemin complet est spécifié vers un fichier précis
-        if((QString(empla[empla.size()-1])+empla[empla.size()-2]+
-             empla[empla.size()-3]+empla[empla.size()-4]) == "mcq.") m_empla = empla;
-        // Un chemin vers un dossier spécifié, mais sans slash au bout
-        else if(empla.back() == "/" ||empla.back() == "\\")
-            m_empla = empla+"/";
-        // Un chemin vers un dossier bien spécifié
-        else m_empla = empla;
-    }
-    else m_empla = empla;
-
-    addTemp();
-    m_projIt = m_temp.begin();
+    setEmpla(empla);
 }
 void Project::setQuestions(const std::vector<Question *> &questions){
     while(m_questions.size() != 0){
@@ -41,27 +25,27 @@ void Project::setQuestions(const std::vector<Question *> &questions){
     for(unsigned i(0); i<m_questions.size(); i++){
         connect(m_questions[i], SIGNAL(destroyed(int)), this, SLOT(rename(int)));
         connect(m_questions[i], SIGNAL(edited()), this, SLOT(nSaved()));
+        connect(m_questions[i], SIGNAL(edited()), this, SLOT(projectChanged()));
     }
     replace();
 }
 QString Project::empla()const{
-    if(m_empla.size() > 4){
-    // Le chemin complet est spécifié vers un fichier précis
-    if((QString(m_empla[m_empla.size()-1])+m_empla[m_empla.size()-2]+
-         m_empla[m_empla.size()-3]+m_empla[m_empla.size()-4]) == "mcq.") return m_empla;
-    // Un chemin vers un dossier spécifié, mais sans slash au bout
-    else if(m_empla.back() != "/" ||m_empla.back() != "\\")
-        return m_empla+"/"+m_name+".qcm";
-    // Un chemin vers un dossier bien spécifié
-    else return m_empla+".qcm";
-    }
-    else return m_empla;
+    return m_empla;
 }
 QString Project::name() const{
     return m_name;
 }
 void Project::setEmpla(const QString &n){
-    m_empla = n;
+    if(n.size() <= 4){
+        m_empla = n;
+        return;
+    }
+    if(QFileInfo(n).suffix() == "qcm")
+        m_empla = n;
+    else if(n.back() != "/" || n.back() != "\\")
+        m_empla = n+m_name+".qcm";
+    else
+        m_empla = n+".qcm";
 }
 void Project::setName(QString n){
     m_name = n;
@@ -70,7 +54,7 @@ void Project::initAttrib(){
     m_mainLay = new QVBoxLayout;
     m_optLay = new QHBoxLayout;
     m_sa = new QScrollArea;
-    m_add = new QPushButton("Question++");
+    m_add = new QPushButton("Ajouter question");
     m_optLay->addWidget(m_add);
     m_optLay->setAlignment(Qt::AlignLeft);
 
@@ -83,12 +67,17 @@ void Project::initAttrib(){
     m_mainLay->addLayout(m_optLay);
 
     setLayout(m_mainLay);
+
+    m_oldTemps = stack<TempProject>();
+    m_futureTemps = stack<TempProject>();
+    m_current = currentTemp();
 }
 std::vector<Question*> Project::questions() const{
     return m_questions;
 }
 void Project::initConnect(){
     QObject::connect(m_add, SIGNAL(clicked()), this, SLOT(add()));
+    connect(m_add, SIGNAL(clicked()), this, SLOT(projectChanged()));
 }
 void Project::replace(){
     // On enlève tous les éléments du layout
@@ -99,6 +88,7 @@ void Project::replace(){
     // On calcule le max de widget par ligne
         int nb = m_container->size().width() / m_questions.back()->sizeHint().width();
         if(nb == 0) nb++;
+        // On ajoute tous les widgets
         for(unsigned i(0); i<m_questions.size(); i++){
             m_layout->addWidget(m_questions[i], i/nb, i%nb);
         }
@@ -108,6 +98,7 @@ void Project::add(){
     m_questions.push_back(new Question(nullptr, "", 4, m_questions.size()+1));
     connect(m_questions.back(), SIGNAL(destroyed(int)), this, SLOT(rename(int)));
     connect(m_questions.back(), SIGNAL(edited()), this, SLOT(nSaved()));
+    connect(m_questions.back(), SIGNAL(edited()), this, SLOT(projectChanged()));
     replace();
     nSaved();
 }
@@ -164,53 +155,51 @@ void Project::printToPdf(){
                               tr("Erreur lors de l'impression Pdf de votre qcm.\n Veuillez rééssayer."));
     }
 }
-void Project::addTemp(){
-    std::vector<TempQuestion> tempQuestions;
-    for(unsigned i(0), size(m_questions.size()); i<size; i++){
-        std::vector<TempChoice> tempChoices;
-        for(unsigned j(0), jSize(m_questions[i]->choices().size()); j<jSize; j++){
-            tempChoices.push_back(TempChoice(m_questions[i]->choices()[j]->name(),
-                                             (m_questions[i]->choices()[j]->num()),
-                                             m_questions[i]->choices()[j]->isCorrect()));
-        }
-        tempQuestions.push_back(TempQuestion(m_questions[i]->name(0), m_questions[i]->num(""), tempChoices));
-    }
-    m_temp.erase(m_projIt, m_temp.end());
-    m_temp.push_back(TempProject(empla(), name(), tempQuestions));
-    m_projIt = m_temp.end();
-}
 void Project::undo(){
+    if(m_oldTemps.empty())
+        return;
 
-    std::cout << "truc" << std::endl;
-    if(m_projIt != m_temp.begin()){
-        std::cout << "fait" << std::endl;
-        m_projIt--;
-        load(m_projIt);
-    }
+    m_futureTemps.push(m_current);
+
+    load(m_oldTemps.top());
+    m_oldTemps.pop();
+
+    m_current = currentTemp();
+
+    nSaved();
 }
 void Project::redo(){
-    if(m_projIt+1 == m_temp.end())
+    if(m_futureTemps.empty())
         return;
-    m_projIt++;
-    load(m_projIt);
+
+    m_oldTemps.push(m_current);
+
+    load(m_futureTemps.top());
+    m_futureTemps.pop();
+
+    m_current = currentTemp();
+
+    nSaved();
+
 }
-void Project::load(const vector<TempProject>::iterator &it){
-    TempProject temp = *it;
-    m_name = temp.name;
-    m_empla = temp.empla;
-
-
-    m_questions.clear();
-    for(unsigned i(0), size(temp.questions.size()); i<size; i++){
-        vector<Choice*> choices;
-        for(unsigned j(0), jSize(temp.questions[i].choices.size()); j<jSize; j++){
-            choices.push_back(new Choice(temp.questions[i].choices[j]));
+void Project::load(const TempProject &it){
+    // Chargement de it
+    std::vector<Question*> ques;
+    for(int i(0), n(it.questions.size()); i<n; i++){
+        std::vector<Choice*> ch;
+        for(int j(0), m(it.questions[i].choices.size()); j<m; j++){
+            TempChoice temp = it.questions[i].choices[j];
+            ch.push_back(new Choice(temp.name, temp.num, temp.correct, nullptr));
         }
-        m_questions.push_back(new Question(nullptr, temp.questions[i].name, 0, temp.questions[i].num.toUInt()));
-        m_questions.back()->setChoices(choices);
-        connect(m_questions.back(), SIGNAL(destroyed(int)), this, SLOT(rename(int)));
-        connect(m_questions.back(), SIGNAL(edited()), this, SLOT(nSaved()));
+        TempQuestion temp = it.questions[i];
+        ques.push_back(new Question(nullptr, temp.name, temp.choices.size(), temp.num.toInt()));
     }
+    m_empla = it.empla;
+    m_name = it.name;
+    setQuestions(ques);
+
+    emit nameChanged(m_name);
+
     replace();
     setSaved(false);
 }
@@ -239,7 +228,6 @@ void Project::setSaved(const bool &s){
     m_isSaved = s;
 }
 void Project::nSaved(){
-    addTemp();
     setSaved(false);
 }
 bool Project::hasOneCorrect() const{
@@ -263,6 +251,26 @@ bool Project::hasChoices() const{
     }
     return true;
 }
+TempProject Project::currentTemp() const{
+    std::vector<TempQuestion> tempQuestions;
+    for(unsigned i(0), size(m_questions.size()); i<size; i++){
+        std::vector<TempChoice> tempChoices;
+        for(unsigned j(0), jSize(m_questions[i]->choices().size()); j<jSize; j++){
+            Choice c = *m_questions[i]->choices()[j];
+            tempChoices.push_back(TempChoice(c.name(),
+                                             c.num(),
+                                             c.isCorrect()));
+        }
+        Question q = *m_questions[i];
+        tempQuestions.push_back(TempQuestion(q.name(0), q.num(""), tempChoices));
+    }
+    return TempProject(empla(), name(), tempQuestions);
+}
+void Project::projectChanged(){
+    m_futureTemps = std::stack<TempProject>();
+    m_oldTemps.push(m_current);
+    m_current = currentTemp();
+}
 Project::~Project(){
     while(m_questions.size() != 0){
         delete m_questions.back();
@@ -275,6 +283,3 @@ Project::~Project(){
     delete m_optLay;
     delete m_mainLay;
 }
-
-
-

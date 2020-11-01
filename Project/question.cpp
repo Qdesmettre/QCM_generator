@@ -100,6 +100,7 @@ void Question::operator=(const Question &q){
     m_name->setText(q.m_name->text());
 }
 void Question::rename(int const& n){
+    emit edited();
     m_choices.erase(m_choices.begin()+n);
     for(unsigned i(0); i<m_choices.size(); i++){
         m_choices[i]->setNum(uchar(i+1));
@@ -108,9 +109,8 @@ void Question::rename(int const& n){
         m_add->setEnabled(true);
         m_add->setToolTip("");
     }
-    emit edited();    
 }
-void Question::setNum(const uchar &n){
+void Question::setNum(const ushort &n){
     m_num->setText(QString(n)+"/");
 }
 void Question::setChoices(std::vector<Choice *> const& choices){
@@ -120,10 +120,8 @@ void Question::setChoices(std::vector<Choice *> const& choices){
     }
     for(unsigned i(0); i<choices.size(); i++){
         m_choices.push_back(new Choice(*choices[i]));
-    }
-    for(unsigned i(0); i<m_choices.size(); i++){
-        m_layout->addRow(m_choices[i]->layout());
-        connect(m_choices[i], SIGNAL(destroyed(int)), this, SLOT(rename(int)));
+        m_layout->addRow(m_choices.back()->layout());
+        connect(m_choices.back(), SIGNAL(destroyed(int)), this, SLOT(rename(int)));
     }
 }
 std::vector<Choice*> Question::choices() const{
@@ -138,14 +136,15 @@ QString Question::name(int)const{
 void Question::initConnections(){
     QObject::connect(m_add, SIGNAL(clicked()), this, SLOT(add()));
     connect(m_delete, SIGNAL(clicked()), this, SLOT(del()));
-    connect(m_name, SIGNAL(textChanged(QString)), this, SLOT(changed()));
+    connect(m_name, SIGNAL(editingFinished()), this, SLOT(changed()));
 }
 void Question::add(){
     if(m_choices.size() < 26){
+        emit edited();
         m_choices.push_back(new Choice("", m_choices.size()+1));
         QObject::connect(m_choices.back(), SIGNAL(destroyed(int)), this, SLOT(rename(int)));
         m_layout->addRow(m_choices.back()->layout());
-        emit edited();
+
 
         if(m_choices.size() >= 26){
             m_add->setEnabled(false);
@@ -164,11 +163,11 @@ void Question::del(){
     delete this;
 }
 void Question::changed(){
+    emit edited();
     if(m_choices.size() < 26){
         m_add->setEnabled(true);
         m_add->setToolTip("");
     }
-    emit edited();
 }
 Question::~Question(){
     while(m_choices.size() != 0){

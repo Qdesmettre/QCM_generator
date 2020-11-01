@@ -1,7 +1,6 @@
 QT += widgets
 
 SOURCES += \
-	Login\login.cpp \
 	Login/pwdforgot.cpp \
 	Login/signin.cpp \
 	Print\printer.cpp \
@@ -16,7 +15,6 @@ SOURCES += \
 	Project/question.cpp \
 	main.cpp 
 HEADERS += \
-	Login\login.h \
 	Login/pwdforgot.h \
 	Login/signin.h \
 	Print\printer.h \

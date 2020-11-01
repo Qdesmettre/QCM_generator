@@ -8,10 +8,12 @@
 #include "question.h"
 #include <QTabWidget>
 #include <string>
+#include <stack>
 #include "../Print/printer.h"
 #include "Temp/tempproject.h"
 using std::string;
 using std::vector;
+using std::stack;
 
 class Project : public QWidget
 {
@@ -39,18 +41,20 @@ public slots:
     void printToPdf();
     void undo();
     void redo();
+    void projectChanged();
     /*void generate();
     void save();*/
 
 signals:
+    void nameChanged(QString newName);
 
 private:
     void initAttrib();
     void initConnect();
 
     int maxChoices();
-    void load(const vector<TempProject>::iterator &it);
-    void addTemp();
+    void load(const TempProject &it);
+    TempProject currentTemp() const;
 
     bool hasOneCorrect() const;
     bool hasChoices() const;
@@ -72,8 +76,12 @@ private:
     //      m_container contient m_layout
     //          m_layout contient m_questions
     bool m_isSaved;
-    vector<TempProject>::iterator m_projIt;
-    vector<TempProject> m_temp;
+
+    stack<TempProject> m_oldTemps; // La pile utilisée quand on fait ctrl z
+    stack<TempProject> m_futureTemps; // La pile utilisée quand on fait ctrl y
+    TempProject m_current;
+
 };
+
 
 #endif // PROJECT_H

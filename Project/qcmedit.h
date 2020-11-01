@@ -33,7 +33,7 @@ private slots:
     void on_actionTout_fermer_triggered();
     void on_actionEnregistrer_triggered();
     void on_actionTout_enregistrer_triggered();
-    void on_actionEnregistrer_sous_triggered();
+    bool on_actionEnregistrer_sous_triggered();
     void on_actionOuvrir_triggered();
     void on_actionQuitter_triggered();
     void on_actionImprimer_triggered();
@@ -41,6 +41,8 @@ private slots:
     void on_actionR_tablir_triggered();
     void close(const int& index);
     void checkForNewFiles();
+    void changeName(QString newName);
+    void setWaitScreen();
 
 
 protected:
@@ -52,10 +54,11 @@ protected:
 
 private:
     bool save(Project *project);
-    void initAttributes();
     void closeProject(const unsigned &index);
     std::string toString(Project *project);
     static QString nameOf(QString path);
+    std::vector<Project*>::iterator iteratorOf(Project* p);
+    void initGprojects();
 
 
     QTabWidget *m_Gprojects;
