@@ -32,13 +32,14 @@ private slots:
     void on_actionFermer_triggered();
     void on_actionTout_fermer_triggered();
     void on_actionEnregistrer_triggered();
-    void on_actionTout_enregistrer_triggered();
+    void on_actionTout_enregistrer_triggered(bool afficherMessage = true);
     bool on_actionEnregistrer_sous_triggered();
     void on_actionOuvrir_triggered();
     void on_actionQuitter_triggered();
     void on_actionImprimer_triggered();
     void on_actionAnnuler_triggered();
     void on_actionR_tablir_triggered();
+    void on_actionA_propos_triggered();
     void close(const int& index);
     void checkForNewFiles();
     void changeName(QString newName);
@@ -69,7 +70,6 @@ private:
     Ui::QcmEdit *ui;
 
     QTime m_timer;
-    QTimer m_fileTimer;
 
     int m_argc;
     QStringList m_argv;

@@ -9,8 +9,10 @@ SOURCES += \
 	Project/Temp/tempchoice.cpp \
 	Project/Temp/tempproject.cpp \
 	Project/Temp/tempquestion.cpp \
+        Project/about.cpp \
 	Project/choice.cpp \
-	Project/project.cpp \	
+        Project/project.cpp \
+        Project/thanks.cpp \
 	Project/qcmedit.cpp \
 	Project/question.cpp \
         main.cpp
@@ -23,8 +25,10 @@ HEADERS += \
 	Project/Temp/tempchoice.h \
 	Project/Temp/tempproject.h \
 	Project/Temp/tempquestion.h \
+        Project/about.h \
 	Project/choice.h \
-	Project/project.h \	
+        Project/project.h \
+        Project/thanks.h \
 	Project/qcmedit.h \
         Project/question.h
 
@@ -32,6 +36,8 @@ FORMS += \
 	Login/login.ui \
 	Login/signin.ui \
 	Print/printer.ui \
-        Project/qcmedit.ui
+        Project/about.ui \
+        Project/qcmedit.ui \
+        Project/thanks.ui
 RESOURCES += \
     themes.qrc

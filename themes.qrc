@@ -3,4 +3,9 @@
         <file>Dark/dark.qss</file>
         <file>Dark/darkOrange.qss</file>
     </qresource>
+    <qresource prefix="/">
+        <file>images/checkbox.png</file>
+        <file>images/down_arrow.png</file>
+        <file>images/handle.png</file>
+    </qresource>
 </RCC>

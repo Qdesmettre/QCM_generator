@@ -5,7 +5,7 @@
 #include <QFileDialog>
 #include <QSpinBox>
 #include <iostream>
-
+#include "thanks.h"
 Project::Project(const QString &empla, const QString &name, QTabWidget *tParent, QWidget *parent) :
     QWidget(parent),
     m_name(name),
@@ -37,7 +37,13 @@ QString Project::name() const{
     return m_name;
 }
 void Project::setEmpla(const QString &n){
-    if(n.size() <= 4){
+    if(QFileInfo(n).suffix() == "qcm")
+        m_empla = n;
+    else if(n.isEmpty())
+        m_empla = "";
+    else
+        m_empla = n+".qcm";
+    /*if(n.size() <= 4){ // chemin relatif
         m_empla = n;
         return;
     }
@@ -46,7 +52,8 @@ void Project::setEmpla(const QString &n){
     else if(n.back() != "/" || n.back() != "\\")
         m_empla = n+m_name+".qcm";
     else
-        m_empla = n+".qcm";
+        m_empla = n+".qcm";*/
+
 }
 void Project::setName(QString n){
     m_name = n;
@@ -170,6 +177,10 @@ void Project::exportProject(){
         printToOdt(pr, path);
     else if(filter == "Fichier texte (*.txt)")
         printToTxt(pr, path);
+
+    Thanks win;
+    win.exec();
+
 }
 void Project::undo(){
     if(m_oldTemps.empty())

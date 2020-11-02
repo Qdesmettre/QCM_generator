@@ -3,28 +3,23 @@
 #include <QSettings>
 #include <QFile>
 int main(int argc, char **argv){
+
+
+
+
+    QCoreApplication::setApplicationName("QCMake");
+    QCoreApplication::setOrganizationName("QDesmettre");
+    QCoreApplication::setOrganizationDomain("https://github.com/Qdesmettre/");
+
+    QSettings settings;
+
     QStringList list;
     for(int i(0); i<argc; i++){
         list.push_back(argv[i]);
     }
-  /*QSettings settings("QDesmettre", "QCMake");
-    if(settings.value("editor/openned").toBool()){
-        settings.setValue("editor/newFilesToOpen", true);
-        settings.setValue("editor/newFiles", list);
-        return 0;
-    }
-    else{
-        QApplication app(argc, argv);
+    list << settings.value("qcmedit/projects").toStringList();
 
-        srand(time(nullptr));
-
-        QcmEdit mainW(argc, list);
-        mainW.show();
-        settings.setValue("editor/openned", true);
-        settings.setValue("editor/newFilesToOpen", false);
-        return app.exec();
-    }*/
-    QApplication app(argc, argv);
+     QApplication app(argc, argv);
 
     QFile f(":/Dark/darkOrange.qss");
     f.open(QFile::ReadOnly);
@@ -34,6 +29,10 @@ int main(int argc, char **argv){
 
     srand(time(nullptr));
     QcmEdit mainW(argc, list);
+
+    mainW.resize(settings.value("qcmedit/size").toSize());
+    mainW.move(settings.value("qcmedit/position").toPoint());
+
     mainW.show();
 
     return app.exec();

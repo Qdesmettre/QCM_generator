@@ -7,6 +7,7 @@
 #include <QMimeData>
 #include <iostream>
 #include <QSettings>
+#include "about.h"
 QString QcmEdit::nameOf(QString path){
     QString name;
     while(path.back() != "/" && path.back() != "\\"){
@@ -92,9 +93,20 @@ void QcmEdit::resizeEvent(QResizeEvent *resize){
     }
 }
 void QcmEdit::closeEvent(QCloseEvent *event){
-    on_actionTout_fermer_triggered();
-    QSettings settings("QDesmettre", "QCMake");
-    settings.setValue("editor/openned", false);
+    QSettings settings;
+    settings.setValue("qcmedit/size", size());
+    settings.setValue("qcmedit/position", pos());
+
+    on_actionTout_enregistrer_triggered();
+    QStringList files;
+    if(m_Gprojects != nullptr){
+        for(int i(0), n(m_Gprojects->count()); i<n; i++){
+            Project* temp = qobject_cast<Project*>(m_Gprojects->widget(i));
+            if(temp != nullptr)
+                files << temp->empla();
+        }
+    }
+    settings.setValue("qcmedit/projects", files);
 }
 void QcmEdit::open(const QString &empla){
     if(empla.isEmpty())
@@ -218,9 +230,8 @@ void QcmEdit::on_actionEnregistrer_triggered(){
         on_actionEnregistrer_sous_triggered();
     else{
         if(save(temp)){
-            QString done(tr("Enregistrement du projet ", "There is the project name just after"));
-            done.append(temp->name()+tr(" réussi"));
-            QMessageBox::information(this, tr("Enregistrement terminé"), done);
+            QMessageBox::information(this, tr("Enregistrement terminé"), tr("Enregistrement du projet ", "There is the project name just after")
+                                     + temp->name() + tr(" réussi."));
         }
     }
 }
@@ -233,30 +244,48 @@ bool QcmEdit::on_actionEnregistrer_sous_triggered(){
 
     QString empla = QFileDialog::getSaveFileName(this,
                                                  temp->name(),
-            temp->empla(), tr("Qcm (*.qcm)"));
+                                                 temp->empla(),
+                                                 tr("Qcm (*.qcm)"));
     if(empla.isEmpty())
         return false;
-    temp->setEmpla(empla);
+
+
     temp->setName(nameOf(empla));
+    temp->setEmpla(empla);
 
     if(save(temp)){
-        m_Gprojects->setTabText(m_Gprojects->currentIndex(), nameOf(temp->empla()));
+        m_Gprojects->setTabText(m_Gprojects->currentIndex(), temp->name()+".qcm");
         QString done(tr("Enregistrement du projet "));
         done.append(m_Gprojects->tabText(m_Gprojects->currentIndex())+tr(" réussi"));
         QMessageBox::information(this, tr("Enregistrement terminé"), done);
+        return true;
     }
-
+    return false;
 }
-void QcmEdit::on_actionTout_enregistrer_triggered(){
-    if(m_Gprojects == 0)
+void QcmEdit::on_actionTout_enregistrer_triggered(bool afficher){
+    if(m_Gprojects == nullptr)
         return;
     bool ok = true;
-    int i= m_Gprojects->currentIndex();
-    Project* temp = qobject_cast<Project*>(m_Gprojects->widget(i));
-    for(int i(0); i<m_Gprojects->count(); i++){
+    for(int i(0), n(m_Gprojects->count()); i<n; i++){
+        Project* temp = qobject_cast<Project*>(m_Gprojects->widget(i));
+        if(temp->empla().isEmpty()){
+            QString empla = QFileDialog::getSaveFileName(this,
+                                                         temp->name(),
+                                                         temp->empla(),
+                                                         tr("Qcm (*.qcm)"));
+            if(empla.isEmpty())
+                return;
+
+            temp->setName(nameOf(empla));
+            temp->setEmpla(empla);
+
+            if(!save(temp))
+                ok = false;
+
+        }
         if(!save(temp)) ok = false;
     }
-    if(m_Gprojects->count() != 0 && ok) QMessageBox::information(this, tr("Enregistrements terminés"), tr("Tous les projets ont bien été enregistrés."));
+    if(m_Gprojects->count() != 0 && ok && afficher) QMessageBox::information(this, tr("Enregistrements terminés"), tr("Tous les projets ont bien été enregistrés."));
 }
 void QcmEdit::on_actionOuvrir_triggered(){
     QString file = QFileDialog::getOpenFileName(this, QString(), QString(), tr("Qcm (*.qcm)"));
@@ -264,9 +293,7 @@ void QcmEdit::on_actionOuvrir_triggered(){
         open(file);
 }
 void QcmEdit::on_actionQuitter_triggered(){
-    on_actionTout_fermer_triggered();
-    QSettings settings("QDesmettre", "QCMake");
-    settings.setValue("editor/openned", false);
+    closeEvent(nullptr);
     qApp->quit();
 }
 void QcmEdit::closeProject(const unsigned &index){
@@ -379,6 +406,10 @@ std::vector<Project*>::iterator QcmEdit::iteratorOf(Project* p){
     }
     return it;
 
+}
+void QcmEdit::on_actionA_propos_triggered(){
+    About temp;
+    temp.exec();
 }
 QcmEdit::~QcmEdit()
 {
