@@ -27,7 +27,8 @@ public:
 public slots:
     void show();
 
-private slots:
+public slots:
+    // 1 : quand on veut faire ces actions
     void nouveau();
     void on_actionFermer_triggered();
     void on_actionTout_fermer_triggered();
@@ -40,6 +41,21 @@ private slots:
     void on_actionAnnuler_triggered();
     void on_actionR_tablir_triggered();
     void on_actionA_propos_triggered();
+    void on_actionDon_triggered();
+
+    // 2 : les actions qui sont trigger quand on les cochent (pour afficher/ne plus afficher sur la barre d'outils)
+    void on_actionNouveau_QCM2_triggered();
+    void on_actionFermer_2_triggered();
+    void on_actionTout_fermer_2_triggered();
+    void on_actionEnregistrer_2_triggered();
+    void on_actionTout_enregistrer_2_triggered();
+    void on_actionEnregistrer_sous_2_triggered();
+    void on_actionOuvrir_2_triggered();
+    void on_actionQuitter_2_triggered();
+    void on_actionImprimer_2_triggered();
+    void on_actionAnnuler_2_triggered();
+    void on_actionR_tablir_2_triggered();
+
     void close(const int& index);
     void checkForNewFiles();
     void changeName(QString newName);
@@ -60,6 +76,10 @@ private:
     static QString nameOf(QString path);
     std::vector<Project*>::iterator iteratorOf(Project* p);
     void initGprojects();
+    void swap(QAction* check, QAction* toAdd, const quint64 index);
+    void putAction(QAction* action, const quint64 index);
+    void initToolBar();
+    void initActions();
 
 
     QTabWidget *m_Gprojects;
@@ -73,6 +93,8 @@ private:
 
     int m_argc;
     QStringList m_argv;
+
+    QToolBar* m_toolBar;
 };
 
 #endif // QCMEDIT_H

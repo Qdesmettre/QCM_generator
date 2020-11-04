@@ -46,11 +46,32 @@
     <property name="title">
      <string>Edition</string>
     </property>
+    <widget class="QMenu" name="menuBarre_d_outils">
+     <property name="title">
+      <string>Barre d'outils...</string>
+     </property>
+     <addaction name="actionNouveau_QCM2"/>
+     <addaction name="actionOuvrir_2"/>
+     <addaction name="actionEnregistrer_2"/>
+     <addaction name="actionEnregistrer_sous_2"/>
+     <addaction name="actionTout_enregistrer_2"/>
+     <addaction name="separator"/>
+     <addaction name="actionImprimer_2"/>
+     <addaction name="separator"/>
+     <addaction name="actionFermer_2"/>
+     <addaction name="actionTout_fermer_2"/>
+     <addaction name="separator"/>
+     <addaction name="actionQuitter_2"/>
+     <addaction name="separator"/>
+     <addaction name="actionAnnuler_2"/>
+     <addaction name="actionR_tablir_2"/>
+     <addaction name="actionMode_d_placement"/>
+    </widget>
     <addaction name="actionAnnuler"/>
     <addaction name="actionR_tablir"/>
     <addaction name="separator"/>
     <addaction name="actionD_placer"/>
-    <addaction name="actionBarre_d_outils"/>
+    <addaction name="menuBarre_d_outils"/>
    </widget>
    <widget class="QMenu" name="menuAide">
     <property name="title">
@@ -58,6 +79,7 @@
     </property>
     <addaction name="actionA_propos"/>
     <addaction name="actionComment_utiliser_QCMake"/>
+    <addaction name="actionDon"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdition"/>
@@ -176,9 +198,102 @@
     <string>Comment utiliser QCMake</string>
    </property>
   </action>
-  <action name="actionBarre_d_outils">
+  <action name="actionNouveau_QCM2">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
-    <string>Barre d'outils...</string>
+    <string>Nouveau </string>
+   </property>
+  </action>
+  <action name="actionOuvrir_2">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Ouvrir</string>
+   </property>
+  </action>
+  <action name="actionEnregistrer_2">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Enregistrer </string>
+   </property>
+  </action>
+  <action name="actionEnregistrer_sous_2">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Enregistrer sous</string>
+   </property>
+  </action>
+  <action name="actionTout_enregistrer_2">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Tout enregistrer</string>
+   </property>
+  </action>
+  <action name="actionImprimer_2">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Exporter</string>
+   </property>
+  </action>
+  <action name="actionFermer_2">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Fermer</string>
+   </property>
+  </action>
+  <action name="actionTout_fermer_2">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Tout fermer</string>
+   </property>
+  </action>
+  <action name="actionQuitter_2">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Quitter</string>
+   </property>
+  </action>
+  <action name="actionAnnuler_2">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Annuler</string>
+   </property>
+  </action>
+  <action name="actionR_tablir_2">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Rétablir</string>
+   </property>
+  </action>
+  <action name="actionMode_d_placement">
+   <property name="text">
+    <string>Mode déplacement</string>
+   </property>
+  </action>
+  <action name="actionDon">
+   <property name="text">
+    <string>Faire un don</string>
    </property>
   </action>
  </widget>

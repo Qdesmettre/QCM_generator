@@ -8,6 +8,9 @@
 #include <iostream>
 #include <QSettings>
 #include "about.h"
+#include <QToolBar>
+#include <QDesktopServices>
+#include <QDesktopWidget>
 QString QcmEdit::nameOf(QString path){
     QString name;
     while(path.back() != "/" && path.back() != "\\"){
@@ -34,6 +37,17 @@ QcmEdit::QcmEdit(const int &argc, QStringList const& list, QWidget *parent) :
     setWindowTitle(tr("QCMake", "This is the name of the application"));
     setWaitScreen();
     setAcceptDrops(true);
+    initToolBar();
+    initActions();
+
+    QFont f = QApplication::font();
+    f.setPixelSize(QApplication::desktop()->geometry().height()/52);
+    QApplication::setFont(f);
+    f = menuBar()->font();
+    f.setPixelSize(QApplication::desktop()->geometry().height()/52);
+    menuBar()->setFont(f);
+
+
 
     m_argc = argc;
     m_argv = list;
@@ -97,16 +111,44 @@ void QcmEdit::closeEvent(QCloseEvent *event){
     settings.setValue("qcmedit/size", size());
     settings.setValue("qcmedit/position", pos());
 
-    on_actionTout_enregistrer_triggered();
+    on_actionTout_enregistrer_triggered(false);
     QStringList files;
     if(m_Gprojects != nullptr){
         for(int i(0), n(m_Gprojects->count()); i<n; i++){
             Project* temp = qobject_cast<Project*>(m_Gprojects->widget(i));
-            if(temp != nullptr)
+            if(temp != nullptr && !temp->empla().isEmpty())
                 files << temp->empla();
         }
     }
     settings.setValue("qcmedit/projects", files);
+
+    QStringList values;
+    for(int i(0), n(m_toolBar->actions().size()); i<n; i++){
+        QAction* temp = m_toolBar->actions()[i];
+        if(temp == ui->actionAnnuler)
+            values << "0";
+        else if(temp == ui->actionR_tablir)
+            values << "1";
+        else if(temp == ui->actionEnregistrer)
+            values << "2";
+        else if(temp == ui->actionEnregistrer_sous)
+            values << "3";
+        else if(temp == ui->actionFermer)
+            values << "4";
+        else if(temp == ui->actionImprimer)
+            values << "5";
+        else if(temp == ui->actionNouveau_QCM)
+            values << "6";
+        else if(temp == ui->actionOuvrir)
+            values << "7";
+        else if(temp == ui->actionQuitter)
+            values << "8";
+        else if(temp == ui->actionTout_enregistrer)
+            values << "9";
+        else if(temp == ui->actionTout_fermer)
+            values << "10";
+    }
+    settings.setValue("qcmedit/actions", values);
 }
 void QcmEdit::open(const QString &empla){
     if(empla.isEmpty())
@@ -381,6 +423,9 @@ void QcmEdit::on_actionAnnuler_triggered(){
 
     temp->undo();
 }
+void QcmEdit::on_actionDon_triggered(){
+    QDesktopServices::openUrl(QUrl("https://www.paypal.com/paypalme/qcmake"));
+}
 void QcmEdit::setWaitScreen(){
     if(m_Gprojects != nullptr){
         delete m_Gprojects;
@@ -410,6 +455,111 @@ std::vector<Project*>::iterator QcmEdit::iteratorOf(Project* p){
 void QcmEdit::on_actionA_propos_triggered(){
     About temp;
     temp.exec();
+}
+void QcmEdit::on_actionNouveau_QCM2_triggered(){
+    swap(ui->actionNouveau_QCM2, ui->actionNouveau_QCM, 0);
+}
+void QcmEdit::on_actionOuvrir_2_triggered(){
+     swap(ui->actionOuvrir_2, ui->actionOuvrir, 1);
+}
+void QcmEdit::on_actionEnregistrer_2_triggered(){
+     swap(ui->actionEnregistrer_2, ui->actionEnregistrer, 2);
+}
+void QcmEdit::on_actionEnregistrer_sous_2_triggered(){
+    swap(ui->actionEnregistrer_sous_2, ui->actionEnregistrer_sous, 3);
+}
+void QcmEdit::on_actionTout_enregistrer_2_triggered(){
+     swap(ui->actionTout_enregistrer_2, ui->actionTout_enregistrer, 7);
+}
+void QcmEdit::on_actionFermer_2_triggered(){
+     swap(ui->actionFermer_2, ui->actionFermer, 8);
+}
+void QcmEdit::on_actionTout_fermer_2_triggered(){
+    swap(ui->actionTout_fermer_2, ui->actionTout_fermer, 9);
+}
+void QcmEdit::on_actionQuitter_2_triggered(){
+    swap(ui->actionQuitter_2, ui->actionQuitter, 10);
+}
+void QcmEdit::on_actionAnnuler_2_triggered(){
+    swap(ui->actionAnnuler_2, ui->actionAnnuler, 4);
+}
+void QcmEdit::on_actionR_tablir_2_triggered(){
+    swap(ui->actionR_tablir_2, ui->actionR_tablir, 5);
+}
+void QcmEdit::on_actionImprimer_2_triggered(){
+    swap(ui->actionImprimer_2, ui->actionImprimer, 6);
+}
+void QcmEdit::initActions(){
+    // On définit les images des actions
+    ui->actionAnnuler->setIcon(QIcon(":/images/undo.png"));
+    ui->actionR_tablir->setIcon(QIcon(":/images/redo.png"));
+    ui->actionNouveau_QCM->setIcon(QIcon(":/images/newFile.png"));
+    ui->actionOuvrir->setIcon(QIcon(":/images/open.png"));
+    ui->actionEnregistrer->setIcon(QIcon(":/images/save.png"));
+    ui->actionFermer->setIcon(QIcon(":/images/close.png"));
+    ui->actionImprimer->setIcon(QIcon(":/images/export.png"));
+    ui->actionQuitter->setIcon(QIcon(":/images/quit.png"));
+    ui->actionTout_fermer->setIcon(QIcon(":/images/closeAll.png"));
+    ui->actionTout_enregistrer->setIcon(QIcon(":/images/saveAll.png"));
+    ui->actionEnregistrer_sous->setIcon(QIcon(":/images/saveAs.png"));
+}
+void QcmEdit::initToolBar(){
+    m_toolBar = addToolBar("main");
+    for(int i(0); i<11; i++){
+        m_toolBar->addAction(new QAction());
+        m_toolBar->actions().back()->setVisible(false);
+    }
+    m_toolBar->setMovable(false);
+    QSettings settings;
+    QStringList v = settings.value("qcmedit/actions").toStringList();
+    for(int i(0), n(v.size()); i<n; i++){
+        if(v[i] == "0")
+            ui->actionAnnuler_2->trigger();
+        else if(v[i] == "1")
+            ui->actionR_tablir_2->trigger();
+        else if(v[i] == "2")
+            ui->actionEnregistrer_2->trigger();
+        else if(v[i] == "3")
+            ui->actionEnregistrer_sous_2->trigger();
+        else if(v[i] == "4")
+            ui->actionFermer->trigger();
+        else if(v[i] == "5")
+            ui->actionImprimer_2->trigger();
+        else if(v[i] == "6")
+            ui->actionNouveau_QCM2->trigger();
+        else if(v[i] == "7")
+            ui->actionOuvrir_2->trigger();
+        else if(v[i] == "8")
+            ui->actionQuitter_2->trigger();
+        else if(v[i] == "9")
+            ui->actionTout_enregistrer_2->trigger();
+        else if(v[i] == "10")
+            ui->actionTout_fermer_2->trigger();
+    }
+}
+void QcmEdit::swap(QAction* check, QAction* toAdd, const quint64 index){
+    if(check->isChecked()){
+        putAction(toAdd, index);
+    }
+    else{
+        QAction* temp = new QAction;
+        temp->setVisible(false);
+        putAction(temp, index);
+    }
+}
+void QcmEdit::putAction(QAction* action, const quint64 index){
+    QVector<QAction*> actions;
+    while(m_toolBar->actions().size() > 0){
+        QList<QAction*> temp = m_toolBar->actions();
+        actions.push_back(temp.first());
+        m_toolBar->removeAction(temp.first());
+    }
+    actions[index] = action;
+    while(actions.size() != 0){
+        m_toolBar->addAction(actions.first());
+        actions.pop_front();
+    }
+
 }
 QcmEdit::~QcmEdit()
 {

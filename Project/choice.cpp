@@ -1,12 +1,17 @@
 #include "choice.h"
 #include <iostream>
+#include <QApplication>
+#include <QDesktopWidget>
+
 Choice::Choice(const QString &name, const char &num, const bool &isCorrect, QWidget *parent):
     QWidget(parent)
 {
     m_delete = new QPushButton("Suppr.");
+
     m_name = new QLineEdit(name);
 
     m_num = new QLabel(QString(char(96+num))+")");
+
     m_correct = new QCheckBox;
     m_correct->setChecked(isCorrect);
     m_layout = new QHBoxLayout;

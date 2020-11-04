@@ -6,6 +6,9 @@
 #include <QSpinBox>
 #include <iostream>
 #include "thanks.h"
+#include <QApplication>
+#include <QDesktopWidget>
+
 Project::Project(const QString &empla, const QString &name, QTabWidget *tParent, QWidget *parent) :
     QWidget(parent),
     m_name(name),
@@ -68,6 +71,7 @@ void Project::initAttrib(){
     m_add->setToolTip("Appuyez sur Ctrl et + en même temps");
     m_add->addAction(&m_addAction);
     m_add->setToolTipDuration(0);
+
     m_optLay->addWidget(m_add);
     m_optLay->setAlignment(Qt::AlignLeft);
 
@@ -84,9 +88,6 @@ void Project::initAttrib(){
     m_oldTemps = stack<TempProject>();
     m_futureTemps = stack<TempProject>();
     m_current = currentTemp();
-
-
-
 }
 std::vector<Question*> Project::questions() const{
     return m_questions;

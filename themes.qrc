@@ -2,10 +2,18 @@
     <qresource prefix="/">
         <file>Dark/dark.qss</file>
         <file>Dark/darkOrange.qss</file>
-    </qresource>
-    <qresource prefix="/">
         <file>images/checkbox.png</file>
         <file>images/down_arrow.png</file>
         <file>images/handle.png</file>
+        <file>images/export.png</file>
+        <file>images/newFile.png</file>
+        <file>images/open.png</file>
+        <file>images/quit.png</file>
+        <file>images/redo.png</file>
+        <file>images/save.png</file>
+        <file>images/saveAll.png</file>
+        <file>images/undo.png</file>
+        <file>images/closeAll.png</file>
+        <file>images/close.png</file>
     </qresource>
 </RCC>

@@ -1,5 +1,8 @@
 #include "question.h"
 #include <iostream>
+#include <QApplication>
+#include <QDesktopWidget>
+
 Question::Question(QWidget *parent, const QString &name, const unsigned &choices, const unsigned &index) :
 QWidget(parent)
 {
