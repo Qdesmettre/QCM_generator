@@ -40,14 +40,12 @@ QcmEdit::QcmEdit(const int &argc, QStringList const& list, QWidget *parent) :
     initToolBar();
     initActions();
 
-    QFont f = QApplication::font();
+    QFont f = QGuiApplication::font();
     f.setPixelSize(QApplication::desktop()->geometry().height()/52);
     QApplication::setFont(f);
     f = menuBar()->font();
     f.setPixelSize(QApplication::desktop()->geometry().height()/52);
     menuBar()->setFont(f);
-
-
 
     m_argc = argc;
     m_argv = list;
@@ -434,6 +432,9 @@ void QcmEdit::setWaitScreen(){
     m_wait = new QLabel(tr("\n Pour commencer un nouveau projet, appuyez sur Ctrl+N;  \n Ou pour en ouvrir un, appuyez sur Ctrl+O.", "This is the home message"));
     setCentralWidget(m_wait);
     m_wait->setAlignment(Qt::AlignCenter);
+    QFont f = m_wait->font();
+    f.setPixelSize(QApplication::desktop()->geometry().height()/52);
+    m_wait->setFont(f);
 }
 void QcmEdit::initGprojects(){
     if(m_Gprojects != nullptr){

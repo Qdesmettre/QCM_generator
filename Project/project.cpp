@@ -109,6 +109,7 @@ void Project::replace(){
         // On ajoute tous les widgets
         for(unsigned i(0); i<m_questions.size(); i++){
             m_layout->addWidget(m_questions[i], i/nb, i%nb);
+
         }
     }
 }

@@ -11,7 +11,7 @@ class Choice : public QWidget
 {
     Q_OBJECT
 public:
-    Choice(const QString &name = "", const char &num = 1, const bool &isCorrect = false, QWidget *parent = nullptr);
+    Choice(const QString &name = "", const quint64 &num = 1, const bool &isCorrect = false, QWidget *parent = nullptr);
     Choice(const Choice& c);
     Choice(const TempChoice& t);
     ~Choice();

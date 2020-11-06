@@ -19,7 +19,7 @@ QWidget(parent)
             font.setBold(true);
             m_delete->setFont(font);
 
-        m_num = new QLabel(QString().setNum(index)+"/");
+        m_num = new QLabel(QString::number(index)+"/");
         m_name = new QLineEdit(name);
         temp->addWidget(m_num);
         temp->addWidget(m_name);
@@ -142,23 +142,10 @@ void Question::initConnections(){
     connect(m_name, SIGNAL(editingFinished()), this, SLOT(changed()));
 }
 void Question::add(){
-    if(m_choices.size() < 26){
-        emit edited();
-        m_choices.push_back(new Choice("", m_choices.size()+1));
-        QObject::connect(m_choices.back(), SIGNAL(destroyed(int)), this, SLOT(rename(int)));
-        m_layout->addRow(m_choices.back()->layout());
-
-
-        if(m_choices.size() >= 26){
-            m_add->setEnabled(false);
-            m_add->setToolTip("Vous ne pouvez pas créer plus de 26 choix par questions");
-            m_add->setToolTipDuration(0);
-        }
-        else{
-            m_add->setEnabled(true);
-            m_add->setToolTip("");
-        }
-    }
+    emit edited();
+    m_choices.push_back(new Choice("", m_choices.size()+int(m_choices.size()/26.0+1)));
+    QObject::connect(m_choices.back(), SIGNAL(destroyed(int)), this, SLOT(rename(int)));
+    m_layout->addRow(m_choices.back()->layout());
 }
 void Question::del(){
     emit edited();

@@ -3,14 +3,34 @@
 #include <QApplication>
 #include <QDesktopWidget>
 
-Choice::Choice(const QString &name, const char &num, const bool &isCorrect, QWidget *parent):
+QChar number(quint64 n){
+    return QChar(char(96+n));
+}
+
+QString toBase26(quint64 num){
+    QString r;
+
+    quint64 reste(0), quotient(0);
+
+    do{
+        quotient = int(num/27);
+        reste = num%27;
+        r.push_front(number(reste));
+        num =quotient;
+    }while(num > 0);
+
+    return r;
+}
+
+
+Choice::Choice(const QString &name, const quint64 &num, const bool &isCorrect, QWidget *parent):
     QWidget(parent)
 {
     m_delete = new QPushButton("Suppr.");
 
     m_name = new QLineEdit(name);
 
-    m_num = new QLabel(QString(char(96+num))+")");
+    m_num = new QLabel(toBase26(num)+":");
 
     m_correct = new QCheckBox;
     m_correct->setChecked(isCorrect);

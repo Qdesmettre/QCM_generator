@@ -15,5 +15,6 @@
         <file>images/undo.png</file>
         <file>images/closeAll.png</file>
         <file>images/close.png</file>
+        <file>images/saveAs.png</file>
     </qresource>
 </RCC>
