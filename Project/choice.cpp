@@ -26,11 +26,10 @@ QString toBase26(quint64 num){
 Choice::Choice(const QString &name, const quint64 &num, const bool &isCorrect, QWidget *parent):
     QWidget(parent)
 {
-    m_delete = new QPushButton("Suppr.");
-
+    m_delete = new QPushButton(QIcon(":/images/close.png"), "");
     m_name = new QLineEdit(name);
 
-    m_num = new QLabel(toBase26(num)+":");
+    m_num = new QLabel(toBase26(num)+")");
 
     m_correct = new QCheckBox;
     m_correct->setChecked(isCorrect);
@@ -47,7 +46,7 @@ Choice::Choice(const QString &name, const quint64 &num, const bool &isCorrect, Q
     QObject::connect(m_correct, SIGNAL(clicked()), this, SLOT(changed()));
 }
 Choice::Choice(const Choice& c){
-    m_delete = new QPushButton("Suppr.");
+    m_delete = new QPushButton(QIcon(":/images/close.png"), "");
     m_name = new QLineEdit(c.m_name->text());
     m_num = new QLabel(c.m_num->text());
     m_correct = new QCheckBox;

@@ -46,17 +46,6 @@ void Project::setEmpla(const QString &n){
         m_empla = "";
     else
         m_empla = n+".qcm";
-    /*if(n.size() <= 4){ // chemin relatif
-        m_empla = n;
-        return;
-    }
-    if(QFileInfo(n).suffix() == "qcm")
-        m_empla = n;
-    else if(n.back() != "/" || n.back() != "\\")
-        m_empla = n+m_name+".qcm";
-    else
-        m_empla = n+".qcm";*/
-
 }
 void Project::setName(QString n){
     m_name = n;
@@ -67,8 +56,8 @@ void Project::initAttrib(){
     m_mainLay = new QVBoxLayout;
     m_optLay = new QHBoxLayout;
     m_sa = new QScrollArea;
-    m_add = new QPushButton("Ajouter question");
-    m_add->setToolTip("Appuyez sur Ctrl et + en même temps");
+    m_add = new QPushButton("Ajouter une question");
+    m_add->setToolTip("Ctrl++");
     m_add->addAction(&m_addAction);
     m_add->setToolTipDuration(0);
 
@@ -100,7 +89,8 @@ void Project::initConnect(){
 void Project::replace(){
     // On enlève tous les éléments du layout
     for(int i(0); i<m_layout->count(); i++){
-        m_layout->removeItem(m_layout->takeAt(i));
+        if(m_layout->takeAt(i) != nullptr)
+            m_layout->removeItem(m_layout->takeAt(i));
     }
     if(m_questions.size() > 0){
     // On calcule le max de widget par ligne
@@ -108,24 +98,26 @@ void Project::replace(){
         if(nb == 0) nb++;
         // On ajoute tous les widgets
         for(unsigned i(0); i<m_questions.size(); i++){
+            m_questions[i]->setMinimumSize(m_questions[i]->sizeHint());
+            //m_questions[i]->setMaximumSize(m_questions[i]->sizeHint());
             m_layout->addWidget(m_questions[i], i/nb, i%nb);
-
         }
     }
 }
 void Project::add(){
     m_questions.push_back(new Question(nullptr, "", 4, m_questions.size()+1));
-    connect(m_questions.back(), SIGNAL(destroyed(int)), this, SLOT(rename(int)));
+    connect(m_questions.back(), SIGNAL(destroyed(quint64)), this, SLOT(rename(quint64)));
     connect(m_questions.back(), SIGNAL(edited()), this, SLOT(nSaved()));
     connect(m_questions.back(), SIGNAL(edited()), this, SLOT(projectChanged()));
     replace();
     nSaved();
 }
-void Project::rename(int const& n){
+void Project::rename(quint64 const& n){
     m_questions.erase(m_questions.begin()+n);
 
-    for(unsigned i(0); i<m_questions.size(); i++){
-        m_questions[i]->setNum(uchar(i+49));
+    for(quint64 i(0); i<m_questions.size(); i++){
+        if(m_questions[i] != nullptr)
+            m_questions[i]->setNum(i+1);
     }
     replace();
 }

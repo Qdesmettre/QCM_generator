@@ -38,7 +38,7 @@ public slots:
     void nSaved();
     void add();
     void replace();
-    void rename(int const& n);
+    void rename(const quint64 &n);
     void exportProject();
     void undo();
     void redo();

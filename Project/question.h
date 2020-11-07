@@ -26,7 +26,7 @@ public:
     QString num(QString) const{return m_num->text().remove("/");}
 
     void setChoices(std::vector<Choice*> const& choices);
-    void setNum(const ushort &n);
+    void setNum(const quint64 &n);
 
     void operator=(const Question& q);
 public slots:
@@ -35,7 +35,7 @@ public slots:
     void rename(int const& n);
 
 signals:
-    void destroyed(int const& n);
+    void destroyed(quint64 const& n);
     void edited();
 
 private slots:

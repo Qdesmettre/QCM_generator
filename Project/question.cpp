@@ -2,10 +2,15 @@
 #include <iostream>
 #include <QApplication>
 #include <QDesktopWidget>
+#include <QAction>
 
 Question::Question(QWidget *parent, const QString &name, const unsigned &choices, const unsigned &index) :
 QWidget(parent)
 {
+    QAction* a = new QAction;
+
+
+
     m_sa = new QScrollArea;
     m_container = new QWidget;
     m_sa->setWidget(m_container);
@@ -113,8 +118,8 @@ void Question::rename(int const& n){
         m_add->setToolTip("");
     }
 }
-void Question::setNum(const ushort &n){
-    m_num->setText(QString(n)+"/");
+void Question::setNum(const quint64 &n){
+    m_num->setText(QString::number(n)+"/");
 }
 void Question::setChoices(std::vector<Choice *> const& choices){
     while(m_choices.size() != 0){
@@ -149,7 +154,7 @@ void Question::add(){
 }
 void Question::del(){
     emit edited();
-    emit destroyed(int(m_num->text().toStdString()[0])-49);
+    emit destroyed(m_num->text().remove("/").toULongLong()-1);
     delete this;
 }
 void Question::changed(){
