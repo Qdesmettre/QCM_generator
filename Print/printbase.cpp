@@ -13,6 +13,8 @@ printBase::printBase(PrintSetter *pr, QString *path, QWidget *parent) :
     m_path = path;
     m_pr = pr;
 
+    setWindowTitle("Exporter");
+
     ui->format->addItem("Document PDF (*.pdf)");
     ui->format->addItem("Document Word (*.docx)");
     ui->format->addItem("Document OpenOffice (*.odt)");
