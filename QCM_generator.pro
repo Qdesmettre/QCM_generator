@@ -3,6 +3,7 @@ QT += widgets
 SOURCES += \
 	Login/pwdforgot.cpp \
 	Login/signin.cpp \
+    Print/printbase.cpp \
         Print/printer.cpp \
         Print/ToPdf\pdf.cpp \
         Print/ToPdf\metrics.cpp \
@@ -19,6 +20,7 @@ SOURCES += \
 HEADERS += \
 	Login/pwdforgot.h \
 	Login/signin.h \
+    Print/printbase.h \
         Print/printer.h \
         Print/ToPdf/pdf.h \
         Print/ToPdf/metrics.h \
@@ -35,6 +37,7 @@ HEADERS += \
 FORMS += \
 	Login/login.ui \
 	Login/signin.ui \
+    Print/printbase.ui \
 	Print/printer.ui \
         Project/about.ui \
         Project/qcmedit.ui \

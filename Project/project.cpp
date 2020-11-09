@@ -8,7 +8,9 @@
 #include "thanks.h"
 #include <QApplication>
 #include <QDesktopWidget>
-
+#include <QMenu>
+#include <QCursor>
+#include "Print/printbase.h"
 Project::Project(const QString &empla, const QString &name, QTabWidget *tParent, QWidget *parent) :
     QWidget(parent),
     m_name(name),
@@ -97,10 +99,16 @@ void Project::replace(){
         int nb = m_container->size().width() / m_questions.back()->sizeHint().width();
         if(nb == 0) nb++;
         // On ajoute tous les widgets
+        QSize min(m_questions[0]->sizeHint());
         for(unsigned i(0); i<m_questions.size(); i++){
-            m_questions[i]->setMinimumSize(m_questions[i]->sizeHint());
-            //m_questions[i]->setMaximumSize(m_questions[i]->sizeHint());
+            if(min.height()*min.width() > m_questions[i]->sizeHint().height()*m_questions[i]->sizeHint().width())
+                min = m_questions[i]->sizeHint();
+            m_layout->setAlignment(Qt::AlignTop | Qt::AlignLeft);
             m_layout->addWidget(m_questions[i], i/nb, i%nb);
+        }
+        for(quint64 i(0), n(m_questions.size()); i<n; i++){
+            m_questions[i]->setMinimumSize(min);
+            m_questions[i]->setMaximumSize(min);
         }
     }
 }
@@ -136,45 +144,32 @@ void Project::exportProject(){
                              "Veuillez marquer au moins une réponse correcte par question.");
         return;
     }
-    PrintSetter pr;
-    pr.setNbQues(m_questions.size());
-    pr.setMaxQ(m_questions.size());
+    PrintSetter *pr = new PrintSetter;
+    pr->setNbQues(m_questions.size());
+    pr->setMaxQ(m_questions.size());
 
-    pr.setNbChoice(maxChoices());
-    pr.setMaxC(maxChoices());
+    pr->setNbChoice(maxChoices());
+    pr->setMaxC(maxChoices());
+    
+    QString* path = new QString;
 
-    if(pr.exec() == 0)
+    printBase print(pr, path);
+    
+    int result = print.exec();
+    
+    if(result == 0)
         return;
-
-
-    QFileDialog d(parentWidget()->parentWidget(),
-                  "Enregistrer",
-                  empla().remove(".qcm"),
-                  "Document PDF (*.pdf);;Document Word (*.docx);;Document OpenOffice (*.odt);;Fichier texte (*.txt)");
-    d.setAcceptMode(QFileDialog::AcceptSave);
-    d.setFileMode(QFileDialog::AnyFile);
-
-    if(d.exec() == 0 || d.selectedFiles().size() == 0)
-        return;
-
-    QString path = d.selectedFiles().at(0);
-    QString filter = d.selectedNameFilter();
-
-    if(path == "" || filter == "")
-        return;
-
-    if(filter == "Document PDF (*.pdf)")
-        printToPdf(pr, path);
-    else if(filter == "Document Word (*.docx)")
-        printToDocx(pr, path);
-    else if(filter == "Document OpenOffice (*.odt)")
-        printToOdt(pr, path);
-    else if(filter == "Fichier texte (*.txt)")
-        printToTxt(pr, path);
+    else if(result == 1) //"Document PDF (*.pdf)")
+        printToPdf(*pr, *path);
+    else if(result == 2)// "Document Word (*.docx)")
+        printToDocx(*pr, *path);
+    else if(result == 3 )//"Document OpenOffice (*.odt)")
+        printToOdt(*pr, *path);
+    else if(result == 4) //"Fichier texte (*.txt)")
+        printToTxt(*pr, *path);
 
     Thanks win;
     win.exec();
-
 }
 void Project::undo(){
     if(m_oldTemps.empty())

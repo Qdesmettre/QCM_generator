@@ -5,9 +5,11 @@
 #include <QTextEdit>
 #include "../Project/question.h"
 #include "ToPdf/pdf.h"
+#include <QComboBox>
 namespace Ui {
 class PrintSetter;
 }
+
 
 class PrintSetter : public QDialog
 {
@@ -44,6 +46,7 @@ public:
 
 
 public slots:
+    int exec();
 
     void actuBut();
     void on_fontSizeE_currentIndexChanged(int const& i);
@@ -55,10 +58,22 @@ public slots:
     void on_rightToLeft_clicked();
 
     void on_affQues_currentIndexChanged(int const& i);
+    /*
+     * affQues
+     * boldQ
+     * fontQ
+     * fontSizeQ
+     */
     void on_boldQ_clicked();
     void on_fontQ_currentIndexChanged(int const& i);
     void on_fontSizeQ_currentIndexChanged(int const& i);
 
+    /*
+     * affC
+     * boldC
+     * fontC
+     * fontSizeC
+     */
     void on_affC_currentIndexChanged(int const& i);
     void on_boldC_clicked();
     void on_fontC_currentIndexChanged(int const& i);
@@ -69,6 +84,8 @@ private:
 
     bool m_bold, m_oblique;
 };
+
+
 
 class Print{
 public:

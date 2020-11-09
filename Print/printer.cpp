@@ -1,6 +1,7 @@
 #include "printer.h"
 #include "ui_printer.h"
 #include <iostream>
+#include <QSettings>
 PrintSetter::PrintSetter(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::PrintSetter)
@@ -10,7 +11,32 @@ PrintSetter::PrintSetter(QWidget *parent) :
     m_bold = false;
     m_oblique = false;
 
+    QSettings settings;
 
+    /*ui->lettreC->setChecked(settings.value("printer/choice/lettre").toBool());
+    ui->lettreQ->setChecked(settings.value("printer/question/lettre").toBool());
+    ui->numC->setChecked(settings.value("printer/choice/num").toBool());
+    ui->numQ->setChecked(settings.value("printer/question/num").toBool());
+    ui->affC->setCurrentIndex(settings.value("printer/choice/affIndex").toInt());
+    ui->affQues->setCurrentIndex(settings.value("printer/question/affIndex").toInt());
+    ui->persoC->setDisabled(settings.value("printer/choice/affDisabled").toBool());
+    if(ui->persoC->isEnabled())
+        ui->persoC->setText(settings.value("printer/choice/affText").toString());
+    ui->persoQues->setDisabled(settings.value("printer/question/affDisabled").toBool());
+    if(ui->persoQues->isEnabled())
+        ui->persoQues->setText(settings.value("printer/question/affText").toString());
+    ui->boldC->setChecked(settings.value("printer/choice/bold").toBool());
+    ui->fontC->setCurrentIndex(settings.value("printer/choice/font").toInt());
+    ui->fontSizeC->setCurrentIndex(settings.value("printer/choice/fontSize").toInt());
+    ui->boldQ->setChecked(settings.value("printer/question/bold").toBool());
+    ui->fontQ->setCurrentIndex(settings.value("printer/question/font").toInt());
+    ui->fontSizeQ->setCurrentIndex(settings.value("printer/question/fontSize").toInt());
+    ui->nbQues->setValue(settings.value("printer/question/nb").toInt());
+    ui->orderQ->setCurrentIndex(settings.value("printer/question/order").toInt());
+    ui->nbCh->setValue(settings.value("printer/choice/nb").toInt());
+    ui->orderC->setCurrentIndex(settings.value("printer/choice/order").toInt());
+
+    ui->enTete->setHtml(settings.value("printer/entete/text").toString());*/
 
     connect(ui->enTete, SIGNAL(cursorPositionChanged()), this, SLOT(actuBut()));
 }
@@ -65,6 +91,22 @@ PDF::Font PrintSetter::fontC() const{
             return PDF::Font::HELVETICA;
     }
 
+}
+int PrintSetter::exec(){
+    int r = QDialog::exec();
+
+    QSettings settings;
+
+    settings.setValue("printer/choice/lettre", ui->lettreC->isChecked());
+    settings.setValue("printer/question/lettre", ui->lettreQ->isChecked());
+    settings.setValue("printer/choice/num", ui->numC->isChecked());
+    settings.setValue("printer/question/num", ui->numQ->isChecked());
+    settings.setValue("printer/choice/aff", ui->affC->currentIndex());
+    settings.setValue("printer/question/aff", ui->affQues->currentIndex());
+
+
+
+    return r;
 }
 
 PDF::Font PrintSetter::fontQ() const{
@@ -271,9 +313,39 @@ void Print::writeBody(){
     const quint16 width = m_pdf.getWidth()-100;
     const quint8 qsize = questions.size();
 
-    for(quint8 i(0); i<qsize; i++){
+    int yuse = 0;
+    for(quint64 i(0); i<qsize; i++){
+        if(yuse > 730)
+            m_pdf.newPage();
+
+
+        m_pdf.setFont(fontQ, fontSizeQ);
+        std::string r = toString(getIntitQ(*questions[i]));
+        vector<std::string> words = m_pdf.wrapText(r, 100, false);
+
+        for(quint64 n(0), wSize(words.size()); n<wSize; n++){
+            m_pdf.showTextXY(words[n], 50, 745-yuse);
+            yuse += 20;
+        }
+
+        m_pdf.setFont(fontC, fontSizeC);
+        for(quint64 j(0), n(m_questions[i]->choices().size()); j<n; j++){
+            r = toString(getIntitC(i, j, *questions[i]->choices()[j]));
+            words = m_pdf.wrapText(r, 100, false);
+            for(quint64 x(0), m(words.size()); x<m; x++){
+
+
+                m_pdf.showTextXY(words[x], 50, 745-yuse);
+                yuse += 20;
+            }
+        }
+
+    }
+
+    /*for(quint8 i(0); i<qsize; i++){
         yUseNext = 0;
         if(i+1 < qsize)
+
             yUseNext += addCountY(m_pdf.wrapText(toString(getIntitQ(*questions[i+1])), width, false),
                                   fontSizeQ);
         if(m_yTaken + yUseNext > 705){
@@ -301,7 +373,7 @@ void Print::writeBody(){
             addText(getIntitC(i, j, *questions[i]->choices()[j]), fontSizeC);
             m_xTaken = 50;
         }
-    }
+    }*/
 }
 void Print::writeBottom(){
 
@@ -324,6 +396,7 @@ void Print::addWord(const std::string &word, const uchar &fontSize){
     }
     for(unsigned i(0); i<word.size(); i++, m_xTaken += int(fontSize/1.5)){
         m_pdf.showTextXY(word[i], m_xTaken, 745-m_yTaken);
+
     }
 }
 vector<string> Print::wordsOf(const string &str){

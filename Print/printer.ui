@@ -32,7 +32,7 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <property name="usesScrollButtons">
       <bool>true</bool>
@@ -320,6 +320,11 @@ p, li { white-space: pre-wrap; }
           <widget class="QComboBox" name="affQues">
            <item>
             <property name="text">
+             <string>Question &amp;X )</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
              <string>Question &amp;X :</string>
             </property>
            </item>
@@ -330,7 +335,7 @@ p, li { white-space: pre-wrap; }
            </item>
            <item>
             <property name="text">
-             <string>Question &amp;X )</string>
+             <string>&amp;X )</string>
             </property>
            </item>
            <item>
@@ -345,7 +350,7 @@ p, li { white-space: pre-wrap; }
            </item>
            <item>
             <property name="text">
-             <string>&amp;X )</string>
+             <string>Question n° &amp;X )</string>
             </property>
            </item>
            <item>
@@ -356,11 +361,6 @@ p, li { white-space: pre-wrap; }
            <item>
             <property name="text">
              <string>Question n° &amp;X /</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Question n° &amp;X )</string>
             </property>
            </item>
            <item>
@@ -411,12 +411,12 @@ p, li { white-space: pre-wrap; }
           <widget class="QComboBox" name="fontQ">
            <item>
             <property name="text">
-             <string>Courier</string>
+             <string>Helvetica</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Helvetica</string>
+             <string>Courier</string>
             </property>
            </item>
            <item>
@@ -751,12 +751,12 @@ p, li { white-space: pre-wrap; }
           <widget class="QComboBox" name="fontC">
            <item>
             <property name="text">
-             <string>Courier</string>
+             <string>Helvetica</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Helvetica</string>
+             <string>Courier</string>
             </property>
            </item>
            <item>
@@ -769,7 +769,7 @@ p, li { white-space: pre-wrap; }
          <item row="1" column="2">
           <widget class="QComboBox" name="fontSizeC">
            <property name="currentIndex">
-            <number>6</number>
+            <number>5</number>
            </property>
            <item>
             <property name="text">
@@ -989,8 +989,8 @@ p, li { white-space: pre-wrap; }
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>136</x>
-     <y>473</y>
+     <x>641</x>
+     <y>523</y>
     </hint>
     <hint type="destinationlabel">
      <x>474</x>
@@ -1005,8 +1005,8 @@ p, li { white-space: pre-wrap; }
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>222</x>
-     <y>473</y>
+     <x>727</x>
+     <y>523</y>
     </hint>
     <hint type="destinationlabel">
      <x>340</x>

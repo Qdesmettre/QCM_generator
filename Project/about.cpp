@@ -6,6 +6,7 @@ About::About(QWidget *parent) :
     ui(new Ui::About)
 {
     ui->setupUi(this);
+
 }
 
 About::~About()

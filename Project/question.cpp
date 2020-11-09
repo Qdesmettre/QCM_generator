@@ -7,9 +7,6 @@
 Question::Question(QWidget *parent, const QString &name, const unsigned &choices, const unsigned &index) :
 QWidget(parent)
 {
-    QAction* a = new QAction;
-
-
 
     m_sa = new QScrollArea;
     m_container = new QWidget;
